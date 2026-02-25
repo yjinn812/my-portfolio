@@ -1,0 +1,121 @@
+.about {
+  padding: var(--section-pad);
+  border-top: 1px solid var(--border);
+}
+
+.about__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.about__summary {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.9;
+  margin-bottom: 36px;
+}
+
+.about__info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.about__info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.about__info-key {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+}
+
+.about__info-val {
+  font-size: 13px;
+  color: var(--text);
+}
+.about__info-val--link {
+  color: var(--text);
+  text-decoration: none;
+}
+.about__info-val--link:hover { color: var(--accent); }
+
+.about__sub-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+}
+
+.about__education { margin-bottom: 36px; }
+
+.about__edu-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.about__edu-item:last-child { border-bottom: none; }
+
+.about__edu-year {
+  font-size: 11px;
+  color: var(--accent);
+  white-space: nowrap;
+  padding-top: 2px;
+  min-width: 70px;
+}
+
+.about__edu-degree {
+  font-size: 13px;
+  color: var(--text);
+  font-family: var(--font-display);
+  margin-bottom: 4px;
+}
+
+.about__edu-school {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.about__cert-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.about__cert-badge {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+  padding: 10px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.2s;
+}
+.about__cert-badge:hover { border-color: var(--accent); }
+
+.about__cert-check {
+  color: var(--accent);
+  flex-shrink: 0;
+  font-size: 11px;
+}
+
+@media (max-width: 768px) {
+  .about__grid { grid-template-columns: 1fr; gap: 40px; }
+  .about__info-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,113 @@
+.experience {
+  padding: var(--section-pad);
+  border-top: 1px solid var(--border);
+}
+
+.experience__layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--bg-card);
+}
+
+.experience__tabs {
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+}
+
+.experience__tab {
+  background: none;
+  border: none;
+  border-left: 2px solid transparent;
+  padding: 16px 20px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.experience__tab:last-child { border-bottom: none; }
+.experience__tab:hover { background: var(--bg-2); }
+
+.experience__tab--active {
+  border-left-color: var(--accent);
+  background: var(--bg-2);
+}
+.experience__tab--active .experience__tab-company { color: var(--accent); }
+
+.experience__tab-company {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+}
+.experience__tab-role {
+  font-size: 10px;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+}
+
+.experience__content {
+  padding: 36px 40px;
+}
+
+.experience__header {
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.experience__role {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.experience__at {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent);
+}
+
+.experience__period {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+}
+
+.experience__highlights {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.experience__highlight {
+  display: flex;
+  gap: 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.experience__bullet {
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+  font-size: 10px;
+}
+
+@media (max-width: 768px) {
+  .experience__layout { grid-template-columns: 1fr; }
+  .experience__tabs { flex-direction: row; overflow-x: auto; border-right: none; border-bottom: 1px solid var(--border); }
+  .experience__tab { border-left: none; border-bottom: 2px solid transparent; min-width: 140px; }
+  .experience__tab--active { border-bottom-color: var(--accent); border-left-color: transparent; }
+  .experience__content { padding: 24px; }
+}
