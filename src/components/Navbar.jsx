@@ -19,6 +19,17 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const onEscape = (event) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", onEscape);
+    return () => window.removeEventListener("keydown", onEscape);
+  }, []);
+
   return (
     <nav className={`navbar ${scrolled ? "navbar--scrolled" : ""}`}>
       <div className="navbar__inner container">
@@ -28,7 +39,10 @@ export default function Navbar() {
           <span className="navbar__logo-bracket">/&gt;</span>
         </a>
 
-        <ul className={`navbar__links ${menuOpen ? "navbar__links--open" : ""}`}>
+        <ul
+          id="primary-nav"
+          className={`navbar__links ${menuOpen ? "navbar__links--open" : ""}`}
+        >
           {navLinks.map((link, i) => (
             <li key={link.label}>
               <a
@@ -55,6 +69,8 @@ export default function Navbar() {
           className={`navbar__burger ${menuOpen ? "navbar__burger--open" : ""}`}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+          aria-controls="primary-nav"
         >
           <span /><span /><span />
         </button>

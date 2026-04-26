@@ -7,10 +7,11 @@
   display: grid;
   grid-template-columns: 220px 1fr;
   gap: 0;
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
   overflow: hidden;
   background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
 }
 
 .experience__tabs {
@@ -26,14 +27,14 @@
   padding: 16px 20px;
   cursor: pointer;
   text-align: left;
-  transition: all 0.2s;
+  transition: all 0.22s;
   border-bottom: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   gap: 3px;
 }
 .experience__tab:last-child { border-bottom: none; }
-.experience__tab:hover { background: var(--bg-2); }
+.experience__tab:hover { background: var(--bg-2); padding-left: 24px; }
 
 .experience__tab--active {
   border-left-color: var(--accent);

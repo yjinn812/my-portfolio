@@ -27,10 +27,6 @@ export default function About() {
                 <span className="about__info-key">experience</span>
                 <span className="about__info-val">6 years</span>
               </div>
-              <div className="about__info-item">
-                <span className="about__info-key">certifications</span>
-                <span className="about__info-val">{certifications.length}</span>
-              </div>
             </div>
           </div>
 
@@ -39,7 +35,6 @@ export default function About() {
               <h3 className="about__sub-title">Education</h3>
               {education.map((edu, i) => (
                 <div key={i} className="about__edu-item">
-                  <div className="about__edu-year">{edu.year}</div>
                   <div>
                     <div className="about__edu-degree">{edu.degree}</div>
                     <div className="about__edu-school">{edu.school}</div>

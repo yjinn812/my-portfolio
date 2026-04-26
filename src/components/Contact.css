@@ -6,7 +6,7 @@
 .contact__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  gap: 52px;
   align-items: start;
 }
 
@@ -29,8 +29,8 @@
   gap: 16px;
   padding: 16px 20px;
   background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
   text-decoration: none;
   transition: all 0.2s;
 }
@@ -81,11 +81,12 @@
 /* CTA Box */
 .contact__cta-box {
   background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
   padding: 48px 40px;
   position: relative;
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 .contact__cta-box::after {
   content: '';
@@ -127,6 +128,7 @@
 }
 .contact__cta-btn:hover {
   background: #00b8db;
+  box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
   text-decoration: none;
   transform: translateY(-2px);
 }

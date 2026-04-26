@@ -6,7 +6,7 @@
 .about__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  gap: 52px;
   align-items: start;
 }
 
@@ -29,8 +29,13 @@
   gap: 4px;
   padding: 14px;
   background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  transition: all 0.2s;
+}
+.about__info-item:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
 }
 
 .about__info-key {
@@ -103,11 +108,11 @@
   color: var(--text-muted);
   padding: 10px 14px;
   background: var(--bg-card);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   border-radius: var(--radius);
-  transition: border-color 0.2s;
+  transition: all 0.2s;
 }
-.about__cert-badge:hover { border-color: var(--accent); }
+.about__cert-badge:hover { border-color: var(--accent); transform: translateY(-1px); }
 
 .about__cert-check {
   color: var(--accent);

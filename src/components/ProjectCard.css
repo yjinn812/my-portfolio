@@ -1,19 +1,8 @@
-.projects {
-  padding: var(--section-pad);
-  border-top: 1px solid var(--border);
-}
-
-.projects__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-}
-
 /* ProjectCard */
 .project-card {
   background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
   padding: 28px;
   display: flex;
   flex-direction: column;
@@ -21,6 +10,7 @@
   transition: all 0.25s ease;
   position: relative;
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 .project-card::before {
   content: '';
@@ -34,7 +24,7 @@
 .project-card:hover {
   border-color: var(--accent);
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 212, 255, 0.08);
+  box-shadow: 0 14px 44px rgba(0, 212, 255, 0.1);
 }
 .project-card:hover::before { opacity: 1; }
 
