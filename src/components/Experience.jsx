@@ -32,6 +32,13 @@ export default function Experience() {
               <span className="experience__at">@ {current.company}</span>
               <span className="experience__period">{current.period}</span>
             </div>
+
+            {current.summary && (
+              <div className="experience__summary">
+                <p>{current.summary}</p>
+              </div>
+            )}
+
             <ul className="experience__highlights">
               {current.highlights.map((h, i) => (
                 <li key={i} className="experience__highlight">

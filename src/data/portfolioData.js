@@ -2,7 +2,7 @@ export const profile = {
   name: "Yu Jin Wong",
   title: "Lead Engineer @ National Australia Bank",
   tagline:
-    "6+ years delivering enterprise software in banking across Salesforce and AWS, with proven impact in platform scalability, API integration, and CI/CD.",
+    "7+ years delivering enterprise software in banking across Salesforce and AWS, with proven impact in platform scalability, API integration, and CI/CD.",
   location: "Melbourne / Sydney",
   email: "wongyj812@gmail.com",
   phone: "0452 630 812",
@@ -14,63 +14,62 @@ export const profile = {
 
 export const experience = [
   {
-    id: 1,
-    company: "National Australia Bank",
-    role: "Lead Engineer",
-    period: "October 2024 – Present",
-    highlights: [
-      "Championed AI-assisted development by introducing Amazon Q and Claude 4/4.5 to the team; ran workshops on prompt engineering, code generation, branch debugging, and deployment automation.",
-      "Optimized CI/CD pipelines using Jenkins, Docker, and Salesforce CLI, reducing developer environment setup time by 10-30 minutes per run.",
-      "Refactored complex trigger-handler logic with a centralized record-processing pattern, reducing code complexity and improving processing performance by 400%.",
-      "Established and facilitated bi-sprint developer forums to align onshore/offshore teams on technical design, reducing sprint spillover and improving collaboration.",
-      "Led the majority of pull request reviews and served as a key technical decision-maker for architecture and implementation strategy.",
-    ],
+    "id": 1,
+    "company": "National Australia Bank",
+    "role": "Lead Engineer",
+    "period": "October 2024 – Present",
+    "summary":"Technical lead for NAB's enterprise CRM engineering squad, accountable for architecture decisions, delivery quality, and engineering capability across a 13,000+ user platform spanning Personal, Corporate, and Business Banking.",
+    "highlights": [
+      "Provided technical direction and design governance to senior developers on feature delivery, platform architecture, and clean/reusable code standards.",
+      "Led pull request reviews and technical design alignment forums; accountable for technical quality and sprint velocity across the onshore-offshore delivery model. Up-skilled senior engineers on PR reviews and peer reviews to improve velocity on delivery without lowering quality of code.",
+      "Acted as technical SME for monthly production deployments, providing rapid resolution of post-deployment issues and maintaining platform stability across release cycles.",
+      "Championed AI-assisted development: ran Cursor POCs, built adoption guidelines (including legal considerations), and presented estimated productivity gains to executives and the wider engineering team. Ran prompt engineering workshops across full SDLC including solution architecture, software development, testing, and documentation.",
+      "Replaced Conga mail merge (AppExchange) with a CCOM-based solution within one month on an unfamiliar legacy Salesforce instance — driven by third-party security vulnerabilities.",
+      "Led migration of ~20% of Corporate & Institutional Banking users from Salesforce Classic to the enterprise CRM platform.",
+      "Overhauled CI/CD pipeline saving 10–30 minutes per developer setup; refactored trigger handler architecture achieving a 400% improvement in record processing speed."
+    ]
   },
   {
-    id: 2,
-    company: "National Australia Bank",
-    role: "Senior Analyst Engineer",
-    period: "May 2022 – October 2024",
-    highlights: [
-      "Contributed to major CRM expansion scaling the platform from 3,000 to 13,000 live users, delivering full-stack solutions across AWS and Salesforce.",
-      "Led technical delivery of a large-scale legacy migration from Siebel to Salesforce, including data migration pipelines, lead management features, and multi-API integrations.",
-      "Designed and implemented a reusable, high-performance multi-page component framework (LWC), standardizing front-end development patterns across user personas.",
-      "Resolved high-severity production incidents involving third-party SaaS vendors, including Salesforce and Microsoft, while coordinating cross-team resolution.",
-      "Built and deployed the Customer Conversation Framework using Financial Services Cloud Interactions to support APRA compliance at scale.",
-    ],
+    "id": 2,
+    "company": "National Australia Bank",
+    "role": "Senior Analyst Engineer / Technical Product Owner",
+    "period": "May 2022 – October 2024",
+    "summary": "Key full-stack contributor to NAB's Salesforce expansion from 3,000 to 13,000 live bankers, acting as defacto solution architect on flagship initiatives including APRA-regulated compliance frameworks and a major legacy CRM migration.",
+    "highlights": [
+      "Continued in a dual capacity as Technical Product Owner through April 2023, applying hands-on stakeholder management and sprint planning expertise to bridge the gap between business priorities and engineering delivery.",
+      "Acted as defacto solution architect for the Customer Conversation Framework — designed the FSC Interactions-based solution, presented to the Security Architect Review Board and business/delivery stakeholders to obtain implementation approval; scaled across all Personal, Business, and Corporate Banking divisions in compliance with APRA requirements.",
+      "Led the Salesforce side of NAB Personal Banking's Siebel-to-Salesforce migration — data migration, lead management, and a multi-API service connecting Salesforce to originating legacy systems.",
+      "Resolved a major production outage on the appointment booking system — diagnosed a Salesforce backend Outlook calendar batch syncing bottleneck and implemented a targeted fix that restored service ahead of the automated cycle.",
+      "Architected a high-performance multi-page LWC framework to standardize component patterns across multiple user personas for 13,000+ bankers.",
+      "Resolved high-severity production incidents involving Salesforce and Microsoft SaaS products, providing technical guidance across vendor teams.",
+    ]
   },
   {
-    id: 3,
-    company: "National Australia Bank",
-    role: "Technical Product Owner",
-    period: "July 2021 – April 2023",
-    highlights: [
-      "Collaborated with Product Managers, CRM Consultants, and Business Managers to define, scope, and deliver Salesforce platform enhancements.",
-      "Owned sprint planning and monthly release scoping in partnership with Engineering Managers across multiple Salesforce instances.",
-    ],
+    "id": 3,
+    "company": "National Australia Bank",
+    "role": "Technical Product Owner / Analyst Engineer",
+    "period": "April 2021 – April 2022",
+    "summary": "Wore two hats as both Technical Product Owner and DevOps engineer within NAB's BAU team — balancing sprint delivery and release governance with hands-on CI/CD infrastructure ownership and complex production incident resolution.",
+    "highlights": [
+      "Scoped and delivered BAU Salesforce enhancements in collaboration with Product Managers, CRM Consultants, Business Managers, and end users.",
+      "Worked with Engineering Managers on monthly release scoping and planning.",
+      "In-charge of sprint planning for upcoming Salesforce-related enhancement and fix work.",
+      "Maintained CI/CD infrastructure (AWS, Jenkins, Docker, GitHub); improved resilience of batch jobs with enhanced retry, logging, and alerting.",
+      "Triaged and resolved a complex multi-system customer data sync issue across NAB's data pipeline (on-prem → Kafka → Oracle → Salesforce via AWS Lambda), coordinating a production data fix across multiple teams."
+    ]
   },
   {
-    id: 4,
-    company: "National Australia Bank",
-    role: "Analyst Engineer - CRM & DevOps",
-    period: "April 2021 – May 2022",
-    highlights: [
-      "Managed and delivered BAU tickets while developing and maintaining full-stack enhancements across multiple platform environments.",
-      "Maintained and improved CI/CD infrastructure leveraging AWS, Jenkins, Docker, and GitHub to support continuous delivery workflows.",
-      "Improved resilience of daily batch jobs across internal Salesforce and external AWS systems with retry logic, structured logging, and alerting.",
-    ],
-  },
-  {
-    id: 5,
-    company: "Appirio / Wipro",
-    role: "Graduate Software Engineer",
-    period: "September 2019 – April 2021",
-    highlights: [
-      "Resolution Life (AMP Life Divestiture): Delivered migration of 40+ Aura components to a new Salesforce org under tight timelines and designed a Singleton-based application log framework to handle governor and heap limits.",
-      "Telstra: Investigated Salesforce Flow limits and architectural trade-offs, then built and maintained call center flows within a complex multi-flow architecture.",
-      "AMP Capital: Led a graduate pre-sales team of 5 to deliver a property management calendar app in Salesforce, improving UX with SLDS patterns and standard LWC components.",
-    ],
-  },
+    "id": 4,
+    "company": "Appirio / Wipro",
+    "role": "Graduate Software Engineer",
+    "period": "September 2019 – April 2021",
+    "summary": "Rotated across three enterprise Salesforce engagements — Resolution Life, Telstra, and AMP Capital — delivering component migrations, call center flow architecture, and a pre-sales POC that outperformed the competing team's demo.",
+    "highlights": [
+      "Resolution Life (AMP Life Divestiture): Migrated approximately 40+ Aura components to a new Salesforce org under tight timelines. Designed an application log framework using a Singleton pattern to reliably capture errors while avoiding heap size and platform limit issues. Provided insights on security model design to solution architects and business analysts.",
+      "Telstra: Investigated technical limits and architectural trade-offs of Salesforce Flows for the technical architect, providing a detailed recommended solution. Maintained and introduced new call center flows within a complex multi-flow architecture.",
+      "AMP Capital: Led a pre-sales graduate team of 5 to build and present a property management calendar app POC for Salesforce homepages. Challenged the original UX design by applying SLDS patterns and standard LWC components, delivering a cleaner solution than the competing team."
+    ]
+  }
 ];
 
 export const skills = {
@@ -79,8 +78,12 @@ export const skills = {
     "TypeScript",
     "REST APIs",
     "System Integration",
+    "Microservices",
+    "Express.js",
+    "BFFs",
+    "Mini-apps",
     "Performance Optimization",
-    "HTML/CSS",
+    "HTML/CSS"
   ],
   "Cloud & DevOps": [
     "AWS",
@@ -88,7 +91,7 @@ export const skills = {
     "Docker",
     "GitHub Actions",
     "CI/CD",
-    "Shell Scripting",
+    "Shell Scripting"
   ],
   "Platform Engineering (Salesforce)": [
     "Lightning Web Components",
@@ -97,7 +100,7 @@ export const skills = {
     "SOQL",
     "Financial Services Cloud",
     "CRM Analytics",
-    "Agentforce",
+    "Agentforce"
   ],
   "Architecture & Leadership": [
     "Technical Design",
@@ -105,8 +108,8 @@ export const skills = {
     "Code Review",
     "Mentoring",
     "Stakeholder Management",
-    "Agile / Scrum",
-  ],
+    "Agile / Scrum"
+  ]
 };
 
 export const certifications = [
@@ -134,7 +137,8 @@ export const education = [
   },
 ];
 
-export const projects = [
+export const projects = 
+[
   {
     id: 1,
     title: "Google Sheets Microservice",
