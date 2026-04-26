@@ -6,8 +6,8 @@ export default function Projects() {
   return (
     <section className="projects" id="projects">
       <div className="container">
-        <p className="section-label">portfolio</p>
-        <h2 className="section-title">Notable Work</h2>
+        <p className="section-label">projects</p>
+        <h2 className="section-title">Personal Projects</h2>
 
         <div className="projects__grid">
           {projects.map((project) => (

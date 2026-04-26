@@ -36,12 +36,12 @@ export const experience = [
     "period": "May 2022 – October 2024",
     "summary": "Key full-stack contributor to NAB's Salesforce expansion from 3,000 to 13,000 live bankers, acting as defacto solution architect on flagship initiatives including APRA-regulated compliance frameworks and a major legacy CRM migration.",
     "highlights": [
-      "Continued in a dual capacity as Technical Product Owner through April 2023, applying hands-on stakeholder management and sprint planning expertise to bridge the gap between business priorities and engineering delivery.",
       "Acted as defacto solution architect for the Customer Conversation Framework — designed the FSC Interactions-based solution, presented to the Security Architect Review Board and business/delivery stakeholders to obtain implementation approval; scaled across all Personal, Business, and Corporate Banking divisions in compliance with APRA requirements.",
       "Led the Salesforce side of NAB Personal Banking's Siebel-to-Salesforce migration — data migration, lead management, and a multi-API service connecting Salesforce to originating legacy systems.",
       "Resolved a major production outage on the appointment booking system — diagnosed a Salesforce backend Outlook calendar batch syncing bottleneck and implemented a targeted fix that restored service ahead of the automated cycle.",
       "Architected a high-performance multi-page LWC framework to standardize component patterns across multiple user personas for 13,000+ bankers.",
       "Resolved high-severity production incidents involving Salesforce and Microsoft SaaS products, providing technical guidance across vendor teams.",
+      "Continued in a dual capacity as Technical Product Owner through April 2023, applying hands-on stakeholder management and sprint planning expertise to bridge the gap between business priorities and engineering delivery.",
     ]
   },
   {
@@ -145,7 +145,7 @@ export const projects =
     description:
       "Microservice to insert data into specific google sheets.",
     tags: ["Google APIs", "OAuth2.0", "Microservice", "Typescript", "ExpressJS", "Zod", "NodeJS"],
-    github: null,
+    github: "https://github.com/yjinn812/google-microservice",
     live: null,
   },
   {
@@ -163,15 +163,15 @@ export const projects =
     description:
       "Personal website to display coding skills and portfolio",
     tags: ["React", "Typescript", "Vite", "HTML", "CSS"],
-    github: null,
+    github: "https://github.com/yjinn812/my-portfolio",
     live: null,
   },
   {
     id: 4,
-    title: "Application Log Framework",
+    title: "[Name - TBC] Roguelite - Card Game RPG",
     description:
-      "Designed an application log framework to capture errors reliably while minimizing heap and platform-limit exposure.",
-    tags: ["Reliability", "Design Patterns", "Performance"],
+      "Card-game designed using inspirations of game play from Slay the Spire, concept/character inspiration from Dungeon and Dragons with progression of MMORPG with inspiration from games like WOW/Lost ARK/Maplestory. Design to have endless scaling/fun and meaningful progression.",
+    tags: ["Pixi.JS", "React", "Vite.JS" , "GO", "Game Design"],
     github: null,
     live: null,
   },
