@@ -6,8 +6,8 @@ export const profile = {
   location: "Melbourne / Sydney",
   email: "wongyj812@gmail.com",
   phone: "0452 630 812",
-  linkedin: "https://linkedin.com/in/yujinwong",
-  github: "https://github.com/yujinwong",
+  linkedin: "https://www.linkedin.com/in/yu-jin-wong/",
+  github: "https://github.com/yjinn812",
   summary:
   "I'm a Lead Engineer who's spent 6+ years at the intersection of product, infrastructure, and people. At NAB, I've led large-scale CRM transformations, modernised CI/CD pipelines, and built the kind of full-stack systems that banking staff rely on daily. I bring strong opinions on architecture, a bias toward delivery, and a habit of mentoring engineers who want to grow. Outside the enterprise world, I build side projects in React and TypeScript — because good engineering is also something you do for fun."
 };
