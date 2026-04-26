@@ -140,7 +140,7 @@ export default function Hero() {
             <span className="hero__dot" />
             <span> NAB </span>
             <span className="hero__dot" />
-            <span>{new Date().getFullYear - profile.year_start_work} yrs exp</span>
+            <span>{new Date().getFullYear()-profile.year_start_work} yrs exp</span>
           </div>
 
           <div className="hero__pill-list">
