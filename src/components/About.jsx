@@ -25,7 +25,7 @@ export default function About() {
               </div>
               <div className="about__info-item">
                 <span className="about__info-key">experience</span>
-                <span className="about__info-val">6 years</span>
+                <span className="about__info-val">{new Date().getFullYear()-profile.year_start_work}+</span>
               </div>
             </div>
           </div>

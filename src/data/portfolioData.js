@@ -1,6 +1,7 @@
 export const profile = {
   name: "Yu Jin Wong",
   title: "Lead Engineer @ National Australia Bank",
+  year_start_work : 2019,
   tagline:
     "7+ years delivering enterprise software in banking across Salesforce and AWS, with proven impact in platform scalability, API integration, and CI/CD.",
   location: "Melbourne / Sydney",
