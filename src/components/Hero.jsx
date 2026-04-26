@@ -1,6 +1,6 @@
 import { profile } from "../data/portfolioData";
 import "./Hero.css";
-import resumeFile from "../../yujin_fullstack_resume.docx?url";
+import resumeFile from "../../YUJIN_RESUME_CV.pdf?url";
 
 const stackPills = [
   { label: "Salesforce FSC", tone: "platform" },
