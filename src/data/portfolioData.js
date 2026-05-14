@@ -19,7 +19,7 @@ export const experience = [
     "company": "National Australia Bank",
     "role": "Lead Engineer",
     "period": "October 2024 – Present",
-    "summary":"Technical lead for NAB's enterprise CRM engineering squad, accountable for architecture decisions, delivery quality, and engineering capability across a 13,000+ user platform spanning Personal, Corporate, and Business Banking.",
+    "summary":"Lead Engineer in NAB's enterprise CRM engineering squad, accountable for architecture decisions, delivery quality, and engineering capability across a 13,000+ user platform spanning Personal, Corporate, and Business Banking.",
     "highlights": [
       "Provided technical direction and design governance to senior developers on feature delivery, platform architecture, and clean/reusable code standards.",
       "Led pull request reviews and technical design alignment forums; accountable for technical quality and sprint velocity across the onshore-offshore delivery model. Up-skilled senior engineers on PR reviews and peer reviews to improve velocity on delivery without lowering quality of code.",
