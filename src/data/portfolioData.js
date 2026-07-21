@@ -141,6 +141,15 @@ export const education = [
 export const projects = 
 [
   {
+    id: 5,
+    title: "AI Food Tracker (MCP + Firestore)",
+    description:
+      "Personal nutrition logger where conversational AI and photo estimates write structured meals/products to Cloud Firestore via MCP, against a daily saturated-fat budget. Control plane: agent playbooks, locked-down security rules, and CLI seed/query/export.",
+    tags: ["Firestore", "Firebase MCP", "AI Agents", "Node.js", "Cursor"],
+    github: "https://github.com/yjinn812/foodtracking-cursor",
+    live: null,
+  },
+  {
     id: 1,
     title: "Google Sheets Microservice",
     description:
