@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap');
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-:root {
+:root,
+[data-theme="dark"] {
   --bg:         #080c10;
   --bg-2:       #0d1117;
   --bg-card:    #111820;
@@ -16,18 +15,53 @@
   --text-dim:   #3d4f61;
   --shadow-sm:  0 10px 30px rgba(0, 0, 0, 0.28);
   --shadow-md:  0 18px 48px rgba(0, 0, 0, 0.42);
+  --nav-scrolled: rgba(8, 12, 16, 0.92);
+  --glow-cyan:  rgba(0, 212, 255, 0.08);
+  --glow-warm:  rgba(255, 107, 53, 0.06);
+  --terminal-key: #ff8f70;
+  --terminal-string: #9bd8ff;
+  --terminal-boolean: #6bdf8c;
   --font-display: 'Syne', sans-serif;
   --font-mono:    'JetBrains Mono', monospace;
   --radius:     8px;
   --section-pad: 100px 0;
 }
 
-html { scroll-behavior: smooth; }
+[data-theme="light"] {
+  --bg:         #eef3f8;
+  --bg-2:       #f7fafc;
+  --bg-card:    #ffffff;
+  --border:     #d3dde8;
+  --border-strong: #b7c5d4;
+  --accent:     #007a99;
+  --accent-dim: #007a9918;
+  --accent-2:   #d4551a;
+  --text:       #101820;
+  --text-muted: #4f6275;
+  --text-dim:   #7a8fa3;
+  --shadow-sm:  0 10px 28px rgba(16, 36, 56, 0.08);
+  --shadow-md:  0 18px 44px rgba(16, 36, 56, 0.12);
+  --nav-scrolled: rgba(247, 250, 252, 0.9);
+  --glow-cyan:  rgba(0, 122, 153, 0.08);
+  --glow-warm:  rgba(212, 85, 26, 0.06);
+  --terminal-key: #c24b2c;
+  --terminal-string: #0a6f99;
+  --terminal-boolean: #1f8a4c;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+}
 
 body {
   background:
-    radial-gradient(circle at 15% 15%, rgba(0, 212, 255, 0.08), transparent 30%),
-    radial-gradient(circle at 85% 10%, rgba(255, 107, 53, 0.06), transparent 24%),
+    radial-gradient(circle at 15% 15%, var(--glow-cyan), transparent 30%),
+    radial-gradient(circle at 85% 10%, var(--glow-warm), transparent 24%),
     var(--bg);
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -39,6 +73,7 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 h1, h2, h3, h4 {
@@ -102,4 +137,10 @@ a:hover { text-decoration: underline; }
 @media (max-width: 768px) {
   :root { --section-pad: 80px 0; }
   .container { padding: 0 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    transition: none;
+  }
 }

@@ -1,10 +1,11 @@
-import { profile } from "../data/portfolioData";
+import { profile } from "../../data/portfolioData";
+import { Reveal } from "../ui/Reveal";
 import "./Footer.css";
 
 export default function Footer() {
   return (
     <footer className="footer">
-      <div className="container footer__inner">
+      <Reveal className="container footer__inner" direction="fade" duration={0.5} amount={0.4}>
         <div className="footer__logo">
           <span className="footer__logo-bracket">&lt;</span>
           YJW
@@ -20,7 +21,7 @@ export default function Footer() {
           <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="footer__social">LinkedIn</a>
           <a href={profile.github} target="_blank" rel="noopener noreferrer" className="footer__social">GitHub</a>
         </div>
-      </div>
+      </Reveal>
     </footer>
   );
 }

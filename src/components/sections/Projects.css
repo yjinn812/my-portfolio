@@ -3,8 +3,24 @@
   border-top: 1px solid var(--border);
 }
 
+.projects__featured {
+  margin-bottom: 28px;
+}
+
 .projects__grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
+}
+
+.projects__wide {
+  grid-column: 1 / -1;
+}
+
+.projects__grid > * {
+  height: 100%;
+}
+
+.projects__grid .project-card {
+  height: 100%;
 }

@@ -1,25 +1,19 @@
-import { profile } from "../data/portfolioData";
+import { motion, useReducedMotion } from "framer-motion";
+import { profile } from "../../data/portfolioData";
 import "./Hero.css";
-import resumeFile from "../../YUJIN_RESUME_CV.pdf?url";
 
-const stackPills = [
-  { label: "Salesforce FSC", tone: "platform" },
-  { label: "Cursor/Claude", tone: "platform" },
-  { label: "Apex/Java", tone: "backend" },
-  { label: "Javascript/TypeScript", tone: "frontend" },
-  { label: "React", tone: "frontend" },
-  { label: "AWS", tone: "cloud" },
-  { label: "Jenkins / CI-CD", tone: "cloud" },
-];
+const yearsExp = new Date().getFullYear() - profile.year_start_work;
 
 const profileJsonData = {
-  name: "Yu Jin Wong",
+  name: profile.name,
   role: "Lead Engineer",
-  currently_at : "NAB",
-  industry: ["Banking","Insurance","Telecom"],
+  currently_at: "NAB",
+  based_in: profile.location,
+  years_exp: yearsExp,
+  industry: ["Banking", "Insurance", "Telecom"],
   strengths: ["Problem Solving", "Technical Design", "Code Review", "Mentoring"],
-  primary_stack: ["Salesforce FSC", "SOQL/SOSL","Apex", "Javascript", "Cursor/Claude","..more"],
-  also_builds_with: ["TypeScript", "React", "AWS", "Express.js", "Vite.js", "Node.js","Shell Scripting","Swift", "..more"],
+  primary_stack: ["Salesforce FSC", "SOQL/SOSL", "Apex", "Javascript", "Cursor/Claude", "..more"],
+  also_builds_with: ["TypeScript", "React", "AWS", "Firebase", "Express.js", "Node.js", "Swift", "..more"],
   impacts: {
     users_scaled: "3,000 -> 13,000",
     processing_gain: "4x",
@@ -29,11 +23,13 @@ const profileJsonData = {
 };
 
 const arrayItemsPerLine = {
-  industry : 3,
+  industry: 3,
   strengths: 2,
   primary_stack: 2,
   also_builds_with: 3,
 };
+
+const ease = [0.22, 1, 0.36, 1];
 
 function JsonIndent({ level }) {
   if (level <= 0) return null;
@@ -53,6 +49,9 @@ function renderJsonInlineValue(value) {
     return <span className="terminal__string">"{value}"</span>;
   }
   if (typeof value === "boolean") {
+    return <span className="terminal__boolean">{String(value)}</span>;
+  }
+  if (typeof value === "number") {
     return <span className="terminal__boolean">{String(value)}</span>;
   }
   return <span className="terminal__brace">{String(value)}</span>;
@@ -122,49 +121,69 @@ function renderJsonEntry([key, value], indentLevel, isLast) {
   );
 }
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0 },
+};
+
+/* Avoid transform on the name — it clips font descenders (e.g. the "g" in Wong) */
+const fadeName = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+};
+
 export default function Hero() {
+  const reduceMotion = useReducedMotion();
+  const transition = reduceMotion
+    ? { duration: 0 }
+    : { duration: 0.55, ease };
+
   return (
     <section className="hero" id="hero">
       <div className="hero__grid-bg" aria-hidden />
       <div className="container hero__inner">
-        <div className="hero__content fade-up">
-          <p className="hero__greeting">
+        <motion.div
+          className="hero__content"
+          initial={reduceMotion ? false : "hidden"}
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: {
+              transition: { staggerChildren: 0.08, delayChildren: 0.05 },
+            },
+          }}
+        >
+          <motion.p className="hero__greeting" variants={fadeUp} transition={transition}>
             <span className="hero__prompt">$&gt;</span> hello, world
-          </p>
-          <h1 className="hero__name">{profile.name}</h1>
-          <h2 className="hero__title">{profile.title}</h2>
-          <p className="hero__tagline">{profile.tagline}</p>
+          </motion.p>
 
-          <div className="hero__meta">
-            <span>📍 {profile.location}</span>
-            <span className="hero__dot" />
-            <span> NAB </span>
-            <span className="hero__dot" />
-            <span>{new Date().getFullYear()-profile.year_start_work} yrs exp</span>
-          </div>
+          <motion.h1
+            className="hero__name"
+            variants={fadeName}
+            transition={transition}
+            style={{ overflow: "visible" }}
+          >
+            <span className="hero__name-line">Yu Jin</span>
+            <span className="hero__name-line">Wong</span>
+          </motion.h1>
 
-          <div className="hero__pill-list">
-            {stackPills.map((skill) => (
-              <span key={skill.label} className={`hero__pill hero__pill--${skill.tone}`}>
-                {skill.label}
-              </span>
-            ))}
-          </div>
+          <motion.p className="hero__title" variants={fadeUp} transition={transition}>
+            {profile.title}
+          </motion.p>
 
-          <div className="hero__actions">
+          <motion.div className="hero__actions" variants={fadeUp} transition={transition}>
             <a href="#projects" className="hero__btn hero__btn--primary">
               View My Work
             </a>
-            <a href="#contact" className="hero__btn hero__btn--ghost">
-              Get In Touch
-            </a>
-            <a href={resumeFile} download="Yu_Jin_Wong_Resume.docx" className="hero__btn hero__btn--download">
-              Download Resume
-            </a>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        <div className="hero__terminal fade-up" style={{ animationDelay: "0.2s" }}>
+        <motion.div
+          className="hero__terminal"
+          initial={reduceMotion ? false : { opacity: 0, y: 28, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={reduceMotion ? { duration: 0 } : { duration: 0.7, delay: 0.28, ease }}
+        >
           <div className="terminal__header">
             <span className="terminal__dot terminal__dot--red" />
             <span className="terminal__dot terminal__dot--yellow" />
@@ -182,9 +201,8 @@ export default function Hero() {
               <span className="terminal__brace">{"}"}</span>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
-
     </section>
   );
 }
