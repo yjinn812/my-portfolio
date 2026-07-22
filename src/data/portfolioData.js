@@ -247,7 +247,7 @@ export const projects =
       "You're looking at it. Design detail: the hero profile.json terminal plus a theme toggle that keeps Syne + JetBrains Mono readable in both modes.",
     tags: ["React", "Vite", "Framer Motion", "CSS", "GitHub Pages"],
     github: null,
-    live: "#hero",
+    live: "https://www.yujinwong.com",
     demo: "portfolio-browser",
   },
   {

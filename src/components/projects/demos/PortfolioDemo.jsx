@@ -6,19 +6,19 @@ const SCREENS = [
     id: "hero",
     label: "Hero",
     caption: "Name, CTAs, and live profile.json terminal",
-    url: "yjinn812.github.io/my-portfolio/#hero",
+    url: "www.yujinwong.com/#hero",
   },
   {
     id: "experience",
     label: "Experience",
     caption: "Role tabs with animated highlight swaps",
-    url: "yjinn812.github.io/my-portfolio/#experience",
+    url: "www.yujinwong.com/#experience",
   },
   {
     id: "projects",
     label: "Projects",
     caption: "Interactive demos — chat, API client, iOS gallery",
-    url: "yjinn812.github.io/my-portfolio/#projects",
+    url: "www.yujinwong.com/#projects",
   },
 ];
 
