@@ -14,7 +14,16 @@
   font-size: 14px;
   color: var(--text-muted);
   line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.contact__note {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.75;
   margin-bottom: 36px;
+  padding-left: 14px;
+  border-left: 2px solid var(--border-strong);
 }
 
 .contact__links {
@@ -121,7 +130,15 @@
   font-weight: 800;
   color: var(--text);
   line-height: 1.2;
-  margin-bottom: 32px;
+  margin-bottom: 14px;
+}
+
+.contact__cta-copy {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 28px;
+  max-width: 32ch;
 }
 
 .contact__cta-btn {

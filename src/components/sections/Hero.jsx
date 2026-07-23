@@ -7,10 +7,10 @@ import "./Hero.css";
 const yearsExp = new Date().getFullYear() - profile.year_start_work;
 
 const openToRoles = [
-  "Staff / Lead Engineer (Salesforce or platform)",
-  "Solutions / Technical Architect",
-  "Roles spanning Salesforce + AI across the SDLC",
-  "Hands-on engineering leadership in complex orgs",
+  "Staff / Lead Engineer roles (Salesforce)",
+  "CRM / Salesforce Solutions Architect",
+  "Full-stack engineer in a product company",
+  "AI adoption across the SDLC",
 ];
 
 const profileJsonData = {

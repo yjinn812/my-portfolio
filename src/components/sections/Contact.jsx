@@ -22,6 +22,11 @@ export default function Contact() {
               Working on something in Salesforce, AI across the SDLC, or platform
               engineering? I like hard problems and clear delivery — reach out.
             </p>
+            <p className="contact__note">
+              Also happy to guide anyone getting into coding, or exploring how to
+              adopt AI in their day-to-day engineering work — a chat, a steer, or
+              a second opinion.
+            </p>
 
             <RevealGroup className="contact__links" stagger={0.07} delay={0.12}>
               <RevealItem>
@@ -85,7 +90,11 @@ export default function Contact() {
           <Reveal className="contact__cta-box" direction="right" delay={0.12} amount={0.25}>
             <div className="contact__cta-label">// say hello</div>
             <h3 className="contact__cta-heading">Let&apos;s talk engineering.</h3>
-            <a href={`mailto:${profile.email}`} className="contact__cta-btn">
+            <p className="contact__cta-copy">
+              Contracts, product work, or just figuring out coding / AI adoption —
+              happy to help where I can.
+            </p>
+            <a href={`mailto:${profile.email}?subject=Hello%20from%20your%20portfolio`} className="contact__cta-btn">
               Send me an email →
             </a>
           </Reveal>
