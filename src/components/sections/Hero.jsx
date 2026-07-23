@@ -262,9 +262,12 @@ export default function Hero() {
   const [phase, setPhase] = useState("open");
   const [jsonExpanded, setJsonExpanded] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [compactLayout, setCompactLayout] = useState(() =>
+    typeof window !== "undefined" ? window.matchMedia("(max-width: 900px)").matches : false
+  );
   const timersRef = useRef([]);
 
-  const transition = reduceMotion ? { duration: 0 } : { duration: 0.55, ease };
+  const transition = reduceMotion || compactLayout ? { duration: 0 } : { duration: 0.55, ease };
   const sizeMotion = reduceMotion ? { duration: 0 } : { duration: SIZE_MS / 1000, ease };
   const faceMotion = reduceMotion ? { duration: 0 } : { duration: FACE_MS / 1000, ease };
 
@@ -280,6 +283,14 @@ export default function Hero() {
   }
 
   useEffect(() => () => clearTimers(), []);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 900px)");
+    const sync = () => setCompactLayout(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   const isFolder = phase === "folder";
   const isMinimized = phase === "minimized";
@@ -370,11 +381,11 @@ export default function Hero() {
       <div className="container hero__inner">
         <motion.div
           className="hero__content"
-          animate={{ x: isFolder ? CONTENT_SLIDE_X : 0 }}
+          animate={{ x: !compactLayout && isFolder ? CONTENT_SLIDE_X : 0 }}
           transition={{ x: sizeMotion }}
         >
           <motion.div
-            initial={reduceMotion ? false : "hidden"}
+            initial={reduceMotion || compactLayout ? false : "hidden"}
             animate="visible"
             variants={{
               hidden: {},
@@ -383,25 +394,36 @@ export default function Hero() {
               },
             }}
           >
-            <motion.p className="hero__greeting" variants={fadeUp} transition={transition}>
+            <motion.p
+              className="hero__greeting"
+              variants={compactLayout ? undefined : fadeUp}
+              transition={transition}
+            >
               <span className="hero__prompt">$&gt;</span> hello, world
             </motion.p>
 
             <motion.h1
               className="hero__name"
-              variants={fadeName}
+              variants={compactLayout ? undefined : fadeName}
               transition={transition}
-              style={{ overflow: "visible" }}
             >
               <span className="hero__name-line">Yu Jin</span>
               <span className="hero__name-line">Wong</span>
             </motion.h1>
 
-            <motion.p className="hero__title" variants={fadeUp} transition={transition}>
+            <motion.p
+              className="hero__title"
+              variants={compactLayout ? undefined : fadeUp}
+              transition={transition}
+            >
               {profile.title}
             </motion.p>
 
-            <motion.div className="hero__actions" variants={fadeUp} transition={transition}>
+            <motion.div
+              className="hero__actions"
+              variants={compactLayout ? undefined : fadeUp}
+              transition={transition}
+            >
               <a href="#projects" className="hero__btn hero__btn--primary">
                 View My Work
               </a>
@@ -418,7 +440,7 @@ export default function Hero() {
               width: sizeMotion,
               height: isOpen ? { duration: 0 } : sizeMotion,
             }}
-            style={isOpen ? { height: "auto" } : undefined}
+            style={isOpen && !compactLayout ? { height: "auto" } : undefined}
             onClick={isFolder ? handleRestoreFromFolder : undefined}
             role={isFolder ? "button" : undefined}
             tabIndex={isFolder ? 0 : undefined}

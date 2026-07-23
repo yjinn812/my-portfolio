@@ -203,6 +203,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  min-height: 0;
 }
 
 .hero__profile-shell--folder .hero__profile-face--terminal {
@@ -396,69 +397,139 @@
 @media (max-width: 900px) {
   .hero {
     min-height: auto;
-    padding-top: 104px;
-    padding-bottom: 48px;
+    justify-content: flex-start;
+    padding-top: calc(72px + env(safe-area-inset-top, 0px));
+    padding-bottom: 40px;
+    overflow-x: hidden;
+    overflow-y: visible;
   }
 
   .hero__inner {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 20px;
     align-items: start;
   }
 
   .hero__content {
     max-width: none;
+    z-index: 3;
+    position: relative;
+  }
+
+  .hero__greeting {
+    margin-bottom: 8px;
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   .hero__name {
-    font-size: clamp(40px, 12vw, 60px);
-    margin-bottom: 14px;
+    font-size: clamp(32px, 8.5vw, 44px);
+    line-height: 1.1;
+    margin-bottom: 10px;
+    overflow: hidden;
+    opacity: 1 !important;
+    transform: none !important;
+    color: var(--text);
+  }
+
+  .hero__name-line {
+    display: block;
+  }
+
+  .hero__name-line:first-child {
+    white-space: normal;
   }
 
   .hero__title {
     max-width: none;
-    margin-bottom: 22px;
+    margin-bottom: 18px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--accent);
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   .hero__actions {
-    margin-bottom: 4px;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: flex-start;
   }
 
   .hero__btn {
-    width: 100%;
+    width: fit-content;
+    max-width: 100%;
     text-align: center;
   }
 
-  /* Keep terminal as the visual on mobile — compact, scrollable */
   .hero__visual {
     min-height: 0;
     justify-items: stretch;
+    z-index: 2;
   }
 
   .hero__profile-shell {
     display: flex;
     flex-direction: column;
-    max-height: min(68vh, 560px);
+    max-height: min(62vh, 520px);
     max-width: none;
     justify-self: stretch;
+    /* Keep height under the cap so inner JSON can scroll */
+    height: min(62vh, 520px);
   }
 
   .hero__profile-shell--folder {
     justify-self: center;
     max-height: none;
+    height: auto;
+  }
+
+  .hero__profile-face--terminal {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    height: 100%;
+  }
+
+  .terminal__header {
+    padding: 12px 14px;
+  }
+
+  /* Touch-friendly traffic lights (visual size unchanged via ::after) */
+  .terminal__dot {
+    width: 44px;
+    height: 44px;
+    margin: -16px -10px;
+  }
+
+  .terminal__dot::before {
+    inset: 0;
+  }
+
+  .terminal__controls {
+    gap: 0;
+    margin-left: -6px;
   }
 
   .terminal__body {
-    font-size: 13px;
-    line-height: 1.75;
-    flex: 1;
+    font-size: 12.5px;
+    line-height: 1.7;
+    flex: 1 1 auto;
     min-height: 0;
+    overflow: hidden;
+  }
+
+  .terminal__body-inner {
+    height: 100%;
+    overflow: hidden;
   }
 
   .terminal__json {
-    padding: 18px 18px 20px;
+    padding: 14px 14px 18px;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
     max-height: 100%;
+    height: 100%;
   }
 
   .hero__grid-bg {
