@@ -1,40 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { VscFolder } from "react-icons/vsc";
-import { profile } from "../../data/portfolioData";
+import {
+  profile,
+  profileJsonData,
+  profileJsonDetailKeys,
+  profileJsonArrayPreview,
+  profileJsonItemsPerLine,
+} from "../../data/portfolioData";
 import "./Hero.css";
 
-const yearsExp = new Date().getFullYear() - profile.year_start_work;
-
-const openToRoles = [
-  "Staff / Lead Engineer roles (Salesforce)",
-  "CRM / Salesforce Solutions Architect",
-  "Full-stack engineer in a product company",
-  "AI adoption across the SDLC",
-];
-
-const profileJsonData = {
-  name: profile.name,
-  role: "Lead Engineer",
-  currently_at: "NAB",
-  based_in: profile.location,
-  years_exp: yearsExp,
-  industry: ["Banking", "Insurance", "Telecom"],
-  strengths: ["Problem Solving", "Technical Design", "Code Review", "Mentoring"],
-  primary_stack: ["Salesforce FSC", "SOQL/SOSL", "Apex", "Javascript", "Cursor/Claude", "..more"],
-  also_builds_with: ["TypeScript", "React", "AWS", "Firebase", "Express.js", "Node.js", "Swift", "..more"],
-  impacts: {
-    users_scaled: "3,000 -> 13,000",
-    processing_gain: "4x",
-    setup_time_saved: "10-30 min",
-  },
-  open_to: {
-    status: true,
-    roles: openToRoles,
-  },
-};
-
-const DETAIL_KEYS = new Set(["based_in", "industry"]);
+const DETAIL_KEYS = new Set(profileJsonDetailKeys);
+const ARRAY_PREVIEW = profileJsonArrayPreview;
 
 /** Symmetric timing: close = BODY then SIZE, open = SIZE then BODY */
 const BODY_MS = 400;
@@ -43,13 +20,6 @@ const FACE_MS = 420;
 const FOLDER_SIZE = 118;
 const HEADER_HEIGHT = 52;
 const CONTENT_SLIDE_X = 64;
-
-const arrayItemsPerLine = {
-  industry: 3,
-  strengths: 2,
-  primary_stack: 2,
-  also_builds_with: 3,
-};
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -81,7 +51,7 @@ function renderJsonInlineValue(value) {
 
 function renderJsonEntry([key, value], indentLevel, isLast) {
   if (Array.isArray(value)) {
-    const itemsPerLine = Math.max(1, arrayItemsPerLine[key] ?? 1);
+    const itemsPerLine = Math.max(1, profileJsonItemsPerLine[key] ?? 1);
     const chunks = chunkArray(value, itemsPerLine);
 
     return (
@@ -143,17 +113,86 @@ function renderJsonEntry([key, value], indentLevel, isLast) {
   );
 }
 
+function CollapsibleArrayEntry({
+  name,
+  items,
+  previewCount,
+  indentLevel,
+  isLast,
+  expanded,
+  reduceMotion,
+}) {
+  const preview = items.slice(0, previewCount);
+  const rest = items.slice(previewCount);
+  const hasMore = rest.length > 0;
+  const itemsPerLine = Math.max(1, profileJsonItemsPerLine[name] ?? 1);
+  const previewChunks = chunkArray(preview, itemsPerLine);
+  const restChunks = chunkArray(rest, itemsPerLine);
+  // Ellipsis lives on the preview line (not a separate row) so it can't fight height animation.
+  const showEllipsis = hasMore && !expanded;
+
+  return (
+    <div>
+      <div className="terminal__line">
+        <JsonIndent level={indentLevel} />
+        <span className="terminal__key">"{name}"</span>: <span className="terminal__brace">[</span>
+      </div>
+      {previewChunks.map((chunk, chunkIndex) => (
+        <div key={`${name}-preview-${chunkIndex}`} className="terminal__line">
+          <JsonIndent level={indentLevel + 1} />
+          {chunk.map((item, itemIndex) => {
+            const globalIndex = chunkIndex * itemsPerLine + itemIndex;
+            const isLastPreview = globalIndex === preview.length - 1;
+            const needsComma = !isLastPreview || hasMore;
+            return (
+              <span key={`${name}-p-${globalIndex}`}>
+                {renderJsonInlineValue(item)}
+                {needsComma ? ", " : ""}
+                {isLastPreview && showEllipsis ? (
+                  <span className="terminal__comment">...</span>
+                ) : null}
+              </span>
+            );
+          })}
+        </div>
+      ))}
+
+      {hasMore && (
+        <div
+          className={`terminal__reveal${expanded ? " is-open" : ""}${reduceMotion ? " terminal__reveal--instant" : ""}`}
+          aria-hidden={!expanded}
+        >
+          <div className="terminal__reveal-inner">
+            {restChunks.map((chunk, chunkIndex) => (
+              <div key={`${name}-rest-${chunkIndex}`} className="terminal__line">
+                <JsonIndent level={indentLevel + 1} />
+                {chunk.map((item, itemIndex) => {
+                  const globalIndex = chunkIndex * itemsPerLine + itemIndex;
+                  const hasTrailingComma = globalIndex < rest.length - 1;
+                  return (
+                    <span key={`${name}-r-${globalIndex}`}>
+                      {renderJsonInlineValue(item)}
+                      {hasTrailingComma ? ", " : ""}
+                    </span>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="terminal__line">
+        <JsonIndent level={indentLevel} />
+        <span className="terminal__brace">]</span>
+        {!isLast ? "," : ""}
+      </div>
+    </div>
+  );
+}
+
 function OpenToEntry({ value, indentLevel, isLast, expanded, reduceMotion }) {
   const roles = value.roles ?? [];
-  const [showCollapsedMarker, setShowCollapsedMarker] = useState(!expanded);
-  const expandMotion = reduceMotion
-    ? { duration: 0 }
-    : { height: { duration: 0.52, ease }, opacity: { duration: 0.36, ease } };
-
-  useEffect(() => {
-    if (expanded) setShowCollapsedMarker(false);
-    else if (reduceMotion) setShowCollapsedMarker(true);
-  }, [expanded, reduceMotion]);
 
   return (
     <div>
@@ -163,48 +202,40 @@ function OpenToEntry({ value, indentLevel, isLast, expanded, reduceMotion }) {
         <span className="terminal__key"> "status"</span>: {renderJsonInlineValue(value.status)}
         <span className="terminal__brace">,</span>
         <span className="terminal__key"> "roles"</span>:{" "}
-        {showCollapsedMarker ? (
+        {expanded ? (
+          <span className="terminal__brace">[</span>
+        ) : (
           <>
             <span className="terminal__comment">...</span>
             <span className="terminal__brace"> {"}"}</span>
             {!isLast ? "," : ""}
           </>
-        ) : (
-          <span className="terminal__brace">[</span>
         )}
       </div>
 
-      <motion.div
-        className="terminal__open-to-roles"
-        initial={false}
-        animate={{
-          height: expanded ? "auto" : 0,
-          opacity: expanded ? 1 : 0,
-        }}
-        transition={expandMotion}
-        style={{ overflow: "hidden" }}
+      <div
+        className={`terminal__reveal${expanded ? " is-open" : ""}${reduceMotion ? " terminal__reveal--instant" : ""}`}
         aria-hidden={!expanded}
-        onAnimationComplete={() => {
-          if (!expanded) setShowCollapsedMarker(true);
-        }}
       >
-        {roles.map((role, index) => (
-          <div key={role} className="terminal__line">
-            <JsonIndent level={indentLevel + 1} />
-            {renderJsonInlineValue(role)}
-            {index < roles.length - 1 ? "," : ""}
+        <div className="terminal__reveal-inner">
+          {roles.map((role, index) => (
+            <div key={role} className="terminal__line">
+              <JsonIndent level={indentLevel + 1} />
+              {renderJsonInlineValue(role)}
+              {index < roles.length - 1 ? "," : ""}
+            </div>
+          ))}
+          <div className="terminal__line">
+            <JsonIndent level={indentLevel} />
+            <span className="terminal__brace">]</span>
           </div>
-        ))}
-        <div className="terminal__line">
-          <JsonIndent level={indentLevel} />
-          <span className="terminal__brace">]</span>
+          <div className="terminal__line">
+            <JsonIndent level={indentLevel} />
+            <span className="terminal__brace">{"}"}</span>
+            {!isLast ? "," : ""}
+          </div>
         </div>
-        <div className="terminal__line">
-          <JsonIndent level={indentLevel} />
-          <span className="terminal__brace">{"}"}</span>
-          {!isLast ? "," : ""}
-        </div>
-      </motion.div>
+      </div>
     </div>
   );
 }
@@ -235,9 +266,6 @@ export default function Hero() {
 
   const transition = reduceMotion ? { duration: 0 } : { duration: 0.55, ease };
   const sizeMotion = reduceMotion ? { duration: 0 } : { duration: SIZE_MS / 1000, ease };
-  const detailMotion = reduceMotion
-    ? { duration: 0 }
-    : { height: { duration: 0.5, ease }, opacity: { duration: 0.34, ease } };
   const faceMotion = reduceMotion ? { duration: 0 } : { duration: FACE_MS / 1000, ease };
 
   function clearTimers() {
@@ -505,19 +533,29 @@ export default function Hero() {
                       }
                       if (DETAIL_KEYS.has(key)) {
                         return (
-                          <motion.div
+                          <div
                             key={key}
-                            initial={false}
-                            animate={{
-                              height: jsonExpanded ? "auto" : 0,
-                              opacity: jsonExpanded ? 1 : 0,
-                            }}
-                            transition={detailMotion}
-                            style={{ overflow: "hidden" }}
+                            className={`terminal__reveal${jsonExpanded ? " is-open" : ""}${reduceMotion ? " terminal__reveal--instant" : ""}`}
                             aria-hidden={!jsonExpanded}
                           >
-                            {renderJsonEntry([key, value], 1, isLast)}
-                          </motion.div>
+                            <div className="terminal__reveal-inner">
+                              {renderJsonEntry([key, value], 1, isLast)}
+                            </div>
+                          </div>
+                        );
+                      }
+                      if (ARRAY_PREVIEW[key] != null && Array.isArray(value)) {
+                        return (
+                          <CollapsibleArrayEntry
+                            key={key}
+                            name={key}
+                            items={value}
+                            previewCount={ARRAY_PREVIEW[key]}
+                            indentLevel={1}
+                            isLast={isLast}
+                            expanded={jsonExpanded}
+                            reduceMotion={reduceMotion}
+                          />
                         );
                       }
                       return renderJsonEntry([key, value], 1, isLast);

@@ -1,6 +1,7 @@
 import { profile } from "../../data/portfolioData";
 import BorderGlow, { useBorderGlowTheme } from "../ui/BorderGlow";
 import { Reveal, RevealGroup, RevealItem, SectionHeader } from "../ui/Reveal";
+import ResumeRequestForm from "./ResumeRequestForm";
 import "./Contact.css";
 
 export default function Contact() {
@@ -94,9 +95,15 @@ export default function Contact() {
               Contracts, product work, or just figuring out coding / AI adoption —
               happy to help where I can.
             </p>
-            <a href={`mailto:${profile.email}?subject=Hello%20from%20your%20portfolio`} className="contact__cta-btn">
-              Send me an email →
-            </a>
+            <div className="contact__cta-actions">
+              <a
+                href={`mailto:${profile.email}?subject=Hello%20from%20your%20portfolio`}
+                className="contact__cta-btn"
+              >
+                Send me an email →
+              </a>
+              <ResumeRequestForm />
+            </div>
           </Reveal>
         </div>
       </div>

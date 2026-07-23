@@ -1,0 +1,105 @@
+.resume-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+.resume-form__hint {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0 0 4px;
+}
+
+.resume-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.resume-form__label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+}
+
+.resume-form__input {
+  width: 100%;
+  background: var(--bg-2);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 12px 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.resume-form__input:focus {
+  border-color: var(--accent);
+}
+
+.resume-form__input:disabled {
+  opacity: 0.7;
+}
+
+.resume-form__textarea {
+  resize: vertical;
+  min-height: 84px;
+  line-height: 1.5;
+}
+
+.resume-form__honeypot {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  height: 0;
+  width: 0;
+  pointer-events: none;
+}
+
+.resume-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.resume-form__cancel {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 8px 4px;
+}
+
+.resume-form__cancel:hover:not(:disabled) {
+  color: var(--text);
+}
+
+.resume-form__cancel:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.resume-form__status {
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 4px 0 0;
+}
+
+.resume-form__status--ok {
+  color: var(--terminal-boolean);
+}
+
+.resume-form__status--err {
+  color: #ff8f70;
+}

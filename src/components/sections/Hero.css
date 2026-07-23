@@ -363,8 +363,34 @@
   gap: 0 2px;
 }
 
-.terminal__open-to-roles {
+/* CSS grid reveal — avoids Framer height:auto lock with ... toggles */
+.terminal__reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.48s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.terminal__reveal.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.terminal__reveal-inner {
   overflow: hidden;
+  min-height: 0;
+}
+
+.terminal__reveal--instant {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal__reveal {
+    transition: none;
+  }
 }
 
 @media (max-width: 900px) {

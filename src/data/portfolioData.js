@@ -13,6 +13,78 @@ export const profile = {
   "I'm a Lead Engineer who's spent 7+ years at the intersection of product, infrastructure, and people. At NAB, I've led large-scale CRM transformations, modernised CI/CD pipelines, and built the kind of full-stack systems that banking staff rely on daily. I bring strong opinions on architecture, a bias toward delivery, and a habit of mentoring engineers who want to grow. Outside the enterprise world, I build side projects in React and TypeScript — because good engineering is also something you do for fun."
 };
 
+/** Hero terminal JSON — full lists; preview/detail rules control what shows before green expand. */
+export const profileJsonOpenToRoles = [
+  "Staff / Lead Engineer roles (Salesforce)",
+  "CRM / Salesforce Solutions Architect",
+  "Full-stack engineer in a product company",
+  "AI adoption across the SDLC",
+];
+
+export const profileJsonData = {
+  name: profile.name,
+  role: "Lead Engineer",
+  currently_at: "NAB",
+  based_in: profile.location,
+  years_exp: new Date().getFullYear() - profile.year_start_work,
+  industry: ["Banking", "Insurance", "Telecom"],
+  strengths: [
+    "Technical Design",
+    "Stakeholder Management",
+    "Code Review",
+    "Mentoring",
+    "Delivery Leadership",
+  ],
+  primary_stack: [
+    "Salesforce",
+    "JavaScript",
+    "Cursor",
+    "Claude",
+    "Lightning Web Components",
+    "GraphQL",
+    "Apex",
+    "SOQL/SOSL",
+    "Financial Services Cloud",
+    "CRM Analytics",
+  ],
+  also_builds_with: [
+    "TypeScript",
+    "React",
+    "Express.js",
+    "Node.js",
+    "AWS",
+    "Firebase",
+    "Swift",
+    "Vite",
+  ],
+  impacts: {
+    users_scaled: "3,000 -> 13,000",
+    processing_gain: "4x",
+    setup_time_saved: "10-30 min",
+  },
+  open_to: {
+    status: true,
+    roles: profileJsonOpenToRoles,
+  },
+};
+
+/** Entire key hidden until green expand */
+export const profileJsonDetailKeys = ["based_in", "industry"];
+
+/** Array keys: show first N items in base view; remainder on expand */
+export const profileJsonArrayPreview = {
+  strengths: 2,
+  primary_stack: 3,
+  also_builds_with: 3,
+};
+
+export const profileJsonItemsPerLine = {
+  industry: 3,
+  strengths: 2,
+  primary_stack: 2,
+  also_builds_with: 3,
+};
+
 export const impactMetrics = [
   {
     value: "3k → 13k",
