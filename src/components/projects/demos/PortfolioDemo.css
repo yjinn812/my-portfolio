@@ -204,9 +204,14 @@
   flex: 1;
 }
 
-.pf-nav__theme {
-  color: var(--accent-2);
-  font-size: 12px;
+.pf-nav__cta {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--bg);
+  background: var(--accent);
+  padding: 4px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
 }
 
 .pf-hero {

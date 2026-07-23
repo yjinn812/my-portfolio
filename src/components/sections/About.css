@@ -23,19 +23,18 @@
   gap: 16px;
 }
 
+.about__info-glow {
+  height: 100%;
+}
+
 .about__info-item {
   display: flex;
   flex-direction: column;
   gap: 4px;
   padding: 14px;
-  background: var(--bg-card);
-  border: 1px solid var(--border-strong);
+  background: transparent;
+  border: none;
   border-radius: 10px;
-  transition: all 0.2s;
-}
-.about__info-item:hover {
-  border-color: var(--accent);
-  transform: translateY(-1px);
 }
 
 .about__info-key {
@@ -49,11 +48,15 @@
   font-size: 13px;
   color: var(--text);
 }
+
 .about__info-val--link {
   color: var(--text);
   text-decoration: none;
 }
-.about__info-val--link:hover { color: var(--accent); }
+
+.about__info-val--link:hover {
+  color: var(--accent);
+}
 
 .about__sub-title {
   font-family: var(--font-mono);
@@ -64,7 +67,9 @@
   margin-bottom: 16px;
 }
 
-.about__education { margin-bottom: 36px; }
+.about__education {
+  margin-bottom: 36px;
+}
 
 .about__edu-item {
   display: flex;
@@ -72,7 +77,10 @@
   padding: 16px 0;
   border-bottom: 1px solid var(--border);
 }
-.about__edu-item:last-child { border-bottom: none; }
+
+.about__edu-item:last-child {
+  border-bottom: none;
+}
 
 .about__edu-year {
   font-size: 11px;
@@ -205,8 +213,14 @@
 }
 
 @media (max-width: 768px) {
-  .about__grid { grid-template-columns: 1fr; gap: 40px; }
-  .about__info-grid { grid-template-columns: 1fr; }
+  .about__grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .about__info-grid {
+    grid-template-columns: 1fr;
+  }
 
   .about__architect-row {
     padding: 12px 14px;

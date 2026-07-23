@@ -1,34 +1,26 @@
 import { projects } from "../../data/portfolioData";
 import ProjectCard from "../projects/ProjectCard";
-import { Reveal, RevealGroup, RevealItem, SectionHeader } from "../ui/Reveal";
+import ScrollStack, { ScrollStackItem } from "../ui/ScrollStack";
+import { SectionHeader } from "../ui/Reveal";
 import "./Projects.css";
 
 export default function Projects() {
-  const featured = projects.find((project) => project.featured);
-  const rest = projects.filter((project) => !project.featured);
-
   return (
     <section className="projects" id="projects">
       <div className="container">
         <SectionHeader label="projects" title="Personal Projects" />
+      </div>
 
-        {featured && (
-          <Reveal className="projects__featured" direction="up" delay={0.05} amount={0.12}>
-            <ProjectCard project={featured} featured />
-          </Reveal>
-        )}
-
-        <RevealGroup className="projects__grid" stagger={0.09} delay={0.08} amount={0.1}>
-          {rest.map((project) => (
-            <RevealItem
-              key={project.id}
-              direction="up"
-              className={project.wide ? "projects__wide" : undefined}
-            >
-              <ProjectCard project={project} />
-            </RevealItem>
-          ))}
-        </RevealGroup>
+      <div className="projects__stack">
+        <div className="container">
+          <ScrollStack useWindowScroll itemDistance={140} itemStackDistance={18} stackPosition="12%">
+            {projects.map((project) => (
+              <ScrollStackItem key={project.id}>
+                <ProjectCard project={project} featured={Boolean(project.featured)} />
+              </ScrollStackItem>
+            ))}
+          </ScrollStack>
+        </div>
       </div>
     </section>
   );

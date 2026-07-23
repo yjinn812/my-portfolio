@@ -1,8 +1,16 @@
 import { profile } from "../../data/portfolioData";
+import BorderGlow, { useBorderGlowTheme } from "../ui/BorderGlow";
 import { Reveal, RevealGroup, RevealItem, SectionHeader } from "../ui/Reveal";
 import "./Contact.css";
 
 export default function Contact() {
+  const glow = useBorderGlowTheme({
+    borderRadius: 10,
+    glowRadius: 18,
+    glowIntensity: 0.75,
+    fillOpacity: 0.28,
+  });
+
   return (
     <section className="contact" id="contact">
       <div className="container">
@@ -17,33 +25,49 @@ export default function Contact() {
 
             <RevealGroup className="contact__links" stagger={0.07} delay={0.12}>
               <RevealItem>
-                <a href={`mailto:${profile.email}`} className="contact__link">
-                  <span className="contact__link-icon">✉</span>
-                  <div>
-                    <span className="contact__link-label">Email</span>
-                    <span className="contact__link-value">{profile.email}</span>
-                  </div>
-                </a>
+                <BorderGlow className="contact__link-glow" {...glow}>
+                  <a href={`mailto:${profile.email}`} className="contact__link">
+                    <span className="contact__link-icon">✉</span>
+                    <div>
+                      <span className="contact__link-label">Email</span>
+                      <span className="contact__link-value">{profile.email}</span>
+                    </div>
+                  </a>
+                </BorderGlow>
               </RevealItem>
 
               <RevealItem>
-                <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="contact__link">
-                  <span className="contact__link-icon">in</span>
-                  <div>
-                    <span className="contact__link-label">LinkedIn</span>
-                    <span className="contact__link-value">Connect with me</span>
-                  </div>
-                </a>
+                <BorderGlow className="contact__link-glow" {...glow}>
+                  <a
+                    href={profile.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="contact__link"
+                  >
+                    <span className="contact__link-icon">in</span>
+                    <div>
+                      <span className="contact__link-label">LinkedIn</span>
+                      <span className="contact__link-value">Connect with me</span>
+                    </div>
+                  </a>
+                </BorderGlow>
               </RevealItem>
 
               <RevealItem>
-                <a href={profile.github} target="_blank" rel="noopener noreferrer" className="contact__link">
-                  <span className="contact__link-icon">⌥</span>
-                  <div>
-                    <span className="contact__link-label">GitHub</span>
-                    <span className="contact__link-value">See my code</span>
-                  </div>
-                </a>
+                <BorderGlow className="contact__link-glow" {...glow}>
+                  <a
+                    href={profile.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="contact__link"
+                  >
+                    <span className="contact__link-icon">⌥</span>
+                    <div>
+                      <span className="contact__link-label">GitHub</span>
+                      <span className="contact__link-value">See my code</span>
+                    </div>
+                  </a>
+                </BorderGlow>
               </RevealItem>
 
               <RevealItem>
@@ -60,9 +84,7 @@ export default function Contact() {
 
           <Reveal className="contact__cta-box" direction="right" delay={0.12} amount={0.25}>
             <div className="contact__cta-label">// say hello</div>
-            <h3 className="contact__cta-heading">
-              Let's talk engineering.
-            </h3>
+            <h3 className="contact__cta-heading">Let&apos;s talk engineering.</h3>
             <a href={`mailto:${profile.email}`} className="contact__cta-btn">
               Send me an email →
             </a>

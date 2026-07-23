@@ -46,7 +46,7 @@ function HeroScreen() {
           <span>Work</span>
           <span>Projects</span>
         </div>
-        <span className="pf-nav__theme" title="Light / dark theme">◐</span>
+        <span className="pf-nav__cta">hire me</span>
       </div>
       <div className="pf-hero">
         <div className="pf-hero__copy">
@@ -147,19 +147,19 @@ function ScreenContent({ id }) {
   return null;
 }
 
-export default function PortfolioDemo({ active }) {
+export default function PortfolioDemo({ active, inView = true }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    if (paused) return undefined;
+    if (paused || !inView) return undefined;
 
     const id = window.setInterval(() => {
       setIndex((current) => (current + 1) % SCREENS.length);
     }, active ? 2600 : 3600);
 
     return () => window.clearInterval(id);
-  }, [active, paused]);
+  }, [active, paused, inView]);
 
   const go = (delta) => {
     setPaused(true);

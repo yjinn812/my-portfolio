@@ -136,7 +136,7 @@ export const toolkit = [
   },
   {
     title: "App code & APIs",
-    note: "Services, UIs, and the glue between systems.",
+    note: "Services, UIs, and other tools I've worked with.",
     items: [
       "TypeScript",
       "JavaScript",
@@ -148,7 +148,7 @@ export const toolkit = [
   },
   {
     title: "Delivery & cloud",
-    note: "Getting changes out without the fire drills — including AI-assisted day-to-day.",
+    note: "Release plumbing and cloud basics, plus the AI tools I actually use.",
     items: [
       "AWS",
       "Jenkins",
@@ -242,9 +242,9 @@ export const projects =
     eyebrow: "This site",
     title: "Personal Portfolio Website",
     description:
-      "React + Vite portfolio with Framer Motion reveals, light/dark theme, and interactive project demos — chat sim, API client mock, and iOS screenshot gallery.",
+      "React + Vite portfolio with Framer Motion reveals and interactive project demos — chat sim, API client mock, and iOS screenshot gallery.",
     story:
-      "You're looking at it. Design detail: the hero profile.json terminal plus a theme toggle that keeps Syne + JetBrains Mono readable in both modes.",
+      "You're looking at it. Design detail: the hero profile.json terminal with Syne + JetBrains Mono throughout.",
     tags: ["React", "Vite", "Framer Motion", "CSS", "GitHub Pages"],
     github: null,
     live: "https://www.yujinwong.com",
@@ -252,6 +252,8 @@ export const projects =
   },
   {
     id: 4,
+    wide: true,
+    eyebrow: "In progress",
     title: "[Name - TBC] Roguelite - Card Game RPG",
     description:
       "Card-game designed using inspirations of game play from Slay the Spire, concept/character inspiration from Dungeon and Dragons with progression of MMORPG with inspiration from games like WOW/Lost ARK/Maplestory. Design to have endless scaling/fun and meaningful progression.",

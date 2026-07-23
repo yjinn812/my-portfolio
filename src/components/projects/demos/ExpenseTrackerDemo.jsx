@@ -42,19 +42,19 @@ function Chevron({ dir }) {
   );
 }
 
-export default function ExpenseTrackerDemo({ active }) {
+export default function ExpenseTrackerDemo({ active, inView = true }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    if (paused) return undefined;
+    if (paused || !inView) return undefined;
 
     const id = window.setInterval(() => {
       setIndex((current) => (current + 1) % SCREENS.length);
     }, active ? 2200 : 3200);
 
     return () => window.clearInterval(id);
-  }, [active, paused]);
+  }, [active, paused, inView]);
 
   const go = (delta) => {
     setPaused(true);

@@ -5,19 +5,7 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Yu Jin Wong · Portfolio</title>
-
-    <script>
-      (function () {
-        try {
-          var stored = localStorage.getItem("portfolio-theme");
-          var theme = stored === "light" || stored === "dark" ? stored : "dark";
-          document.documentElement.setAttribute("data-theme", theme);
-          document.documentElement.style.colorScheme = theme;
-        } catch (e) {
-          document.documentElement.setAttribute("data-theme", "dark");
-        }
-      })();
-    </script>
+    <meta name="color-scheme" content="dark" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -32,14 +20,9 @@
         margin: 0;
         min-height: 100%;
         font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-      }
-      html[data-theme="dark"], html:not([data-theme]) {
         background: #080c10;
         color: #e6edf3;
-      }
-      html[data-theme="light"] {
-        background: #eef3f8;
-        color: #101820;
+        color-scheme: dark;
       }
       #root { min-height: 100vh; }
     </style>

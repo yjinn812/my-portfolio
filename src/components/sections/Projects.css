@@ -1,26 +1,31 @@
 .projects {
-  padding: var(--section-pad);
+  padding: var(--section-pad) 0 0;
   border-top: 1px solid var(--border);
 }
 
-.projects__featured {
-  margin-bottom: 28px;
+.projects > .container {
+  margin-bottom: 8px;
 }
 
-.projects__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
+.projects__stack {
+  margin-top: 0;
 }
 
-.projects__wide {
-  grid-column: 1 / -1;
+.projects__stack .scroll-stack-card {
+  overflow: visible;
 }
 
-.projects__grid > * {
-  height: 100%;
+.projects__stack .scroll-stack-card .project-card-glow {
+  margin: 0;
 }
 
-.projects__grid .project-card {
-  height: 100%;
+/* Sticky cards stay composited; avoid permanent will-change on demos */
+.projects__stack .scroll-stack-card--sticky {
+  backface-visibility: hidden;
+}
+
+@media (max-width: 860px) {
+  .projects {
+    padding-bottom: 48px;
+  }
 }

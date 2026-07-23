@@ -1,0 +1,69 @@
+.scroll-stack-scroller {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: visible;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-stack-scroller--window {
+  height: auto;
+  overflow: visible;
+  overscroll-behavior: auto;
+}
+
+.scroll-stack-inner {
+  padding: 8vh 0 20vh;
+  min-height: 100vh;
+}
+
+.scroll-stack-inner--sticky {
+  padding: 2vh 0 18vh;
+  min-height: 0;
+}
+
+.scroll-stack-card {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  box-sizing: border-box;
+  box-shadow: none;
+  height: auto;
+  background: transparent;
+  position: relative;
+  overflow-anchor: none;
+}
+
+.scroll-stack-card--sticky {
+  position: sticky;
+}
+
+.scroll-stack-end {
+  width: 100%;
+  height: 24vh;
+  pointer-events: none;
+}
+
+/* Mobile: cards taller than the viewport — sticky hides copy before you can read it */
+@media (max-width: 860px) {
+  .scroll-stack-inner--sticky {
+    padding: 1vh 0 8vh;
+  }
+
+  .scroll-stack-card--sticky {
+    position: relative;
+    top: auto !important;
+    margin-bottom: 20px !important;
+  }
+
+  .scroll-stack-card--sticky:last-of-type {
+    margin-bottom: 0 !important;
+  }
+
+  .scroll-stack-end {
+    height: 4vh;
+  }
+}

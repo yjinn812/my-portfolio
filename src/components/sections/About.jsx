@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { profile, education, certifications } from "../../data/portfolioData";
+import BorderGlow, { useBorderGlowTheme } from "../ui/BorderGlow";
 import { Reveal, RevealGroup, RevealItem, SectionHeader } from "../ui/Reveal";
 import "./About.css";
 
@@ -22,6 +23,12 @@ function SalesforceMark() {
 
 export default function About() {
   const [showAllCerts, setShowAllCerts] = useState(false);
+  const glow = useBorderGlowTheme({
+    borderRadius: 10,
+    glowRadius: 18,
+    glowIntensity: 0.75,
+    fillOpacity: 0.28,
+  });
 
   return (
     <section className="about" id="about">
@@ -33,20 +40,30 @@ export default function About() {
             <p className="about__summary">{profile.summary}</p>
 
             <div className="about__info-grid">
-              <div className="about__info-item">
-                <span className="about__info-key">location</span>
-                <span className="about__info-val">{profile.location}</span>
-              </div>
-              <div className="about__info-item">
-                <span className="about__info-key">email</span>
-                <a href={`mailto:${profile.email}`} className="about__info-val about__info-val--link">
-                  {profile.email}
-                </a>
-              </div>
-              <div className="about__info-item">
-                <span className="about__info-key">experience</span>
-                <span className="about__info-val">{new Date().getFullYear()-profile.year_start_work}+</span>
-              </div>
+              <BorderGlow className="about__info-glow" {...glow}>
+                <div className="about__info-item">
+                  <span className="about__info-key">location</span>
+                  <span className="about__info-val">{profile.location}</span>
+                </div>
+              </BorderGlow>
+
+              <BorderGlow className="about__info-glow" {...glow}>
+                <div className="about__info-item">
+                  <span className="about__info-key">email</span>
+                  <a href={`mailto:${profile.email}`} className="about__info-val about__info-val--link">
+                    {profile.email}
+                  </a>
+                </div>
+              </BorderGlow>
+
+              <BorderGlow className="about__info-glow" {...glow}>
+                <div className="about__info-item">
+                  <span className="about__info-key">experience</span>
+                  <span className="about__info-val">
+                    {new Date().getFullYear() - profile.year_start_work}+
+                  </span>
+                </div>
+              </BorderGlow>
             </div>
           </Reveal>
 
@@ -73,7 +90,12 @@ export default function About() {
                 </div>
                 <div className="about__architect-row" role="list">
                   {certifications.architectPath.map((cert, index) => (
-                    <span key={cert.short} className="about__architect-chip" role="listitem" title={cert.full}>
+                    <span
+                      key={cert.short}
+                      className="about__architect-chip"
+                      role="listitem"
+                      title={cert.full}
+                    >
                       {index > 0 && <span className="about__architect-plus" aria-hidden>+</span>}
                       <span className="about__architect-name">{cert.short}</span>
                     </span>
@@ -96,7 +118,9 @@ export default function About() {
                   {certifications.all.map((cert) => (
                     <li key={cert.name} className="about__cert-item">
                       <span className="about__cert-issuer">{cert.issuer}</span>
-                      <span className="about__cert-name">{cert.name.replace(/^Salesforce Certified /, "")}</span>
+                      <span className="about__cert-name">
+                        {cert.name.replace(/^Salesforce Certified /, "")}
+                      </span>
                     </li>
                   ))}
                 </ul>

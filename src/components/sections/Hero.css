@@ -31,9 +31,13 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(280px, 1fr) minmax(300px, 1.05fr);
+  /* minmax(0, …) so terminal content can't inflate the visual column */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
   gap: clamp(28px, 5vw, 56px);
   align-items: center;
+  /* Flex parent + margin:auto would otherwise shrink-wrap to the terminal */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .hero__greeting {
@@ -52,6 +56,25 @@
   max-width: 34rem;
 }
 
+.hero__visual {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  align-items: center;
+  justify-items: stretch;
+  justify-self: stretch;
+  align-self: center;
+  min-height: 12rem;
+  width: auto;
+  min-width: 0;
+  max-width: 100%;
+  overflow: visible;
+}
+
+.hero__visual > * {
+  grid-area: 1 / 1;
+}
+
 .hero__name {
   font-family: var(--font-display);
   font-size: clamp(40px, 5.8vw, 76px);
@@ -65,6 +88,7 @@
 
 .hero__name-line {
   display: block;
+  pointer-events: none;
 }
 
 .hero__name-line:first-child {
@@ -110,57 +134,196 @@
   transform: translateY(-1px);
 }
 
-[data-theme="light"] .hero__btn--primary {
-  color: #ffffff;
-}
-
-/* Terminal — primary visual */
-.hero__terminal {
+/* Terminal — primary visual (above hero text so overflow name can't steal clicks) */
+.hero__profile-shell {
+  position: relative;
+  z-index: 2;
   background: var(--bg-card);
   border: 1px solid var(--border-strong);
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
   box-shadow: var(--shadow-md);
   min-width: 0;
+  width: 100%;
+  max-width: min(42rem, 100%);
+  justify-self: stretch;
+  box-sizing: border-box;
+}
+
+.hero__profile-shell--folder {
+  border-style: dashed;
+  cursor: pointer;
+  box-shadow: none;
+  background: color-mix(in srgb, var(--bg-card) 88%, transparent);
+  justify-self: center;
+}
+
+.hero__profile-shell--folder:hover,
+.hero__profile-shell--folder:focus-visible {
+  border-color: var(--accent);
+  background: var(--bg-card);
+  outline: none;
+}
+
+.hero__profile-shell--collapsed .terminal__header {
+  border-bottom-color: transparent;
+}
+
+.hero__profile-face {
+  width: 100%;
+}
+
+.hero__profile-face--folder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.hero__profile-shell--folder .hero__profile-face--folder {
+  pointer-events: auto;
+}
+
+.hero__profile-face--folder svg {
+  width: 36px;
+  height: 36px;
+  color: var(--accent);
+}
+
+.hero__profile-face--terminal {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.hero__profile-shell--folder .hero__profile-face--terminal {
+  pointer-events: none;
 }
 
 .terminal__header {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 12px 16px;
+  gap: 8px;
+  padding: 14px 18px;
   background: var(--bg-2);
   border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.terminal__controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  z-index: 3;
+  isolation: isolate;
 }
 
 .terminal__dot {
+  position: relative;
   width: 12px;
   height: 12px;
   border-radius: 50%;
   flex-shrink: 0;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: transparent;
+  font-size: 0;
+  line-height: 0;
+  outline: none;
+  box-shadow: none;
+  -webkit-tap-highlight-color: transparent;
 }
-.terminal__dot--red    { background: #ff5f57; }
-.terminal__dot--yellow { background: #ffbd2e; }
-.terminal__dot--green  { background: #28c840; }
+
+/* Expand hit target without changing macOS-tight visual spacing */
+.terminal__dot::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+}
+
+.terminal__dot:hover,
+.terminal__dot:active,
+.terminal__dot:focus,
+.terminal__dot:focus-visible {
+  outline: none;
+  box-shadow: none;
+  filter: none;
+  background: transparent;
+}
+
+.terminal__dot::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.terminal__dot--red::after    { background-color: #ff5f57; }
+.terminal__dot--yellow::after { background-color: #ffbd2e; }
+.terminal__dot--green::after  { background-color: #28c840; }
 
 .terminal__title {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--text-muted);
-  margin-left: 8px;
+  margin-left: 4px;
+  pointer-events: none;
 }
 
 .terminal__body {
-  padding: 20px 18px 22px;
-  font-size: 12px;
-  line-height: 1.75;
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  font-size: 14px;
+  line-height: 1.85;
   color: var(--text-muted);
   font-family: var(--font-mono);
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+}
+
+.terminal__body.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.terminal__body-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal__body {
+    transition: none;
+  }
 }
 
 .terminal__json {
   white-space: normal;
+  padding: 26px 24px 30px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .terminal__line {
@@ -186,6 +349,22 @@
 
 .terminal__boolean {
   color: var(--terminal-boolean);
+}
+
+.terminal__comment {
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.terminal__line--open-to {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 2px;
+}
+
+.terminal__open-to-roles {
+  overflow: hidden;
 }
 
 @media (max-width: 900px) {
@@ -225,20 +404,35 @@
   }
 
   /* Keep terminal as the visual on mobile — compact, scrollable */
-  .hero__terminal {
-    display: block;
-    max-height: min(52vh, 420px);
+  .hero__visual {
+    min-height: 0;
+    justify-items: stretch;
+  }
+
+  .hero__profile-shell {
     display: flex;
     flex-direction: column;
+    max-height: min(68vh, 560px);
+    max-width: none;
+    justify-self: stretch;
+  }
+
+  .hero__profile-shell--folder {
+    justify-self: center;
+    max-height: none;
   }
 
   .terminal__body {
-    padding: 14px 14px 16px;
-    font-size: 11px;
-    line-height: 1.65;
-    overflow: auto;
+    font-size: 13px;
+    line-height: 1.75;
     flex: 1;
     min-height: 0;
+  }
+
+  .terminal__json {
+    padding: 18px 18px 20px;
+    overflow: auto;
+    max-height: 100%;
   }
 
   .hero__grid-bg {
@@ -258,10 +452,13 @@
   }
 
   .terminal__body {
-    padding: 16px;
-    font-size: 11px;
-    line-height: 1.65;
-    max-height: min(58vh, 460px);
+    font-size: 13px;
+    line-height: 1.75;
+  }
+
+  .terminal__json {
+    padding: 20px 20px 22px;
+    max-height: min(68vh, 580px);
     overflow: auto;
   }
 }
