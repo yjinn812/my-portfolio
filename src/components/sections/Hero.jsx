@@ -8,20 +8,19 @@ import {
   profileJsonArrayPreview,
   profileJsonItemsPerLine,
 } from "../../data/portfolioData";
+import { easeOut } from "../../lib/motion";
 import "./Hero.css";
 
 const DETAIL_KEYS = new Set(profileJsonDetailKeys);
 const ARRAY_PREVIEW = profileJsonArrayPreview;
 
 /** Symmetric timing: close = BODY then SIZE, open = SIZE then BODY */
-const BODY_MS = 400;
-const SIZE_MS = 420;
-const FACE_MS = 420;
+const BODY_MS = 250;
+const SIZE_MS = 250;
+const FACE_MS = 200;
 const FOLDER_SIZE = 118;
 const HEADER_HEIGHT = 52;
 const CONTENT_SLIDE_X = 64;
-
-const ease = [0.22, 1, 0.36, 1];
 
 function JsonIndent({ level }) {
   if (level <= 0) return null;
@@ -241,8 +240,8 @@ function OpenToEntry({ value, indentLevel, isLast, expanded, reduceMotion }) {
 }
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, transform: "translateY(24px)" },
+  visible: { opacity: 1, transform: "translateY(0px)" },
 };
 
 const fadeName = {
@@ -267,9 +266,9 @@ export default function Hero() {
   );
   const timersRef = useRef([]);
 
-  const transition = reduceMotion || compactLayout ? { duration: 0 } : { duration: 0.55, ease };
-  const sizeMotion = reduceMotion ? { duration: 0 } : { duration: SIZE_MS / 1000, ease };
-  const faceMotion = reduceMotion ? { duration: 0 } : { duration: FACE_MS / 1000, ease };
+  const transition = reduceMotion || compactLayout ? { duration: 0 } : { duration: 0.4, ease: easeOut };
+  const sizeMotion = reduceMotion ? { duration: 0 } : { duration: SIZE_MS / 1000, ease: easeOut };
+  const faceMotion = reduceMotion ? { duration: 0 } : { duration: FACE_MS / 1000, ease: easeOut };
 
   function clearTimers() {
     timersRef.current.forEach((id) => window.clearTimeout(id));
@@ -377,12 +376,16 @@ export default function Hero() {
 
   return (
     <section className="hero" id="hero">
-      <div className="hero__grid-bg" aria-hidden />
       <div className="container hero__inner">
         <motion.div
           className="hero__content"
-          animate={{ x: !compactLayout && isFolder ? CONTENT_SLIDE_X : 0 }}
-          transition={{ x: sizeMotion }}
+          animate={{
+            transform:
+              !compactLayout && isFolder
+                ? `translateX(${CONTENT_SLIDE_X}px)`
+                : "translateX(0px)",
+          }}
+          transition={sizeMotion}
         >
           <motion.div
             initial={reduceMotion || compactLayout ? false : "hidden"}

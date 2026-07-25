@@ -64,7 +64,7 @@ export default function ExpenseTrackerDemo({ active, inView = true }) {
   const screen = SCREENS[index];
 
   return (
-    <div className={`et-demo ${active ? "et-demo--active" : ""}`}>
+    <div className={`et-demo${active ? " et-demo--active" : ""}${inView ? " et-demo--inview" : ""}`}>
       <div className="et-carousel">
         <button
           type="button"

@@ -113,18 +113,23 @@ export default function About() {
                 <span aria-hidden>{showAllCerts ? "−" : "+"}</span>
               </button>
 
-              {showAllCerts && (
-                <ul className="about__cert-list">
-                  {certifications.all.map((cert) => (
-                    <li key={cert.name} className="about__cert-item">
-                      <span className="about__cert-issuer">{cert.issuer}</span>
-                      <span className="about__cert-name">
-                        {cert.name.replace(/^Salesforce Certified /, "")}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              )}
+              <div
+                className={`about__cert-reveal${showAllCerts ? " is-open" : ""}`}
+                aria-hidden={!showAllCerts}
+              >
+                <div className="about__cert-reveal-inner">
+                  <ul className="about__cert-list">
+                    {certifications.all.map((cert) => (
+                      <li key={cert.name} className="about__cert-item">
+                        <span className="about__cert-issuer">{cert.issuer}</span>
+                        <span className="about__cert-name">
+                          {cert.name.replace(/^Salesforce Certified /, "")}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
             </RevealItem>
           </RevealGroup>
         </div>

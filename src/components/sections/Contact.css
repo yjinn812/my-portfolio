@@ -95,14 +95,20 @@
   color: var(--text);
 }
 
+.contact__cta {
+  min-width: 0;
+}
+
 .contact__cta-box {
   background: var(--bg-card);
   border: 1px solid var(--border-strong);
   border-radius: 12px;
   padding: 48px 40px;
   position: relative;
-  overflow: hidden;
+  /* Clip glow orb without clipping heading when Framer transforms the parent */
+  overflow: clip;
   box-shadow: var(--shadow-sm);
+  scroll-margin-top: 96px;
 }
 
 .contact__cta-box::after {
@@ -118,6 +124,8 @@
 }
 
 .contact__cta-label {
+  position: relative;
+  z-index: 1;
   font-family: var(--font-mono);
   font-size: 11px;
   color: var(--accent);
@@ -125,6 +133,8 @@
 }
 
 .contact__cta-heading {
+  position: relative;
+  z-index: 1;
   font-family: var(--font-display);
   font-size: 28px;
   font-weight: 800;
@@ -134,6 +144,8 @@
 }
 
 .contact__cta-copy {
+  position: relative;
+  z-index: 1;
   font-size: 13px;
   color: var(--text-muted);
   line-height: 1.7;
@@ -162,14 +174,33 @@
   text-decoration: none;
   border: 1px solid var(--accent);
   cursor: pointer;
-  transition: all 0.2s;
+  transition:
+    transform 160ms var(--ease-out),
+    filter 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease;
 }
 
-.contact__cta-btn:hover {
+.contact__cta-btn:hover:not(.contact__cta-btn--ghost) {
   filter: brightness(1.08);
   box-shadow: 0 10px 30px var(--accent-dim);
   text-decoration: none;
-  transform: translateY(-2px);
+}
+
+.contact__cta-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .contact__cta-btn:hover:not(.contact__cta-btn--ghost) {
+    transform: translateY(-2px);
+  }
+
+  .contact__cta-btn:hover:active:not(:disabled) {
+    transform: scale(0.97);
+  }
 }
 
 .contact__cta-btn:disabled {
@@ -195,9 +226,16 @@
   color: var(--accent);
   filter: none;
   box-shadow: none;
-  transform: none;
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+.contact__cta-btn--ghost:hover:not(:active) {
+  transform: none;
+}
+
+.contact__cta-btn--ghost:active:not(:disabled) {
+  transform: scale(0.97);
 }
 
 @media (max-width: 768px) {

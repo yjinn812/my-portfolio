@@ -113,7 +113,7 @@
   margin-top: 2px;
 }
 
-.et-demo--active .et-stage {
+.et-demo--active.et-demo--inview .et-stage {
   animation: et-float 3.6s ease-in-out infinite;
 }
 

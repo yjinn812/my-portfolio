@@ -1,4 +1,5 @@
 import { useRef, useCallback, useEffect } from "react";
+import { useReducedMotion } from "framer-motion";
 import "./BorderGlow.css";
 
 export function useBorderGlowTheme(overrides = {}) {
@@ -59,9 +60,6 @@ function buildGradientVars(colors) {
 function easeOutCubic(x) {
   return 1 - Math.pow(1 - x, 3);
 }
-function easeInCubic(x) {
-  return x * x * x;
-}
 
 function animateValue({ start = 0, end = 100, duration = 1000, delay = 0, ease = easeOutCubic, onUpdate, onEnd }) {
   const t0 = performance.now() + delay;
@@ -90,6 +88,8 @@ const BorderGlow = ({
   fillOpacity = 0.5,
 }) => {
   const cardRef = useRef(null);
+  const fxRef = useRef(null);
+  const reduceMotion = useReducedMotion();
 
   const getCenterOfElement = useCallback((el) => {
     const { width, height } = el.getBoundingClientRect();
@@ -126,8 +126,10 @@ const BorderGlow = ({
 
   const handlePointerMove = useCallback(
     (e) => {
+      if (reduceMotion) return;
       const card = cardRef.current;
-      if (!card) return;
+      const fx = fxRef.current;
+      if (!card || !fx) return;
       // Idle cards keep glow layers hidden — skip geometry work while scrolling past
       if (!card.matches(":hover, .sweep-active")) return;
 
@@ -138,27 +140,33 @@ const BorderGlow = ({
       const edge = getEdgeProximity(card, x, y);
       const angle = getCursorAngle(card, x, y);
 
-      card.style.setProperty("--edge-proximity", `${(edge * 100).toFixed(3)}`);
-      card.style.setProperty("--cursor-angle", `${angle.toFixed(3)}deg`);
+      fx.style.setProperty("--edge-proximity", `${(edge * 100).toFixed(3)}`);
+      fx.style.setProperty("--cursor-angle", `${angle.toFixed(3)}deg`);
     },
-    [getEdgeProximity, getCursorAngle]
+    [getEdgeProximity, getCursorAngle, reduceMotion]
   );
 
   useEffect(() => {
-    if (!animated || !cardRef.current) return;
+    if (reduceMotion || !animated || !cardRef.current || !fxRef.current) return;
     const card = cardRef.current;
+    const fx = fxRef.current;
     const angleStart = 110;
     const angleEnd = 465;
     card.classList.add("sweep-active");
-    card.style.setProperty("--cursor-angle", `${angleStart}deg`);
+    fx.style.setProperty("--cursor-angle", `${angleStart}deg`);
+    fx.style.setProperty("--edge-proximity", "0");
 
-    animateValue({ duration: 500, onUpdate: (v) => card.style.setProperty("--edge-proximity", v) });
     animateValue({
-      ease: easeInCubic,
+      duration: 500,
+      onUpdate: (v) => fx.style.setProperty("--edge-proximity", String(v)),
+    });
+    animateValue({
+      ease: easeOutCubic,
       duration: 1500,
       end: 50,
       onUpdate: (v) => {
-        card.style.setProperty("--cursor-angle", `${(angleEnd - angleStart) * (v / 100) + angleStart}deg`);
+        const angle = (angleEnd - angleStart) * (v / 100) + angleStart;
+        fx.style.setProperty("--cursor-angle", `${angle}deg`);
       },
     });
     animateValue({
@@ -168,19 +176,20 @@ const BorderGlow = ({
       start: 50,
       end: 100,
       onUpdate: (v) => {
-        card.style.setProperty("--cursor-angle", `${(angleEnd - angleStart) * (v / 100) + angleStart}deg`);
+        const angle = (angleEnd - angleStart) * (v / 100) + angleStart;
+        fx.style.setProperty("--cursor-angle", `${angle}deg`);
       },
     });
     animateValue({
-      ease: easeInCubic,
+      ease: easeOutCubic,
       delay: 2500,
       duration: 1500,
       start: 100,
       end: 0,
-      onUpdate: (v) => card.style.setProperty("--edge-proximity", v),
+      onUpdate: (v) => fx.style.setProperty("--edge-proximity", String(v)),
       onEnd: () => card.classList.remove("sweep-active"),
     });
-  }, [animated]);
+  }, [animated, reduceMotion]);
 
   const glowVars = buildGlowVars(glowColor, glowIntensity);
 
@@ -200,7 +209,9 @@ const BorderGlow = ({
         ...buildGradientVars(colors),
       }}
     >
-      <span className="edge-light" />
+      <div className="border-glow-fx" ref={fxRef} aria-hidden>
+        <span className="edge-light" />
+      </div>
       <div className="border-glow-inner">{children}</div>
     </div>
   );

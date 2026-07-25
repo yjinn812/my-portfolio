@@ -267,10 +267,12 @@
   height: 4px;
   border-radius: 50%;
   background: var(--cursor-muted);
+}
+.ft-demo--inview .ft-thinking span {
   animation: ftPulse 1s ease-in-out infinite;
 }
-.ft-thinking span:nth-child(2) { animation-delay: 0.12s; }
-.ft-thinking span:nth-child(3) { animation-delay: 0.24s; }
+.ft-demo--inview .ft-thinking span:nth-child(2) { animation-delay: 0.12s; }
+.ft-demo--inview .ft-thinking span:nth-child(3) { animation-delay: 0.24s; }
 .ft-thinking em {
   font-style: normal;
 }
@@ -307,11 +309,37 @@
   font-family: var(--font-mono);
 }
 
+.ft-tool__io {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ft-tool__row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  min-width: 0;
+}
+
+.ft-tool__key {
+  flex-shrink: 0;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cursor-muted);
+  width: 2ch;
+}
+
 .ft-tool code {
   display: block;
   font-size: 10px;
   color: #c8c8c8;
   font-family: var(--font-mono);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .ft-reply {
@@ -391,15 +419,17 @@
 }
 
 .ft-budget__fill {
-  width: 0;
+  width: 100%;
   height: 100%;
   border-radius: inherit;
   background: linear-gradient(90deg, var(--cursor-accent), #9d7bff);
-  transition: width 0.7s ease;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 400ms var(--ease-out);
 }
 
 .ft-demo--active .ft-card--budget.is-in .ft-budget__fill {
-  width: 18.5%;
+  transform: scaleX(0.185);
 }
 
 .ft-card--budget p {
@@ -504,6 +534,6 @@
   }
 
   .ft-demo--active .ft-budget__fill {
-    width: 18.5%;
+    transform: scaleX(0.185);
   }
 }

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState, memo } from "react";
+import { useReducedMotion } from "framer-motion";
 import "./LogoLoop.css";
 
 const ANIMATION_CONFIG = { SMOOTH_TAU: 0.25, MIN_COPIES: 2, COPY_HEADROOM: 2 };
@@ -152,6 +153,7 @@ export const LogoLoop = memo(
     const containerRef = useRef(null);
     const trackRef = useRef(null);
     const seqRef = useRef(null);
+    const reduceMotion = useReducedMotion();
 
     const [seqWidth, setSeqWidth] = useState(0);
     const [seqHeight, setSeqHeight] = useState(0);
@@ -233,7 +235,7 @@ export const LogoLoop = memo(
       return () => document.removeEventListener("visibilitychange", onVisibility);
     }, []);
 
-    const isActive = isInView && pageVisible;
+    const isActive = isInView && pageVisible && !reduceMotion;
 
     useAnimationLoop(
       trackRef,

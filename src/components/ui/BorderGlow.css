@@ -1,6 +1,4 @@
 .border-glow-card {
-  --edge-proximity: 0;
-  --cursor-angle: 45deg;
   --edge-sensitivity: 30;
   --color-sensitivity: calc(var(--edge-sensitivity) + 20);
   --border-radius: 28px;
@@ -19,25 +17,36 @@
   height: 100%;
 }
 
-.border-glow-card::before,
-.border-glow-card::after,
-.border-glow-card > .edge-light {
+/* Painted glow subtree — pointer/sweep vars are set here, not on the card */
+.border-glow-fx {
+  --edge-proximity: 0;
+  --cursor-angle: 45deg;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.border-glow-fx::before,
+.border-glow-fx::after,
+.border-glow-fx > .edge-light {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  transition: opacity 0.25s ease-out;
+  transition: opacity 0.25s var(--ease-out, ease-out);
   z-index: -1;
 }
 
 /* Idle: fully drop glow layers from paint (opacity:0 still composites masks) */
-.border-glow-card:not(:hover):not(.sweep-active)::before,
-.border-glow-card:not(:hover):not(.sweep-active)::after,
-.border-glow-card:not(:hover):not(.sweep-active) > .edge-light {
+.border-glow-card:not(:hover):not(.sweep-active) .border-glow-fx::before,
+.border-glow-card:not(:hover):not(.sweep-active) .border-glow-fx::after,
+.border-glow-card:not(:hover):not(.sweep-active) .border-glow-fx > .edge-light {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.75s ease-in-out, visibility 0.75s ease-in-out;
+  transition: opacity 0.75s var(--ease-in-out, ease-in-out), visibility 0.75s var(--ease-in-out, ease-in-out);
 }
 
 .border-glow-card:hover,
@@ -45,13 +54,13 @@
   transform: translateZ(0);
 }
 
-.border-glow-card:is(:hover, .sweep-active)::before,
-.border-glow-card:is(:hover, .sweep-active)::after,
-.border-glow-card:is(:hover, .sweep-active) > .edge-light {
+.border-glow-card:is(:hover, .sweep-active) .border-glow-fx::before,
+.border-glow-card:is(:hover, .sweep-active) .border-glow-fx::after,
+.border-glow-card:is(:hover, .sweep-active) .border-glow-fx > .edge-light {
   visibility: visible;
 }
 
-.border-glow-card::before {
+.border-glow-fx::before {
   border: 1px solid transparent;
   background:
     linear-gradient(var(--card-bg, #120f17) 0 100%) padding-box,
@@ -76,7 +85,7 @@
   );
 }
 
-.border-glow-card::after {
+.border-glow-fx::after {
   border: 1px solid transparent;
   background:
     var(--gradient-one) padding-box,
@@ -104,7 +113,7 @@
   mix-blend-mode: soft-light;
 }
 
-.border-glow-card > .edge-light {
+.border-glow-fx > .edge-light {
   inset: calc(var(--glow-padding) * -1);
   pointer-events: none;
   z-index: 1;
@@ -121,7 +130,7 @@
   mix-blend-mode: plus-lighter;
 }
 
-.border-glow-card > .edge-light::before {
+.border-glow-fx > .edge-light::before {
   content: "";
   position: absolute;
   inset: var(--glow-padding);
@@ -150,4 +159,13 @@
   z-index: 1;
   height: 100%;
   border-radius: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .border-glow-card .border-glow-fx::before,
+  .border-glow-card .border-glow-fx::after,
+  .border-glow-card .border-glow-fx > .edge-light {
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
 }

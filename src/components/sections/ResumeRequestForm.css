@@ -1,3 +1,7 @@
+.resume-form-root {
+  width: 100%;
+}
+
 .resume-form {
   display: flex;
   flex-direction: column;
@@ -102,4 +106,63 @@
 
 .resume-form__status--err {
   color: #ff8f70;
+}
+
+/* Mount enter — form open / success (GPU: opacity + transform) */
+.resume-form__enter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.resume-form__enter--form {
+  transition:
+    opacity 220ms var(--ease-out),
+    transform 220ms var(--ease-out);
+}
+
+.resume-form__enter--success {
+  transition:
+    opacity 200ms var(--ease-out),
+    transform 200ms var(--ease-out);
+}
+
+.resume-form__enter--closed {
+  transition:
+    opacity 220ms var(--ease-out),
+    transform 220ms var(--ease-out);
+}
+
+@starting-style {
+  .resume-form__enter--form {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  .resume-form__enter--success {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  .resume-form__enter--closed {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .resume-form__enter--form,
+  .resume-form__enter--success,
+  .resume-form__enter--closed {
+    transition: opacity 200ms ease;
+    transform: none;
+  }
+
+  @starting-style {
+    .resume-form__enter--form,
+    .resume-form__enter--success,
+    .resume-form__enter--closed {
+      opacity: 0;
+      transform: none;
+    }
+  }
 }

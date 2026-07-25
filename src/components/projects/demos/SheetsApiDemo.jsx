@@ -19,13 +19,14 @@ const BODY_LINES = [
   '}',
 ];
 
-export default function SheetsApiDemo({ active }) {
+export default function SheetsApiDemo({ active, inView = true }) {
   const [step, setStep] = useState(0);
   const [runId, setRunId] = useState(0);
   const [visibleLines, setVisibleLines] = useState(0);
+  const live = active && inView;
 
   useEffect(() => {
-    if (!active) {
+    if (!live) {
       setStep(0);
       setVisibleLines(0);
       return undefined;
@@ -47,22 +48,26 @@ export default function SheetsApiDemo({ active }) {
       timers.forEach(clearTimeout);
       lineTimers.forEach(clearTimeout);
     };
-  }, [active]);
+  }, [live]);
 
   const show = (id) => {
     const index = STEPS.findIndex((item) => item.id === id);
-    return active && step > index;
+    return live && step > index;
   };
 
   return (
-    <div className={`sheets-demo ${active ? "sheets-demo--active" : ""}`} key={runId} aria-hidden={!active}>
+    <div
+      className={`sheets-demo${live ? " sheets-demo--active" : ""}${inView ? " sheets-demo--inview" : ""}`}
+      key={runId}
+      aria-hidden={!active}
+    >
       <div className="sheets-desk">
         <div className="sheets-window">
           <div className="sheets-window__chrome">
             <div className="sheets-window__traffic">
               <span /><span /><span />
             </div>
-            <div className="sheets-window__title">POST · Insert Sheet Rows — API Client</div>
+            <div className="sheets-window__title">POST · Insert Sheet Rows · API Client</div>
           </div>
 
           <div className="sheets-app">

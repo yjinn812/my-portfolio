@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { easeOut } from "../../lib/motion";
 import "./Navbar.css";
 
 const navLinks = [
   { label: "about", href: "#about" },
-  { label: "experience", href: "#experience" },
+  { label: "work", href: "#experience" },
   { label: "projects", href: "#projects" },
   { label: "skills", href: "#skills" },
   { label: "contact", href: "#contact" },
 ];
-
-const ease = [0.22, 1, 0.36, 1];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -49,9 +48,9 @@ export default function Navbar() {
   return (
     <motion.nav
       className={`navbar ${scrolled ? "navbar--scrolled" : ""}`}
-      initial={reduceMotion ? false : { opacity: 0, y: -12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={reduceMotion ? { duration: 0 } : { duration: 0.45, ease }}
+      initial={reduceMotion ? false : { opacity: 0, transform: "translateY(-12px)" }}
+      animate={{ opacity: 1, transform: "translateY(0px)" }}
+      transition={reduceMotion ? { duration: 0 } : { duration: 0.4, ease: easeOut }}
     >
       <div className="navbar__inner container">
         <a href="#hero" className="navbar__logo">
@@ -68,12 +67,12 @@ export default function Navbar() {
             {navLinks.map((link, i) => (
               <motion.li
                 key={link.label}
-                initial={reduceMotion ? false : { opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={reduceMotion ? false : { opacity: 0, transform: "translateY(-8px)" }}
+                animate={{ opacity: 1, transform: "translateY(0px)" }}
                 transition={
                   reduceMotion
                     ? { duration: 0 }
-                    : { duration: 0.35, delay: 0.08 + i * 0.05, ease }
+                    : { duration: 0.35, delay: 0.08 + i * 0.05, ease: easeOut }
                 }
               >
                 <a
@@ -88,12 +87,12 @@ export default function Navbar() {
             ))}
             <motion.li
               className="navbar__cta-group"
-              initial={reduceMotion ? false : { opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={reduceMotion ? false : { opacity: 0, transform: "translateY(-8px)" }}
+              animate={{ opacity: 1, transform: "translateY(0px)" }}
               transition={
                 reduceMotion
                   ? { duration: 0 }
-                  : { duration: 0.35, delay: 0.08 + navLinks.length * 0.05, ease }
+                  : { duration: 0.35, delay: 0.08 + navLinks.length * 0.05, ease: easeOut }
               }
             >
               <a href="mailto:wongyj812@gmail.com" className="navbar__cta">

@@ -10,12 +10,13 @@ const STEPS = [
   { id: "budget", at: 4500 },
 ];
 
-export default function FoodTrackerDemo({ active }) {
+export default function FoodTrackerDemo({ active, inView = true }) {
   const [step, setStep] = useState(0);
   const [runId, setRunId] = useState(0);
+  const live = active && inView;
 
   useEffect(() => {
-    if (!active) {
+    if (!live) {
       setStep(0);
       return undefined;
     }
@@ -28,15 +29,19 @@ export default function FoodTrackerDemo({ active }) {
     );
 
     return () => timers.forEach(clearTimeout);
-  }, [active]);
+  }, [live]);
 
   const show = (id) => {
     const index = STEPS.findIndex((item) => item.id === id);
-    return active && step > index;
+    return live && step > index;
   };
 
   return (
-    <div className={`ft-demo ${active ? "ft-demo--active" : ""}`} key={runId} aria-hidden={!active}>
+    <div
+      className={`ft-demo${live ? " ft-demo--active" : ""}${inView ? " ft-demo--inview" : ""}`}
+      key={runId}
+      aria-hidden={!active}
+    >
       <div className="ft-phone">
         <div className="ft-phone__bezel">
           <div className="ft-phone__island" />
@@ -69,7 +74,7 @@ export default function FoodTrackerDemo({ active }) {
                     <span className="ft-msg__agent-dot" />
                     Agent
                   </div>
-                  <p>Ready when you are — log a meal in plain English.</p>
+                  <p>Ready when you are. Log a meal in plain English.</p>
                 </div>
               )}
 
@@ -95,7 +100,16 @@ export default function FoodTrackerDemo({ active }) {
                     <span>Called MCP tool</span>
                     <span className="ft-tool__name">firestore.write</span>
                   </div>
-                  <code>meals / breakfast · Australia/Sydney</code>
+                  <div className="ft-tool__io">
+                    <div className="ft-tool__row">
+                      <span className="ft-tool__key">in</span>
+                      <code>meals / breakfast</code>
+                    </div>
+                    <div className="ft-tool__row">
+                      <span className="ft-tool__key">out</span>
+                      <code>{`{ ok: true, id: "meal_0821", kcal: 412 }`}</code>
+                    </div>
+                  </div>
                 </div>
 
                 <div className={`ft-reply ${show("reply") ? "is-in" : ""}`}>
@@ -121,7 +135,7 @@ export default function FoodTrackerDemo({ active }) {
                   <div className="ft-budget__bar">
                     <div className="ft-budget__fill" />
                   </div>
-                  <p>10.6g remaining — still within cholesterol target.</p>
+                  <p>10.6g remaining, still within cholesterol target.</p>
                 </div>
               </div>
             </div>

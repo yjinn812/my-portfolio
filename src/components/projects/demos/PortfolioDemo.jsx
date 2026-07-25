@@ -17,7 +17,7 @@ const SCREENS = [
   {
     id: "projects",
     label: "Projects",
-    caption: "Interactive demos — chat, API client, iOS gallery",
+    caption: "Interactive demos: chat, API client, iOS gallery",
     url: "www.yujinwong.com/#projects",
   },
 ];
@@ -108,7 +108,7 @@ function ExperienceScreen() {
           <p className="pf-exp__period">Oct 2024 – Present</p>
           <ul className="pf-exp__list">
             <li>Technical direction across 13,000+ user CRM</li>
-            <li>CI/CD overhaul — 10–30 min setup saved</li>
+            <li>CI/CD overhaul: 10–30 min setup saved</li>
             <li>400% record processing improvement</li>
           </ul>
         </div>
@@ -169,7 +169,7 @@ export default function PortfolioDemo({ active, inView = true }) {
   const screen = SCREENS[index];
 
   return (
-    <div className={`pf-demo ${active ? "pf-demo--active" : ""}`}>
+    <div className={`pf-demo${active ? " pf-demo--active" : ""}${inView ? " pf-demo--inview" : ""}`}>
       <div className="pf-carousel">
         <button
           type="button"

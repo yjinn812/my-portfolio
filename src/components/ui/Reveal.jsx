@@ -1,14 +1,28 @@
 import { motion, useReducedMotion } from "framer-motion";
-
-const ease = [0.22, 1, 0.36, 1];
+import { easeOut } from "../../lib/motion";
 
 const presets = {
-  up: { hidden: { opacity: 0, y: 28 }, visible: { opacity: 1, y: 0 } },
-  down: { hidden: { opacity: 0, y: -16 }, visible: { opacity: 1, y: 0 } },
-  left: { hidden: { opacity: 0, x: -28 }, visible: { opacity: 1, x: 0 } },
-  right: { hidden: { opacity: 0, x: 28 }, visible: { opacity: 1, x: 0 } },
+  up: {
+    hidden: { opacity: 0, transform: "translateY(28px)" },
+    visible: { opacity: 1, transform: "translateY(0px)" },
+  },
+  down: {
+    hidden: { opacity: 0, transform: "translateY(-16px)" },
+    visible: { opacity: 1, transform: "translateY(0px)" },
+  },
+  left: {
+    hidden: { opacity: 0, transform: "translateX(-28px)" },
+    visible: { opacity: 1, transform: "translateX(0px)" },
+  },
+  right: {
+    hidden: { opacity: 0, transform: "translateX(28px)" },
+    visible: { opacity: 1, transform: "translateX(0px)" },
+  },
   fade: { hidden: { opacity: 0 }, visible: { opacity: 1 } },
-  scale: { hidden: { opacity: 0, scale: 0.96 }, visible: { opacity: 1, scale: 1 } },
+  scale: {
+    hidden: { opacity: 0, transform: "scale(0.96)" },
+    visible: { opacity: 1, transform: "scale(1)" },
+  },
 };
 
 export function Reveal({
@@ -16,7 +30,7 @@ export function Reveal({
   as = "div",
   direction = "up",
   delay = 0,
-  duration = 0.55,
+  duration = 0.4,
   className,
   once = true,
   amount = 0.2,
@@ -44,7 +58,7 @@ export function Reveal({
       whileInView="visible"
       viewport={{ once, amount }}
       variants={variant}
-      transition={{ duration, delay, ease }}
+      transition={{ duration, delay, ease: easeOut }}
       {...rest}
     >
       {children}
@@ -100,7 +114,7 @@ export function RevealItem({
   as = "div",
   direction = "up",
   className,
-  duration = 0.5,
+  duration = 0.4,
   style,
   ...rest
 }) {
@@ -122,7 +136,7 @@ export function RevealItem({
       className={className}
       style={style}
       variants={variant}
-      transition={{ duration, ease }}
+      transition={{ duration, ease: easeOut }}
       {...rest}
     >
       {children}
@@ -133,10 +147,10 @@ export function RevealItem({
 export function SectionHeader({ label, title }) {
   return (
     <>
-      <Reveal as="p" className="section-label" direction="fade" duration={0.45}>
+      <Reveal as="p" className="section-label" direction="fade" duration={0.35}>
         {label}
       </Reveal>
-      <Reveal as="h2" className="section-title" delay={0.06} duration={0.55}>
+      <Reveal as="h2" className="section-title" delay={0.06} duration={0.4}>
         {title}
       </Reveal>
     </>

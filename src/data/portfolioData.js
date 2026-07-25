@@ -10,7 +10,7 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/yu-jin-wong/",
   github: "https://github.com/yjinn812",
   summary:
-  "I'm a Lead Engineer who's spent 7+ years at the intersection of product, infrastructure, and people. At NAB, I've led large-scale CRM transformations, modernised CI/CD pipelines, and built the kind of full-stack systems that banking staff rely on daily. I bring strong opinions on architecture, a bias toward delivery, and a habit of mentoring engineers who want to grow. Outside the enterprise world, I build side projects in React and TypeScript — because good engineering is also something you do for fun."
+  "I'm a Lead Engineer who's spent 7+ years at the intersection of product, infrastructure, and people. At NAB, I've led large-scale CRM transformations, modernised CI/CD pipelines, and built the kind of full-stack systems that banking staff rely on daily. I bring strong opinions on architecture, a bias toward delivery, and a habit of mentoring engineers who want to grow. Outside the enterprise world, I build side projects in React and TypeScript, because good engineering is also something you do for fun."
 };
 
 /** Hero terminal JSON — full lists; preview/detail rules control what shows before green expand. */
@@ -30,6 +30,7 @@ export const profileJsonData = {
   industry: ["Banking", "Insurance", "Telecom"],
   strengths: [
     "Technical Design",
+    "Web UI Design",
     "Stakeholder Management",
     "Code Review",
     "Mentoring",
@@ -60,7 +61,7 @@ export const profileJsonData = {
   impacts: {
     users_scaled: "3,000 -> 13,000",
     processing_gain: "4x",
-    setup_time_saved: "10-30 min",
+    setup_time_saved: "30 minutes",
   },
   open_to: {
     status: true,
@@ -88,34 +89,34 @@ export const profileJsonItemsPerLine = {
 export const impactMetrics = [
   {
     value: "3k → 13k",
-    label: "Bankers on the CRM platform",
-    detail: "Scaled live users across Personal, Business & Corporate",
+    label: "Users on the CRM platform",
+    detail: "Scaled live users across multiple business domains",
   },
   {
     value: "4×",
-    label: "Faster record processing",
-    detail: "Trigger handler architecture overhaul",
+    label: "Record processing speedup",
+    detail: "Trigger Automation handler architecture overhaul",
   },
   {
-    value: "10–30 min",
-    label: "Saved per developer setup",
-    detail: "CI/CD pipeline overhaul",
+    value: "30 min",
+    label: "Setup time saved per developer",
+    detail: "CI/CD pipeline overhaul & improvements",
   },
 ];
 
 export const featuredCaseStudies = [
   {
-    id: "conga-ccom",
-    shortLabel: "Conga → CCOM",
+    id: "saas-conversion",
+    shortLabel: "SaaS conversion",
     eyebrow: "Featured case study · NAB",
-    title: "Conga mail merge → CCOM in one month",
+    title: "One-month SaaS conversion under a security deadline",
     context: "Lead Engineer · legacy Salesforce instance",
     problem:
-      "A critical AppExchange mail-merge dependency (Conga) surfaced third-party security vulnerabilities. The bank needed it off the platform fast — on an unfamiliar legacy Salesforce org I hadn’t worked in before.",
+      "A critical third-party SaaS dependency needed to leave the platform on a hard security timeline. Delivery had to land in a month, on a legacy Salesforce org I hadn’t worked in before.",
     did:
-      "Designed and shipped a CCOM-based replacement end-to-end: mapped merge behaviour, rebuilt the generation path without Conga, and coordinated cutover with stakeholders under a hard one-month window.",
+      "Owned the conversion end-to-end: ramped up on the legacy org, mapped existing behaviour, designed and shipped the new path, and coordinated cutover with stakeholders under a fixed one-month window.",
     result:
-      "Removed the vulnerable third-party package from the critical path, restored a supported first-party mail capability, and delivered on schedule without regressing banker workflows.",
+      "Cleared the security risk on schedule, kept banker workflows intact, and moved the capability onto a supported platform path.",
   },
   {
     id: "ai-adoption",
@@ -124,72 +125,12 @@ export const featuredCaseStudies = [
     title: "AI-assisted development across the engineering org",
     context: "Lead Engineer · Cursor POCs, guidelines & workshops",
     problem:
-      "AI tooling was showing up unevenly across delivery. Leadership wanted a credible path — productivity upside without ignoring legal, IP, and quality risk in a regulated banking environment.",
+      "AI tooling was showing up unevenly across delivery. Leadership wanted a credible path that captured productivity upside without ignoring legal, IP, and quality risk in a regulated banking environment.",
     did:
-      "Ran Cursor POCs, wrote adoption guidelines (including legal considerations), and presented estimated productivity gains to executives and the wider engineering team. Ran prompt-engineering workshops across the full SDLC — solution architecture, development, testing, and documentation.",
+      "Ran Cursor POCs, wrote adoption guidelines (including legal considerations), and presented estimated productivity gains to executives and the wider engineering team. Ran prompt-engineering workshops across the full SDLC: solution architecture, development, testing, and documentation.",
     result:
-      "Gave the org a shared playbook for responsible AI use, aligned leadership on expected gains, and equipped teams to apply prompting practices across design, build, test, and docs — not just autocomplete.",
+      "Gave the squad a shared playbook for responsible AI use, aligned leadership on expected gains, and equipped teams to apply prompting practices across design, build, test, and docs, not just autocomplete.",
   },
-];
-
-export const experience = [
-  {
-    "id": 1,
-    "company": "National Australia Bank",
-    "role": "Lead Engineer",
-    "period": "October 2024 – Present",
-    "summary":"Lead Engineer in NAB's enterprise CRM engineering squad, accountable for architecture decisions, delivery quality, and engineering capability across a 13,000+ user platform spanning Personal, Corporate, and Business Banking.",
-    "highlights": [
-      "Provided technical direction and design governance to senior developers on feature delivery, platform architecture, and clean/reusable code standards.",
-      "Led pull request reviews and technical design alignment forums; accountable for technical quality and sprint velocity across the onshore-offshore delivery model. Up-skilled senior engineers on PR reviews and peer reviews to improve velocity on delivery without lowering quality of code.",
-      "Acted as technical SME for monthly production deployments, providing rapid resolution of post-deployment issues and maintaining platform stability across release cycles.",
-      "Championed AI-assisted development — Cursor POCs, adoption guidelines, and SDLC prompt workshops (see case study).",
-      "Replaced Conga mail merge (AppExchange) with a CCOM-based solution within one month on an unfamiliar legacy Salesforce instance — driven by third-party security vulnerabilities.",
-      "Led migration of ~20% of Corporate & Institutional Banking users from Salesforce Classic to the enterprise CRM platform.",
-      "Overhauled CI/CD pipeline saving 10–30 minutes per developer setup; refactored trigger handler architecture achieving a 400% improvement in record processing speed."
-    ]
-  },
-  {
-    "id": 2,
-    "company": "National Australia Bank",
-    "role": "Senior Analyst Engineer / Technical Product Owner",
-    "period": "May 2022 – October 2024",
-    "summary": "Key full-stack contributor to NAB's Salesforce expansion from 3,000 to 13,000 live bankers, acting as defacto solution architect on flagship initiatives including APRA-regulated compliance frameworks and a major legacy CRM migration.",
-    "highlights": [
-      "Acted as defacto solution architect for the Customer Conversation Framework — designed the FSC Interactions-based solution, presented to the Security Architect Review Board and business/delivery stakeholders to obtain implementation approval; scaled across all Personal, Business, and Corporate Banking divisions in compliance with APRA requirements.",
-      "Led the Salesforce side of NAB Personal Banking's Siebel-to-Salesforce migration — data migration, lead management, and a multi-API service connecting Salesforce to originating legacy systems.",
-      "Resolved a major production outage on the appointment booking system — diagnosed a Salesforce backend Outlook calendar batch syncing bottleneck and implemented a targeted fix that restored service ahead of the automated cycle.",
-      "Architected a high-performance multi-page LWC framework to standardize component patterns across multiple user personas for 13,000+ bankers.",
-      "Resolved high-severity production incidents involving Salesforce and Microsoft SaaS products, providing technical guidance across vendor teams.",
-      "Continued in a dual capacity as Technical Product Owner through April 2023, applying hands-on stakeholder management and sprint planning expertise to bridge the gap between business priorities and engineering delivery.",
-    ]
-  },
-  {
-    "id": 3,
-    "company": "National Australia Bank",
-    "role": "Technical Product Owner / Analyst Engineer",
-    "period": "April 2021 – April 2022",
-    "summary": "Wore two hats as both Technical Product Owner and DevOps engineer within NAB's BAU team — balancing sprint delivery and release governance with hands-on CI/CD infrastructure ownership and complex production incident resolution.",
-    "highlights": [
-      "Scoped and delivered BAU Salesforce enhancements in collaboration with Product Managers, CRM Consultants, Business Managers, and end users.",
-      "Worked with Engineering Managers on monthly release scoping and planning.",
-      "In-charge of sprint planning for upcoming Salesforce-related enhancement and fix work.",
-      "Maintained CI/CD infrastructure (AWS, Jenkins, Docker, GitHub); improved resilience of batch jobs with enhanced retry, logging, and alerting.",
-      "Triaged and resolved a complex multi-system customer data sync issue across NAB's data pipeline (on-prem → Kafka → Oracle → Salesforce via AWS Lambda), coordinating a production data fix across multiple teams."
-    ]
-  },
-  {
-    "id": 4,
-    "company": "Appirio / Wipro",
-    "role": "Graduate Software Engineer",
-    "period": "September 2019 – April 2021",
-    "summary": "Rotated across three enterprise Salesforce engagements — Resolution Life, Telstra, and AMP Capital — delivering component migrations, call center flow architecture, and a pre-sales POC that outperformed the competing team's demo.",
-    "highlights": [
-      "Resolution Life (AMP Life Divestiture): Migrated approximately 40+ Aura components to a new Salesforce org under tight timelines. Designed an application log framework using a Singleton pattern to reliably capture errors while avoiding heap size and platform limit issues. Provided insights on security model design to solution architects and business analysts.",
-      "Telstra: Investigated technical limits and architectural trade-offs of Salesforce Flows for the technical architect, providing a detailed recommended solution. Maintained and introduced new call center flows within a complex multi-flow architecture.",
-      "AMP Capital: Led a pre-sales graduate team of 5 to build and present a property management calendar app POC for Salesforce homepages. Challenged the original UX design by applying SLDS patterns and standard LWC components, delivering a cleaner solution than the competing team."
-    ]
-  }
 ];
 
 export const toolkit = [
@@ -216,6 +157,18 @@ export const toolkit = [
       "Node.js",
       "Express",
       "REST APIs",
+    ],
+  },
+  {
+    title: "Web UI & design",
+    note: "Layout, polish, and motion I own in the browser.",
+    items: [
+      "Responsive layout",
+      "CSS / design tokens",
+      "Typography",
+      "Framer Motion",
+      "Interactive demos",
+      "Vite",
     ],
   },
   {
@@ -275,7 +228,7 @@ export const projects =
     description:
       "Personal nutrition logger where conversational AI and photo estimates write structured meals/products to Cloud Firestore via MCP, against a daily nutritional budget. Control plane: agent playbooks, locked-down security rules, and CLI seed/query/export.",
     story:
-      "Describe breakfast in plain English — the agent estimates macros, writes a Firestore meal doc, and returns what's left on the daily sat-fat budget.",
+      "Describe breakfast in plain English. The agent estimates macros, writes a Firestore meal doc, and returns what's left on the daily sat-fat budget.",
     tags: ["Firestore", "Firebase MCP", "AI Agents", "Node.js", "Cursor"],
     github: "https://github.com/yjinn812/foodtracking-cursor",
     live: null,
@@ -288,7 +241,7 @@ export const projects =
     description:
       "Microservice to insert data into specific google sheets.",
     story:
-      "Hit POST /sheets/append with a typed payload — the service handles Google OAuth and writes the row into the target spreadsheet range.",
+      "Hit POST /sheets/append with a typed payload. The service handles Google OAuth and writes the row into the target spreadsheet range.",
     tags: ["Google APIs", "OAuth2.0", "Microservice", "Typescript", "ExpressJS", "Zod", "NodeJS"],
     github: "https://github.com/yjinn812/google-microservice",
     live: null,
@@ -300,9 +253,9 @@ export const projects =
     eyebrow: "iOS app",
     title: "Expense Tracker / Splitter iOS App",
     description:
-      "Native Swift app for trip expenses — multi-currency totals, category breakdowns, and fair splits across travelers, with Google Sheets as the analytics backend.",
+      "Native Swift app for trip expenses with multi-currency totals, category breakdowns, and fair splits across travelers, with Google Sheets as the analytics backend.",
     story:
-      "Log a ramen night in JPY, see AUD totals update, and know who paid vs who owes — then push rows into Sheets for budget planning.",
+      "Log a ramen night in JPY, see AUD totals update, and know who paid vs who owes, then push rows into Sheets for budget planning.",
     tags: ["Swift", "Xcode", "Google Sheets", "iOS"],
     github: null,
     live: null,
@@ -311,13 +264,13 @@ export const projects =
   {
     id: 3,
     wide: true,
-    eyebrow: "This site",
+    eyebrow: "This site · design + build",
     title: "Personal Portfolio Website",
     description:
-      "React + Vite portfolio with Framer Motion reveals and interactive project demos — chat sim, API client mock, and iOS screenshot gallery.",
+      "Designed and built end-to-end: composition, typography, motion, and interactive demos that show the work instead of only listing it.",
     story:
-      "You're looking at it. Design detail: the hero profile.json terminal with Syne + JetBrains Mono throughout.",
-    tags: ["React", "Vite", "Framer Motion", "CSS", "GitHub Pages"],
+      "You're looking at the proof. Custom terminal hero, scroll-stacked projects, and a reactive line grid under the page.",
+    tags: ["UI Design", "React", "Vite", "Framer Motion", "CSS"],
     github: null,
     live: "https://www.yujinwong.com",
     demo: "portfolio-browser",

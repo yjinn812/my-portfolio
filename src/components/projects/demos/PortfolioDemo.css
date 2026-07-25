@@ -478,7 +478,7 @@
   margin-top: 2px;
 }
 
-.pf-demo--active .pf-browser {
+.pf-demo--active.pf-demo--inview .pf-browser {
   animation: pf-glow 3.6s ease-in-out infinite;
 }
 

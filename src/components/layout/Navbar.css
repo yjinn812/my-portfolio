@@ -3,7 +3,10 @@
   top: 0; left: 0; right: 0;
   z-index: 100;
   padding: 18px 0;
-  transition: all 0.3s ease;
+  transition:
+    background-color 200ms ease,
+    box-shadow 200ms ease,
+    border-color 200ms ease;
 }
 
 @media (max-width: 960px) {
@@ -75,12 +78,19 @@
   position: absolute;
   left: 0;
   bottom: -4px;
-  width: 0;
+  width: 100%;
   height: 1px;
   background: var(--accent);
-  transition: width 0.2s ease;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 160ms var(--ease-out);
 }
-.navbar__link:hover::after { width: 100%; }
+
+@media (hover: hover) and (pointer: fine) {
+  .navbar__link:hover::after {
+    transform: scaleX(1);
+  }
+}
 
 .navbar__link-num {
   color: var(--accent);
@@ -100,12 +110,27 @@
   text-decoration: none;
   white-space: nowrap;
   flex-shrink: 0;
-  transition: all 0.2s;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 160ms ease;
 }
 .navbar__cta:hover {
   background: var(--accent-dim);
-  transform: translateY(-1px);
   text-decoration: none;
+}
+
+.navbar__cta:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .navbar__cta:hover {
+    transform: translateY(-1px);
+  }
+
+  .navbar__cta:hover:active {
+    transform: scale(0.97);
+  }
 }
 
 .navbar__cta-group {
@@ -130,7 +155,9 @@
   height: 2px;
   background: var(--text);
   border-radius: 2px;
-  transition: all 0.3s;
+  transition:
+    transform 200ms var(--ease-out),
+    opacity 160ms ease;
 }
 
 @media (max-width: 960px) {
@@ -138,7 +165,8 @@
 
   .navbar__links {
     position: fixed;
-    top: 0; right: -100%;
+    top: 0;
+    right: 0;
     height: 100vh;
     width: 260px;
     background: var(--bg-2);
@@ -147,11 +175,27 @@
     justify-content: center;
     gap: 28px;
     padding: 40px;
-    transition: right 0.3s ease;
+    transform: translateX(100%);
+    transition: transform 250ms var(--ease-drawer);
   }
-  .navbar__links--open { right: 0; }
+  .navbar__links--open { transform: translateX(0); }
 
   .navbar__burger--open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .navbar__burger--open span:nth-child(2) { opacity: 0; }
   .navbar__burger--open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar,
+  .navbar__cta,
+  .navbar__burger span,
+  .navbar__link::after {
+    transition: none;
+  }
+
+  @media (max-width: 960px) {
+    .navbar__links {
+      transition: none;
+    }
+  }
 }

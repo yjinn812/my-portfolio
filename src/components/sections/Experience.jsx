@@ -1,80 +1,34 @@
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { experience, impactMetrics, featuredCaseStudies } from "../../data/portfolioData";
+import { impactMetrics, featuredCaseStudies } from "../../data/portfolioData";
+import { easeOut } from "../../lib/motion";
 import { Reveal, RevealGroup, RevealItem, SectionHeader } from "../ui/Reveal";
 import "./Experience.css";
 
-const ease = [0.22, 1, 0.36, 1];
-
 export default function Experience() {
-  const [active, setActive] = useState(0);
   const [caseIndex, setCaseIndex] = useState(0);
-  const current = experience[active];
   const caseStudy = featuredCaseStudies[caseIndex];
   const reduceMotion = useReducedMotion();
 
   return (
     <section className="experience" id="experience">
       <div className="container">
-        <SectionHeader label="work history" title="Experience" />
+        <SectionHeader label="work" title="Work" />
 
-        <Reveal className="experience__layout" direction="up" delay={0.08} amount={0.12}>
-          <div className="experience__tabs">
-            {experience.map((exp, i) => (
-              <button
-                key={exp.id}
-                className={`experience__tab ${active === i ? "experience__tab--active" : ""}`}
-                onClick={() => setActive(i)}
-              >
-                <span className="experience__tab-company">{exp.company}</span>
-                <span className="experience__tab-role">{exp.role}</span>
-              </button>
+        <div className="impact-strip">
+          <Reveal as="p" className="impact-strip__label" direction="fade" duration={0.35}>
+            Impact at a glance
+          </Reveal>
+          <RevealGroup className="impact-strip__grid" stagger={0.08} delay={0.06} amount={0.3}>
+            {impactMetrics.map((metric) => (
+              <RevealItem key={metric.label} className="impact-strip__item" direction="up">
+                <p className="impact-strip__value">{metric.value}</p>
+                <p className="impact-strip__name">{metric.label}</p>
+                <p className="impact-strip__detail">{metric.detail}</p>
+              </RevealItem>
             ))}
-          </div>
-
-          <div className="experience__content">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={current.id}
-                initial={reduceMotion ? false : { opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
-                transition={reduceMotion ? { duration: 0 } : { duration: 0.28, ease }}
-              >
-                <div className="experience__header">
-                  <h3 className="experience__role">{current.role}</h3>
-                  <span className="experience__at">@ {current.company}</span>
-                  <span className="experience__period">{current.period}</span>
-                </div>
-
-                {current.summary && (
-                  <div className="experience__summary">
-                    <p>{current.summary}</p>
-                  </div>
-                )}
-
-                <ul className="experience__highlights">
-                  {current.highlights.map((h, i) => (
-                    <motion.li
-                      key={`${current.id}-${i}`}
-                      className="experience__highlight"
-                      initial={reduceMotion ? false : { opacity: 0, x: -8 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={
-                        reduceMotion
-                          ? { duration: 0 }
-                          : { duration: 0.3, delay: 0.04 + i * 0.035, ease }
-                      }
-                    >
-                      <span className="experience__bullet">▸</span>
-                      {h}
-                    </motion.li>
-                  ))}
-                </ul>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </Reveal>
+          </RevealGroup>
+        </div>
 
         <Reveal className="case-study" direction="up" delay={0.06} amount={0.2}>
           <div className="case-study__nav" role="tablist" aria-label="Featured case studies">
@@ -95,10 +49,10 @@ export default function Experience() {
           <AnimatePresence mode="wait">
             <motion.div
               key={caseStudy.id}
-              initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
-              transition={reduceMotion ? { duration: 0 } : { duration: 0.28, ease }}
+              initial={reduceMotion ? false : { opacity: 0, transform: "translateY(10px)" }}
+              animate={{ opacity: 1, transform: "translateY(0px)" }}
+              exit={reduceMotion ? undefined : { opacity: 0, transform: "translateY(-6px)" }}
+              transition={reduceMotion ? { duration: 0 } : { duration: 0.28, ease: easeOut }}
             >
               <p className="case-study__eyebrow">{caseStudy.eyebrow}</p>
               <h3 className="case-study__title">{caseStudy.title}</h3>
@@ -122,20 +76,14 @@ export default function Experience() {
           </AnimatePresence>
         </Reveal>
 
-        <div className="impact-strip">
-          <Reveal as="p" className="impact-strip__label" direction="fade" duration={0.4}>
-            Impact at a glance
-          </Reveal>
-          <RevealGroup className="impact-strip__grid" stagger={0.08} delay={0.06} amount={0.3}>
-            {impactMetrics.map((metric) => (
-              <RevealItem key={metric.label} className="impact-strip__item" direction="up">
-                <p className="impact-strip__value">{metric.value}</p>
-                <p className="impact-strip__name">{metric.label}</p>
-                <p className="impact-strip__detail">{metric.detail}</p>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
+        <Reveal className="experience__resume" direction="fade" delay={0.04} amount={0.4}>
+          <p className="experience__resume-copy">
+            Role history, stack, and the rest of the detail. Request the resume.
+          </p>
+          <a href="#resume" className="experience__resume-link">
+            Request resume →
+          </a>
+        </Reveal>
       </div>
     </section>
   );

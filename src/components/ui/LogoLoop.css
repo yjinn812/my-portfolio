@@ -87,26 +87,28 @@
   image-rendering: -webkit-optimize-contrast;
   -webkit-user-drag: none;
   pointer-events: none;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 160ms var(--ease-out);
 }
 
 .logoloop--scale-hover .logoloop__item {
   overflow: visible;
 }
 
-.logoloop--scale-hover .logoloop__item:hover img,
-.logoloop--scale-hover .logoloop__item:hover .logoloop__node {
-  transform: scale(1.15);
-  transform-origin: center center;
-  color: var(--accent);
-}
-
-.logoloop--scale-hover .logoloop__item:hover .logoloop__label {
-  color: var(--text);
-}
-
 .logoloop--scale-hover .logoloop__node {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
+  transition: transform 160ms var(--ease-out), color 160ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .logoloop--scale-hover .logoloop__item:hover img,
+  .logoloop--scale-hover .logoloop__item:hover .logoloop__node {
+    transform: scale(1.06);
+    transform-origin: center center;
+    color: var(--accent);
+  }
+
+  .logoloop--scale-hover .logoloop__item:hover .logoloop__label {
+    color: var(--text);
+  }
 }
 
 .logoloop__link {

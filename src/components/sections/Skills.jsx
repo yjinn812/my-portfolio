@@ -43,7 +43,7 @@ export default function Skills() {
       <div className="container">
         <SectionHeader label="toolkit" title="What I work with" />
         <Reveal as="p" className="skills__lede" direction="fade" delay={0.04}>
-          Tools I’ve shipped with — not a claim that I know every library by heart.
+          Tools I’ve shipped with, not a claim that I know every library by heart.
         </Reveal>
       </div>
 

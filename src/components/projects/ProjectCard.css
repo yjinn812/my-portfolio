@@ -127,11 +127,14 @@
 }
 .project-card__links a {
   color: var(--text-muted);
-  transition: color 0.2s;
+  transition: color 160ms ease, transform 160ms var(--ease-out);
   display: flex;
   align-items: center;
 }
 .project-card__links a:hover { color: var(--accent); }
+.project-card__links a:active {
+  transform: scale(0.97);
+}
 
 .project-card__title {
   font-family: var(--font-display);
@@ -208,5 +211,11 @@
 
   .project-card__placeholder-label {
     font-size: clamp(36px, 12vw, 52px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card__links a:active {
+    transform: none;
   }
 }

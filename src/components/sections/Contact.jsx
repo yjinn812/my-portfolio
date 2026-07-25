@@ -20,12 +20,11 @@ export default function Contact() {
         <div className="contact__grid">
           <Reveal className="contact__left" direction="left" delay={0.05}>
             <p className="contact__intro">
-              Working on something in Salesforce, AI across the SDLC, or platform
-              engineering? I like hard problems and clear delivery — reach out.
+              Working on something in Salesforce, AI across the SDLC, or web design? I like hard problems and clear delivery. Reach out.
             </p>
             <p className="contact__note">
               Also happy to guide anyone getting into coding, or exploring how to
-              adopt AI in their day-to-day engineering work — a chat, a steer, or
+              adopt AI in their day-to-day engineering work: a chat, a steer, or
               a second opinion.
             </p>
 
@@ -88,21 +87,23 @@ export default function Contact() {
             </RevealGroup>
           </Reveal>
 
-          <Reveal className="contact__cta-box" direction="right" delay={0.12} amount={0.25}>
-            <div className="contact__cta-label">// say hello</div>
-            <h3 className="contact__cta-heading">Let&apos;s talk engineering.</h3>
-            <p className="contact__cta-copy">
-              Contracts, product work, or just figuring out coding / AI adoption —
-              happy to help where I can.
-            </p>
-            <div className="contact__cta-actions">
-              <a
-                href={`mailto:${profile.email}?subject=Hello%20from%20your%20portfolio`}
-                className="contact__cta-btn"
-              >
-                Send me an email →
-              </a>
-              <ResumeRequestForm />
+          <Reveal className="contact__cta" direction="right" delay={0.12} amount={0.25}>
+            <div className="contact__cta-box" id="resume">
+              <div className="contact__cta-label">// say hello</div>
+              <h3 className="contact__cta-heading">Let&apos;s talk engineering.</h3>
+              <p className="contact__cta-copy">
+                Contracts, product work, or just figuring out coding / AI adoption.
+                Happy to help where I can.
+              </p>
+              <div className="contact__cta-actions">
+                <a
+                  href={`mailto:${profile.email}?subject=Hello%20from%20your%20portfolio`}
+                  className="contact__cta-btn"
+                >
+                  Send me an email →
+                </a>
+                <ResumeRequestForm />
+              </div>
             </div>
           </Reveal>
         </div>

@@ -176,6 +176,25 @@
   line-height: 1;
 }
 
+.about__cert-reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 240ms var(--ease-out),
+    opacity 200ms var(--ease-out);
+}
+
+.about__cert-reveal.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.about__cert-reveal-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
 .about__cert-list {
   list-style: none;
   display: flex;
@@ -183,6 +202,12 @@
   gap: 0;
   margin-top: 12px;
   border-top: 1px solid var(--border);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about__cert-reveal {
+    transition: none;
+  }
 }
 
 .about__cert-item {
