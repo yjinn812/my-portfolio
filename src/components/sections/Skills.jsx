@@ -12,6 +12,7 @@ import {
   SiAnthropic,
   SiCursor,
   SiVite,
+  SiPython
 } from "react-icons/si";
 import { FaAws, FaSalesforce } from "react-icons/fa";
 import { toolkit } from "../../data/portfolioData";
@@ -23,6 +24,7 @@ const techLogos = [
   { node: <FaSalesforce />, title: "Salesforce" },
   { node: <SiTypescript />, title: "TypeScript" },
   { node: <SiJavascript />, title: "JavaScript" },
+  { node: <SiPython />, title: "Python" },
   { node: <SiReact />, title: "React" },
   { node: <SiNodedotjs />, title: "Node.js" },
   { node: <SiExpress />, title: "Express" },
