@@ -6,7 +6,7 @@
   opacity: 0.28;
 }
 
-.navbar,
+/* Keep navbar out of this rule — it needs z-index: 100 for the mobile drawer */
 main,
 .footer {
   position: relative;

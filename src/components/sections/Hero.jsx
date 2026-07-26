@@ -9,6 +9,7 @@ import {
   profileJsonItemsPerLine,
 } from "../../data/portfolioData";
 import { easeOut } from "../../lib/motion";
+import HeroCommandBar from "./HeroCommandBar";
 import "./Hero.css";
 
 const DETAIL_KEYS = new Set(profileJsonDetailKeys);
@@ -428,8 +429,15 @@ export default function Hero() {
               transition={transition}
             >
               <a href="#projects" className="hero__btn hero__btn--primary">
-                View My Work
+                <span className="hero__btn-label">View My Work</span>
               </a>
+            </motion.div>
+
+            <motion.div
+              variants={compactLayout ? undefined : fadeUp}
+              transition={transition}
+            >
+              <HeroCommandBar />
             </motion.div>
           </motion.div>
         </motion.div>

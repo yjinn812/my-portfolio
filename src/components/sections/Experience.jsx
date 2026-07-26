@@ -3,6 +3,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { impactMetrics, featuredCaseStudies } from "../../data/portfolioData";
 import { easeOut } from "../../lib/motion";
 import { Reveal, RevealGroup, RevealItem, SectionHeader } from "../ui/Reveal";
+import { openResumeRequest } from "./ResumeRequestForm";
 import "./Experience.css";
 
 export default function Experience() {
@@ -37,9 +38,28 @@ export default function Experience() {
                 key={study.id}
                 type="button"
                 role="tab"
+                id={`case-tab-${study.id}`}
                 aria-selected={caseIndex === i}
+                aria-controls={`case-panel-${study.id}`}
+                tabIndex={caseIndex === i ? 0 : -1}
                 className={`case-study__nav-btn ${caseIndex === i ? "case-study__nav-btn--active" : ""}`}
                 onClick={() => setCaseIndex(i)}
+                onKeyDown={(event) => {
+                  if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+                  event.preventDefault();
+                  const delta = event.key === "ArrowRight" ? 1 : -1;
+                  const focusedIndex = featuredCaseStudies.findIndex(
+                    (study) => `case-tab-${study.id}` === event.currentTarget.id
+                  );
+                  const from = focusedIndex >= 0 ? focusedIndex : caseIndex;
+                  const next =
+                    (from + delta + featuredCaseStudies.length) %
+                    featuredCaseStudies.length;
+                  setCaseIndex(next);
+                  requestAnimationFrame(() => {
+                    document.getElementById(`case-tab-${featuredCaseStudies[next].id}`)?.focus();
+                  });
+                }}
               >
                 {study.shortLabel}
               </button>
@@ -49,6 +69,9 @@ export default function Experience() {
           <AnimatePresence mode="wait">
             <motion.div
               key={caseStudy.id}
+              id={`case-panel-${caseStudy.id}`}
+              role="tabpanel"
+              aria-labelledby={`case-tab-${caseStudy.id}`}
               initial={reduceMotion ? false : { opacity: 0, transform: "translateY(10px)" }}
               animate={{ opacity: 1, transform: "translateY(0px)" }}
               exit={reduceMotion ? undefined : { opacity: 0, transform: "translateY(-6px)" }}
@@ -80,7 +103,11 @@ export default function Experience() {
           <p className="experience__resume-copy">
             Role history, stack, and the rest of the detail. Request the resume.
           </p>
-          <a href="#resume" className="experience__resume-link">
+          <a
+            href="#resume"
+            className="experience__resume-link"
+            onClick={openResumeRequest}
+          >
             Request resume →
           </a>
         </Reveal>

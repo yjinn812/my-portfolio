@@ -2,36 +2,99 @@ import { useEffect, useRef, useState } from "react";
 import "./ResumeRequestForm.css";
 
 const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+const RESUME_HASH = "#resume";
+const OPEN_EVENT = "portfolio:open-resume";
 
 function hashRequestsResume() {
-  return typeof window !== "undefined" && window.location.hash === "#resume";
+  return typeof window !== "undefined" && window.location.hash === RESUME_HASH;
+}
+
+function prefersReducedMotion() {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
 }
 
 export default function ResumeRequestForm() {
   const [open, setOpen] = useState(hashRequestsResume);
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
   const [errorMessage, setErrorMessage] = useState("");
+  const rootRef = useRef(null);
   const emailRef = useRef(null);
+  const shouldRevealRef = useRef(hashRequestsResume());
 
   useEffect(() => {
     function openFromHash() {
       if (!hashRequestsResume()) return;
+      shouldRevealRef.current = true;
+      setStatus((current) => (current === "success" ? current : "idle"));
       setOpen(true);
-      // Wait for form mount + scroll, then focus email
-      window.requestAnimationFrame(() => {
-        emailRef.current?.focus({ preventScroll: true });
-      });
+    }
+
+    function openFromEvent() {
+      shouldRevealRef.current = true;
+      setStatus((current) => (current === "success" ? current : "idle"));
+      setOpen(true);
+      if (!hashRequestsResume()) {
+        const { pathname, search } = window.location;
+        window.history.pushState(null, "", `${pathname}${search}${RESUME_HASH}`);
+      }
     }
 
     openFromHash();
     window.addEventListener("hashchange", openFromHash);
-    return () => window.removeEventListener("hashchange", openFromHash);
+    window.addEventListener(OPEN_EVENT, openFromEvent);
+    return () => {
+      window.removeEventListener("hashchange", openFromHash);
+      window.removeEventListener(OPEN_EVENT, openFromEvent);
+    };
   }, []);
 
   useEffect(() => {
-    if (open && hashRequestsResume()) {
-      emailRef.current?.focus({ preventScroll: true });
-    }
+    if (!open || !shouldRevealRef.current) return undefined;
+
+    let cancelled = false;
+    const reduceMotion = prefersReducedMotion();
+    let focusTimer = 0;
+
+    // Wait for the expanded form to paint, then scroll past the CTA chrome
+    // into the form fields (native hash scroll runs before expand).
+    const frame = window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        if (cancelled) return;
+
+        const target = emailRef.current ?? rootRef.current;
+        if (target) {
+          // Prefer window.scrollTo — scrollIntoView is unreliable when a
+          // transformed ancestor (Reveal/Framer) wraps the form.
+          const nav = document.querySelector(".navbar");
+          const offset = (nav?.getBoundingClientRect().height ?? 88) + 16;
+          const top =
+            target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({
+            top: Math.max(0, top),
+            behavior: reduceMotion ? "auto" : "smooth",
+          });
+        }
+
+        const focusEmail = () => {
+          if (cancelled) return;
+          emailRef.current?.focus({ preventScroll: true });
+          shouldRevealRef.current = false;
+        };
+
+        // Cold loads can steal focus during paint; retry after scroll settles.
+        focusEmail();
+        focusTimer = window.setTimeout(focusEmail, reduceMotion ? 50 : 450);
+      });
+    });
+
+    return () => {
+      cancelled = true;
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(focusTimer);
+    };
   }, [open]);
 
   function closeForm() {
@@ -91,7 +154,7 @@ export default function ResumeRequestForm() {
   }
 
   return (
-    <div className="resume-form-root">
+    <div className="resume-form-root" id="resume" ref={rootRef}>
       {status === "success" ? (
         <p
           className="resume-form__status resume-form__status--ok resume-form__enter resume-form__enter--success"
@@ -176,4 +239,9 @@ export default function ResumeRequestForm() {
       )}
     </div>
   );
+}
+
+export function openResumeRequest(event) {
+  if (event) event.preventDefault();
+  window.dispatchEvent(new Event(OPEN_EVENT));
 }

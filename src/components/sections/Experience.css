@@ -3,6 +3,11 @@
   border-top: 1px solid var(--border);
 }
 
+/* Dense first-viewport: hash land should show into the case beats */
+.experience .section-title {
+  margin-bottom: 18px;
+}
+
 .impact-strip {
   margin-top: 0;
   padding-top: 0;
@@ -15,7 +20,7 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 28px;
+  margin-bottom: 14px;
 }
 
 .impact-strip__grid {
@@ -25,7 +30,7 @@
 }
 
 .impact-strip__item {
-  padding: 8px 28px 8px 0;
+  padding: 4px 24px 4px 0;
   border-right: 1px solid var(--border);
 }
 
@@ -35,37 +40,37 @@
 }
 
 .impact-strip__item:not(:first-child) {
-  padding-left: 28px;
+  padding-left: 24px;
 }
 
 .impact-strip__value {
   font-family: var(--font-display);
-  font-size: clamp(28px, 4vw, 40px);
+  font-size: clamp(22px, 2.8vw, 30px);
   font-weight: 800;
   color: var(--text);
   letter-spacing: -0.03em;
   line-height: 1.1;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
 }
 
 .impact-strip__name {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--text);
-  margin-bottom: 6px;
-  line-height: 1.4;
+  margin-bottom: 4px;
+  line-height: 1.35;
 }
 
 .impact-strip__detail {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-muted);
-  line-height: 1.5;
+  line-height: 1.45;
   max-width: 28ch;
 }
 
 .case-study {
-  margin-top: 56px;
-  padding: 40px 0 0;
+  margin-top: 32px;
+  padding: 24px 0 0;
   border-top: 1px solid var(--border);
 }
 
@@ -73,13 +78,13 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 28px;
+  margin-bottom: 16px;
 }
 
 .case-study__nav-btn {
   background: none;
   border: 1px solid var(--border-strong);
-  border-radius: 6px;
+  border-radius: var(--radius);
   padding: 8px 14px;
   cursor: pointer;
   font-family: var(--font-mono);
@@ -114,30 +119,30 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .case-study__title {
   font-family: var(--font-display);
-  font-size: clamp(22px, 3vw, 32px);
+  font-size: clamp(18px, 2.2vw, 24px);
   font-weight: 800;
   color: var(--text);
   letter-spacing: -0.02em;
-  line-height: 1.2;
-  margin-bottom: 8px;
-  max-width: 28ch;
+  line-height: 1.25;
+  margin-bottom: 6px;
+  max-width: 52ch;
 }
 
 .case-study__context {
   font-size: 13px;
   color: var(--text-muted);
-  margin-bottom: 28px;
+  margin-bottom: 16px;
 }
 
 .case-study__beats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+  gap: 20px;
 }
 
 .case-study__beat {
@@ -194,8 +199,8 @@
 
 @media (max-width: 768px) {
   .case-study {
-    margin-top: 40px;
-    padding-top: 32px;
+    margin-top: 28px;
+    padding-top: 22px;
   }
 
   .case-study__title {

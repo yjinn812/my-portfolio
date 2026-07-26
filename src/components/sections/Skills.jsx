@@ -12,7 +12,7 @@ import {
   SiAnthropic,
   SiCursor,
   SiVite,
-  SiPython
+  SiPython,
 } from "react-icons/si";
 import { FaAws, FaSalesforce } from "react-icons/fa";
 import { toolkit } from "../../data/portfolioData";
@@ -59,7 +59,7 @@ export default function Skills() {
           hoverSpeed={0}
           scaleOnHover
           fadeOut
-          fadeOutColor="#080c10"
+          fadeOutColor="var(--bg)"
           ariaLabel="Tools I work with"
           renderItem={(item) => (
             <span className="logoloop__node" title={item.title}>
@@ -71,7 +71,7 @@ export default function Skills() {
       </Reveal>
 
       <div className="container">
-        <RevealGroup className="skills__list" stagger={0.08} delay={0.08}>
+        <RevealGroup className="skills__list" stagger={0.06} delay={0.08}>
           {toolkit.map((group) => (
             <RevealItem key={group.title} className="skills__group" direction="up">
               <div className="skills__group-head">

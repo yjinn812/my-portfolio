@@ -4,9 +4,9 @@ import { easeOut } from "../../lib/motion";
 import "./Navbar.css";
 
 const navLinks = [
-  { label: "about", href: "#about" },
   { label: "work", href: "#experience" },
   { label: "projects", href: "#projects" },
+  { label: "about", href: "#about" },
   { label: "skills", href: "#skills" },
   { label: "contact", href: "#contact" },
 ];
@@ -36,20 +36,26 @@ export default function Navbar() {
 
   useEffect(() => {
     const onEscape = (event) => {
-      if (event.key === "Escape") {
-        setMenuOpen(false);
-      }
+      if (event.key === "Escape") setMenuOpen(false);
     };
-
     window.addEventListener("keydown", onEscape);
     return () => window.removeEventListener("keydown", onEscape);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
   return (
     <motion.nav
       className={`navbar ${scrolled ? "navbar--scrolled" : ""}`}
-      initial={reduceMotion ? false : { opacity: 0, transform: "translateY(-12px)" }}
-      animate={{ opacity: 1, transform: "translateY(0px)" }}
+      // Opacity-only: transform on <nav> makes position:fixed mobile drawer
+      // anchor to the navbar box instead of the viewport.
+      initial={reduceMotion ? false : { opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={reduceMotion ? { duration: 0 } : { duration: 0.4, ease: easeOut }}
     >
       <div className="navbar__inner container">
@@ -67,8 +73,8 @@ export default function Navbar() {
             {navLinks.map((link, i) => (
               <motion.li
                 key={link.label}
-                initial={reduceMotion ? false : { opacity: 0, transform: "translateY(-8px)" }}
-                animate={{ opacity: 1, transform: "translateY(0px)" }}
+                initial={reduceMotion ? false : { opacity: 0 }}
+                animate={{ opacity: 1 }}
                 transition={
                   reduceMotion
                     ? { duration: 0 }
@@ -87,8 +93,8 @@ export default function Navbar() {
             ))}
             <motion.li
               className="navbar__cta-group"
-              initial={reduceMotion ? false : { opacity: 0, transform: "translateY(-8px)" }}
-              animate={{ opacity: 1, transform: "translateY(0px)" }}
+              initial={reduceMotion ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
               transition={
                 reduceMotion
                   ? { duration: 0 }
@@ -112,6 +118,15 @@ export default function Navbar() {
           </button>
         </div>
       </div>
+
+      {menuOpen && (
+        <button
+          type="button"
+          className="navbar__backdrop"
+          aria-label="Close menu"
+          onClick={() => setMenuOpen(false)}
+        />
+      )}
     </motion.nav>
   );
 }

@@ -14,7 +14,7 @@
   z-index: 1;
   display: grid;
   /* minmax(0, …) so terminal content can't inflate the visual column */
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
   gap: clamp(28px, 5vw, 56px);
   align-items: center;
   /* Flex parent + margin:auto would otherwise shrink-wrap to the terminal */
@@ -85,25 +85,108 @@
   margin-bottom: 28px;
   letter-spacing: 0.02em;
   line-height: 1.5;
-  max-width: 28ch;
+  max-width: 36ch;
 }
 
 .hero__actions {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.hero__cmd {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 100%;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--terminal-bg);
+  border: 1px solid var(--terminal-border);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.hero__cmd-prompt {
+  flex-shrink: 0;
+  color: var(--accent);
+  font-weight: 500;
+  transform: translateY(0.5px);
+}
+
+.hero__cmd-text {
+  color: var(--terminal-fg);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hero__cmd-cursor {
+  flex-shrink: 0;
+  width: 7px;
+  height: 1.05em;
+  margin-left: -2px;
+  background: var(--terminal-fg);
+  opacity: 0.9;
+  border-radius: 1px;
+}
+
+.hero__cmd-cursor.is-blink {
+  animation: hero-cmd-blink 1.05s steps(1, end) infinite;
+}
+
+@keyframes hero-cmd-blink {
+  0%,
+  49% {
+    opacity: 0.9;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__cmd-cursor.is-blink {
+    animation: none;
+    opacity: 0.55;
+  }
 }
 
 .hero__btn {
   font-family: var(--font-mono);
   font-size: 13px;
-  padding: 13px 28px;
-  border-radius: 999px;
+  line-height: 1;
+  padding: 0 28px;
+  min-height: 42px;
+  border-radius: var(--radius);
   text-decoration: none;
   transition:
     transform 160ms var(--ease-out),
     filter 160ms ease;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Trim font leading so cap-height ink centers (Mono sits high in the em-box) */
+.hero__btn-label {
+  display: block;
+  transform: translateY(2px);
+}
+
+@supports (text-box: trim-both cap alphabetic) {
+  .hero__btn-label {
+    transform: none;
+    text-box: trim-both cap alphabetic;
+  }
 }
 
 .hero__btn--primary {
@@ -135,9 +218,9 @@
 .hero__profile-shell {
   position: relative;
   z-index: 2;
-  background: var(--bg-card);
-  border: 1px solid var(--border-strong);
-  border-radius: 14px;
+  background: var(--terminal-bg);
+  border: 1px solid var(--terminal-border);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-md);
   min-width: 0;
@@ -145,20 +228,21 @@
   max-width: min(42rem, 100%);
   justify-self: stretch;
   box-sizing: border-box;
+  color: var(--terminal-fg);
 }
 
 .hero__profile-shell--folder {
   border-style: dashed;
   cursor: pointer;
   box-shadow: none;
-  background: color-mix(in srgb, var(--bg-card) 88%, transparent);
+  background: color-mix(in srgb, var(--terminal-bg) 88%, transparent);
   justify-self: center;
 }
 
 .hero__profile-shell--folder:hover,
 .hero__profile-shell--folder:focus-visible {
   border-color: var(--accent);
-  background: var(--bg-card);
+  background: var(--terminal-bg);
   outline: none;
 }
 
@@ -178,7 +262,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  color: var(--text-muted);
+  color: var(--terminal-muted);
   font-family: var(--font-mono);
   font-size: 12px;
   pointer-events: none;
@@ -212,8 +296,8 @@
   align-items: center;
   gap: 8px;
   padding: 14px 18px;
-  background: var(--bg-2);
-  border-bottom: 1px solid var(--border);
+  background: var(--terminal-header);
+  border-bottom: 1px solid var(--terminal-border);
   position: relative;
   z-index: 2;
   flex-shrink: 0;
@@ -260,13 +344,19 @@
 }
 
 .terminal__dot:hover,
-.terminal__dot:active,
-.terminal__dot:focus,
-.terminal__dot:focus-visible {
-  outline: none;
-  box-shadow: none;
+.terminal__dot:active {
   filter: none;
   background: transparent;
+}
+
+.terminal__dot:focus {
+  outline: none;
+}
+
+.terminal__dot:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 .terminal__dot::after {
@@ -283,7 +373,7 @@
 
 .terminal__title {
   font-size: 13px;
-  color: var(--text-muted);
+  color: var(--terminal-muted);
   margin-left: 4px;
   pointer-events: none;
 }
@@ -297,8 +387,9 @@
     opacity 200ms var(--ease-out);
   font-size: 14px;
   line-height: 1.85;
-  color: var(--text-muted);
+  color: var(--terminal-muted);
   font-family: var(--font-mono);
+  background: var(--terminal-bg);
 }
 
 .terminal__body.is-open {
@@ -334,7 +425,7 @@
 }
 
 .terminal__brace {
-  color: var(--text);
+  color: var(--terminal-punct);
 }
 
 .terminal__key {
@@ -350,7 +441,7 @@
 }
 
 .terminal__comment {
-  color: var(--text-dim);
+  color: var(--terminal-comment);
   font-style: italic;
 }
 
@@ -448,15 +539,20 @@
   }
 
   .hero__actions {
-    margin-bottom: 0;
+    margin-bottom: 12px;
     display: flex;
     justify-content: flex-start;
+  }
+
+  .hero__cmd {
+    max-width: min(100%, 340px);
+    padding: 9px 14px;
+    font-size: 12px;
   }
 
   .hero__btn {
     width: fit-content;
     max-width: 100%;
-    text-align: center;
   }
 
   .hero__visual {
@@ -468,11 +564,10 @@
   .hero__profile-shell {
     display: flex;
     flex-direction: column;
-    max-height: min(62vh, 520px);
+    max-height: min(38vh, 320px);
     max-width: none;
     justify-self: stretch;
-    /* Keep height under the cap so inner JSON can scroll */
-    height: min(62vh, 520px);
+    height: min(38vh, 320px);
   }
 
   .hero__profile-shell--folder {

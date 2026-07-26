@@ -20,21 +20,22 @@
 .about__info-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.about__info-glow {
-  height: 100%;
+  gap: 0 24px;
+  margin: 0;
+  border-top: 1px solid var(--border);
 }
 
 .about__info-item {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 14px;
-  background: transparent;
-  border: none;
-  border-radius: 10px;
+  margin: 0;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.about__info-item:last-child {
+  grid-column: 1 / -1;
 }
 
 .about__info-key {
@@ -45,6 +46,7 @@
 }
 
 .about__info-val {
+  margin: 0;
   font-size: 13px;
   color: var(--text);
 }

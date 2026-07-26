@@ -1,17 +1,34 @@
+export function getYearsExp(startYear) {
+  return new Date().getFullYear() - startYear;
+}
+
 export const profile = {
   name: "Yu Jin Wong",
   title: "Lead Engineer @ National Australia Bank",
-  year_start_work : 2019,
-  tagline:
-    "7+ years delivering enterprise software in banking across Salesforce and AWS, with proven impact in platform scalability, API integration, and CI/CD.",
+  year_start_work: 2019,
+  get yearsExp() {
+    return getYearsExp(this.year_start_work);
+  },
+  get tagline() {
+    return `${this.yearsExp} years building software people in banking rely on. I lead the work from design through production, and care as much about the team as the system.`;
+  },
   location: "Melbourne / Sydney",
   email: "wongyj812@gmail.com",
   phone: "0452 630 812",
   linkedin: "https://www.linkedin.com/in/yu-jin-wong/",
   github: "https://github.com/yjinn812",
   summary:
-  "I'm a Lead Engineer who's spent 7+ years at the intersection of product, infrastructure, and people. At NAB, I've led large-scale CRM transformations, modernised CI/CD pipelines, and built the kind of full-stack systems that banking staff rely on daily. I bring strong opinions on architecture, a bias toward delivery, and a habit of mentoring engineers who want to grow. Outside the enterprise world, I build side projects in React and TypeScript, because good engineering is also something you do for fun."
+    "I'm a Lead Engineer who's spent 7+ years at the intersection of product, infrastructure, and people. At NAB, I've led large-scale CRM transformations, modernised CI/CD pipelines, and built the kind of full-stack systems that banking staff rely on daily. I bring strong opinions on architecture, a bias toward delivery, and a habit of mentoring engineers who want to grow. Outside the enterprise world, I build side projects in React and TypeScript, because good engineering is also something you do for fun.",
 };
+
+/** Rotating commands in the hero command bar under View My Work */
+export const heroCommands = [
+  "yujin@nab -v",
+  "open_to --roles lead_engineer architect",
+  "stack --enterprise salesforce js",
+  "npm i cursor claude",
+  "ping --open-to-work",
+];
 
 /** Hero terminal JSON — full lists; preview/detail rules control what shows before green expand. */
 export const profileJsonOpenToRoles = [
@@ -26,11 +43,10 @@ export const profileJsonData = {
   role: "Lead Engineer",
   currently_at: "NAB",
   based_in: profile.location,
-  years_exp: new Date().getFullYear() - profile.year_start_work,
+  years_exp: profile.yearsExp,
   industry: ["Banking", "Insurance", "Telecom"],
   strengths: [
     "Technical Design",
-    "Web UI Design",
     "Stakeholder Management",
     "Code Review",
     "Mentoring",
@@ -230,10 +246,10 @@ export const projects =
     wide: true,
     title: "Google Sheets Microservice",
     description:
-      "Microservice to insert data into specific google sheets.",
+      "Typed Express microservice that appends rows to Google Sheets via OAuth, with Zod validation at the edge.",
     story:
       "Hit POST /sheets/append with a typed payload. The service handles Google OAuth and writes the row into the target spreadsheet range.",
-    tags: ["Google APIs", "OAuth2.0", "Microservice", "Typescript", "ExpressJS", "Zod", "NodeJS"],
+    tags: ["Google APIs", "OAuth2.0", "Express", "TypeScript", "Zod"],
     github: "https://github.com/yjinn812/google-microservice",
     live: null,
     demo: "sheets-api-postman",
@@ -268,12 +284,13 @@ export const projects =
   },
   {
     id: 4,
+    hidden: true,
     wide: true,
     eyebrow: "In progress",
-    title: "[Name - TBC] Roguelite - Card Game RPG",
+    title: "Roguelite card RPG",
     description:
-      "Card-game designed using inspirations of game play from Slay the Spire, concept/character inspiration from Dungeon and Dragons with progression of MMORPG with inspiration from games like WOW/Lost ARK/Maplestory. Design to have endless scaling/fun and meaningful progression.",
-    tags: ["Pixi.JS", "React", "Vite.JS" , "GO", "Game Design"],
+      "Card-battler with Spire-like runs and long-term progression. In design; not public yet.",
+    tags: ["Pixi.JS", "React", "Vite", "Go", "Game Design"],
     github: null,
     live: null,
   },

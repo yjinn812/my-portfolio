@@ -108,7 +108,6 @@
   /* Clip glow orb without clipping heading when Framer transforms the parent */
   overflow: clip;
   box-shadow: var(--shadow-sm);
-  scroll-margin-top: 96px;
 }
 
 .contact__cta-box::after {
@@ -163,17 +162,22 @@
 }
 
 .contact__cta-btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: var(--accent);
   color: var(--bg);
   font-family: var(--font-mono);
   font-size: 13px;
   font-weight: 500;
-  padding: 14px 28px;
+  line-height: 1;
+  padding: 0 28px;
+  min-height: 42px;
   border-radius: var(--radius);
   text-decoration: none;
   border: 1px solid var(--accent);
   cursor: pointer;
+  box-sizing: border-box;
   transition:
     transform 160ms var(--ease-out),
     filter 160ms ease,
@@ -181,6 +185,18 @@
     background-color 160ms ease,
     color 160ms ease,
     border-color 160ms ease;
+}
+
+.contact__cta-btn-label {
+  display: block;
+  transform: translateY(2px);
+}
+
+@supports (text-box: trim-both cap alphabetic) {
+  .contact__cta-btn-label {
+    transform: none;
+    text-box: trim-both cap alphabetic;
+  }
 }
 
 .contact__cta-btn:hover:not(.contact__cta-btn--ghost) {
@@ -216,6 +232,7 @@
   color: var(--text-muted);
   border-color: transparent;
   padding: 6px 2px;
+  min-height: 0;
   font-size: 12px;
   font-weight: 400;
   box-shadow: none;

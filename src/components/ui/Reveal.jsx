@@ -147,10 +147,10 @@ export function RevealItem({
 export function SectionHeader({ label, title }) {
   return (
     <>
-      <Reveal as="p" className="section-label" direction="fade" duration={0.35}>
+      <Reveal as="p" className="section-label" direction="fade" duration={0.28}>
         {label}
       </Reveal>
-      <Reveal as="h2" className="section-title" delay={0.06} duration={0.4}>
+      <Reveal as="h2" className="section-title" direction="fade" delay={0.04} duration={0.32}>
         {title}
       </Reveal>
     </>

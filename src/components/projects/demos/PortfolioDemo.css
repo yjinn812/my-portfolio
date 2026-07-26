@@ -284,8 +284,8 @@
   align-items: center;
   gap: 4px;
   padding: 5px 8px;
-  background: #121820;
-  border-bottom: 1px solid #1e2d3d;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
 }
 
 .pf-terminal__bar span {
@@ -301,7 +301,7 @@
 .pf-terminal__bar em {
   margin-left: 6px;
   font-style: normal;
-  color: #7d8590;
+  color: var(--text-muted);
   font-family: var(--font-mono);
   font-size: 8px;
 }
@@ -309,7 +309,7 @@
 .pf-terminal__body {
   margin: 0;
   padding: 8px;
-  color: #9bd8ff;
+  color: var(--terminal-string);
   font-family: var(--font-mono);
   white-space: pre;
   overflow: hidden;

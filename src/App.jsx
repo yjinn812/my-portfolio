@@ -8,17 +8,19 @@ import Projects from "./components/sections/Projects";
 import Skills from "./components/sections/Skills";
 import Contact from "./components/sections/Contact";
 import PageDotGrid from "./components/ui/PageDotGrid";
+import HashScroll from "./components/ui/HashScroll";
 
 export default function App() {
   return (
     <>
+      <HashScroll />
       <PageDotGrid />
       <Navbar />
       <main>
         <Hero />
-        <About />
         <Experience />
         <Projects />
+        <About />
         <Skills />
         <Contact />
       </main>

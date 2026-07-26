@@ -14,7 +14,9 @@ export default function Projects() {
       <div className="projects__stack">
         <div className="container">
           <ScrollStack useWindowScroll itemDistance={140} itemStackDistance={18} stackPosition="12%">
-            {projects.map((project) => (
+            {projects
+              .filter((project) => !project.hidden)
+              .map((project) => (
               <ScrollStackItem key={project.id}>
                 <ProjectCard project={project} featured={Boolean(project.featured)} />
               </ScrollStackItem>

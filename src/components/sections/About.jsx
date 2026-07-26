@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { profile, education, certifications } from "../../data/portfolioData";
-import BorderGlow, { useBorderGlowTheme } from "../ui/BorderGlow";
 import { Reveal, RevealGroup, RevealItem, SectionHeader } from "../ui/Reveal";
 import "./About.css";
 
@@ -23,12 +22,6 @@ function SalesforceMark() {
 
 export default function About() {
   const [showAllCerts, setShowAllCerts] = useState(false);
-  const glow = useBorderGlowTheme({
-    borderRadius: 10,
-    glowRadius: 18,
-    glowIntensity: 0.75,
-    fillOpacity: 0.28,
-  });
 
   return (
     <section className="about" id="about">
@@ -39,42 +32,39 @@ export default function About() {
           <Reveal className="about__bio" direction="left" delay={0.05}>
             <p className="about__summary">{profile.summary}</p>
 
-            <div className="about__info-grid">
-              <BorderGlow className="about__info-glow" {...glow}>
-                <div className="about__info-item">
-                  <span className="about__info-key">location</span>
-                  <span className="about__info-val">{profile.location}</span>
-                </div>
-              </BorderGlow>
-
-              <BorderGlow className="about__info-glow" {...glow}>
-                <div className="about__info-item">
-                  <span className="about__info-key">email</span>
-                  <a href={`mailto:${profile.email}`} className="about__info-val about__info-val--link">
+            <dl className="about__info-grid">
+              <div className="about__info-item">
+                <dt className="about__info-key">location</dt>
+                <dd className="about__info-val">{profile.location}</dd>
+              </div>
+              <div className="about__info-item">
+                <dt className="about__info-key">email</dt>
+                <dd className="about__info-val">
+                  <a href={`mailto:${profile.email}`} className="about__info-val--link">
                     {profile.email}
                   </a>
-                </div>
-              </BorderGlow>
-
-              <BorderGlow className="about__info-glow" {...glow}>
-                <div className="about__info-item">
-                  <span className="about__info-key">experience</span>
-                  <span className="about__info-val">
-                    {new Date().getFullYear() - profile.year_start_work}+
-                  </span>
-                </div>
-              </BorderGlow>
-            </div>
+                </dd>
+              </div>
+              <div className="about__info-item">
+                <dt className="about__info-key">experience</dt>
+                <dd className="about__info-val">
+                  {profile.yearsExp}+ years
+                </dd>
+              </div>
+            </dl>
           </Reveal>
 
-          <RevealGroup className="about__right" stagger={0.1} delay={0.1}>
+          <RevealGroup className="about__right" stagger={0.08} delay={0.08}>
             <RevealItem className="about__education">
               <h3 className="about__sub-title">Education</h3>
               {education.map((edu, i) => (
                 <div key={i} className="about__edu-item">
                   <div>
                     <div className="about__edu-degree">{edu.degree}</div>
-                    <div className="about__edu-school">{edu.school}</div>
+                    <div className="about__edu-school">
+                      {edu.school}
+                      {edu.year ? ` · ${edu.year}` : ""}
+                    </div>
                   </div>
                 </div>
               ))}

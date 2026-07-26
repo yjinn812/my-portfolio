@@ -1,5 +1,6 @@
 .resume-form-root {
   width: 100%;
+  scroll-margin-top: var(--scroll-pad);
 }
 
 .resume-form {
@@ -101,11 +102,11 @@
 }
 
 .resume-form__status--ok {
-  color: var(--terminal-boolean);
+  color: var(--terminal-key);
 }
 
 .resume-form__status--err {
-  color: #ff8f70;
+  color: var(--terminal-danger);
 }
 
 /* Mount enter — form open / success (GPU: opacity + transform) */
