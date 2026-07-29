@@ -49,7 +49,7 @@ function waitForScrollEnd(timeoutMs = 1200) {
   });
 }
 
-/** Re-lock until ScrollStack / late layout stops moving the target. */
+/** Re-lock until late layout (fonts / sticky stages) settles on the target. */
 async function lockToElement(el) {
   for (let i = 0; i < 16; i++) {
     const next = Math.max(0, targetTopFor(el));
@@ -87,7 +87,7 @@ async function scrollToHash({ behavior = "smooth" } = {}) {
 
 /**
  * Keeps in-page #hash jumps aligned under the fixed nav, even when layout
- * height changes mid-scroll (e.g. projects ScrollStack).
+ * height changes mid-scroll (e.g. project scroll stages).
  */
 export default function HashScroll() {
   useEffect(() => {

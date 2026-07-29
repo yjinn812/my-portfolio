@@ -1,31 +1,42 @@
 .projects {
   padding: var(--section-pad-y) 0 0;
   border-top: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
 }
 
-.projects > .container {
+.projects__header {
   margin-bottom: 8px;
 }
 
-.projects__stack {
-  margin-top: 0;
+.projects__hint {
+  margin: -4px 0 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
-.projects__stack .scroll-stack-card {
-  overflow: visible;
+.projects__track {
+  margin-top: 12px;
+  padding-bottom: 48px;
 }
 
-.projects__stack .scroll-stack-card .project-card-glow {
+.projects__track .project-card-glow {
   margin: 0;
-}
-
-/* Sticky cards stay composited; avoid permanent will-change on demos */
-.projects__stack .scroll-stack-card--sticky {
-  backface-visibility: hidden;
 }
 
 @media (max-width: 860px) {
   .projects {
-    padding-bottom: 48px;
+    padding-bottom: 24px;
+  }
+
+  .projects__hint {
+    display: none;
+  }
+
+  .projects__track {
+    padding-bottom: 16px;
   }
 }

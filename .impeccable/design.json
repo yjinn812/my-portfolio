@@ -1,0 +1,382 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-29T10:15:00Z",
+  "title": "Design System: Yu Jin Wong Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "ink-void": {
+        "role": "neutral",
+        "displayName": "Ink Void",
+        "canonical": "#080c10",
+        "tonalRamp": [
+          "#010202",
+          "#020304",
+          "#030507",
+          "#05080a",
+          "#696a6c",
+          "#7f8081",
+          "#949697",
+          "#a1a3a4"
+        ]
+      },
+      "console-black": {
+        "role": "neutral",
+        "displayName": "Console Black",
+        "canonical": "#0d1117",
+        "tonalRamp": [
+          "#020203",
+          "#040507",
+          "#06080b",
+          "#080b0f",
+          "#6b6c6e",
+          "#808284",
+          "#969799",
+          "#a3a5a7"
+        ]
+      },
+      "panel-slate": {
+        "role": "neutral",
+        "displayName": "Panel Slate",
+        "canonical": "#111820",
+        "tonalRamp": [
+          "#020405",
+          "#050709",
+          "#080b0f",
+          "#0b1015",
+          "#6c6f71",
+          "#828487",
+          "#979a9d",
+          "#a5a7aa"
+        ]
+      },
+      "wire": {
+        "role": "neutral",
+        "displayName": "Wire",
+        "canonical": "#1e2d3d",
+        "tonalRamp": [
+          "#05070a",
+          "#090d12",
+          "#0e161d",
+          "#141e28",
+          "#71767c",
+          "#868c91",
+          "#9ca1a7",
+          "#a9aeb4"
+        ]
+      },
+      "wire-strong": {
+        "role": "neutral",
+        "displayName": "Wire Strong",
+        "canonical": "#2a3e56",
+        "tonalRamp": [
+          "#070a0e",
+          "#0c131a",
+          "#141e2a",
+          "#1c2939",
+          "#757c84",
+          "#8b929a",
+          "#a0a7af",
+          "#adb4bd"
+        ]
+      },
+      "signal-cyan": {
+        "role": "primary",
+        "displayName": "Signal Cyan",
+        "canonical": "#00d4ff",
+        "tonalRamp": [
+          "#00232a",
+          "#00414e",
+          "#00677c",
+          "#008eab",
+          "#66b0c0",
+          "#7cc6d5",
+          "#91dceb",
+          "#9fe9f8"
+        ]
+      },
+      "ember-orange": {
+        "role": "secondary",
+        "displayName": "Ember Orange",
+        "canonical": "#ff6b35",
+        "tonalRamp": [
+          "#2a1108",
+          "#4e2010",
+          "#7c3419",
+          "#ab4723",
+          "#c08c79",
+          "#d5a18e",
+          "#ebb7a4",
+          "#f8c4b1"
+        ]
+      },
+      "snow-code": {
+        "role": "neutral",
+        "displayName": "Snow Code",
+        "canonical": "#e6edf3",
+        "tonalRamp": [
+          "#262728",
+          "#46484a",
+          "#707477",
+          "#9a9fa3",
+          "#b7b9bb",
+          "#cccfd1",
+          "#e2e4e6",
+          "#eff2f4"
+        ]
+      },
+      "fog": {
+        "role": "neutral",
+        "displayName": "Fog",
+        "canonical": "#a8b3bf",
+        "tonalRamp": [
+          "#151618",
+          "#26282c",
+          "#3d4146",
+          "#545960",
+          "#929599",
+          "#a8aaae",
+          "#bdc0c4",
+          "#cacdd1"
+        ]
+      },
+      "dusk": {
+        "role": "neutral",
+        "displayName": "Dusk",
+        "canonical": "#6b7c8f",
+        "tonalRamp": [
+          "#0a0d10",
+          "#12181d",
+          "#1d262f",
+          "#283541",
+          "#7c8288",
+          "#91979e",
+          "#a7adb3",
+          "#b4bac1"
+        ]
+      },
+      "salesforce": {
+        "role": "brand",
+        "displayName": "Salesforce",
+        "canonical": "#00a1e0",
+        "tonalRamp": [
+          "#00334a",
+          "#005a7a",
+          "#0080ad",
+          "#00a1e0",
+          "#33b4e6",
+          "#66c7ec",
+          "#99daf3",
+          "#ccecf9"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Section Display",
+        "purpose": "Section titles; keep restrained for hash-land fold."
+      },
+      "display-hero": {
+        "displayName": "Hero Display",
+        "purpose": "Hero name only."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Case study and project titles."
+      },
+      "body": {
+        "displayName": "Body Mono",
+        "purpose": "Default page body in JetBrains Mono."
+      },
+      "label": {
+        "displayName": "Ops Label",
+        "purpose": "// SECTION labels, eyebrows, steps."
+      },
+      "nav": {
+        "displayName": "Nav / CTA",
+        "purpose": "Navbar links and button labels."
+      }
+    },
+    "shadows": [
+      {
+        "name": "ambient-low",
+        "value": "0 10px 30px rgba(0, 0, 0, 0.28)",
+        "purpose": "Nav, command pill, light chrome."
+      },
+      {
+        "name": "ambient-mid",
+        "value": "0 18px 48px rgba(0, 0, 0, 0.42)",
+        "purpose": "Stronger chrome when needed."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "UI hover/press and reveals."
+      },
+      {
+        "name": "ease-in-out",
+        "value": "cubic-bezier(0.77, 0, 0.175, 1)",
+        "purpose": "Longer transitional motion."
+      },
+      {
+        "name": "ease-drawer",
+        "value": "cubic-bezier(0.32, 0.72, 0, 1)",
+        "purpose": "Mobile nav drawer."
+      },
+      {
+        "name": "duration-press",
+        "value": "160ms",
+        "purpose": "Button press / underline grow."
+      },
+      {
+        "name": "duration-ui",
+        "value": "250ms",
+        "purpose": "General UI color/state transitions."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "768px"
+      },
+      {
+        "name": "nav-collapse",
+        "value": "960px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Hero primary CTA \u2014 Signal Cyan fill on Ink Void text.",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\"><span class=\"ds-btn-primary__label\">View My Work</span></button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 28px;border:none;border-radius:8px;background:#00d4ff;color:#080c10;font-family:\"JetBrains Mono\",monospace;font-size:13px;font-weight:500;line-height:1;cursor:pointer;transition:transform 160ms cubic-bezier(0.23,1,0.32,1),filter 160ms ease}.ds-btn-primary:hover{filter:brightness(1.08);transform:translateY(-1px)}.ds-btn-primary:active{transform:scale(0.97)}.ds-btn-primary:focus-visible{outline:2px solid #00d4ff;outline-offset:3px}.ds-btn-primary__label{display:inline-flex;align-items:center;line-height:1}"
+    },
+    {
+      "name": "Outline Button (Hire me)",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Nav hire-me / secondary outline CTA.",
+      "html": "<a class=\"ds-btn-outline\" href=\"#\">hire me</a>",
+      "css": ".ds-btn-outline{display:inline-flex;align-items:center;justify-content:center;min-height:34px;padding:0 18px;border:1px solid #00d4ff;border-radius:8px;background:transparent;color:#00d4ff;font-family:\"JetBrains Mono\",monospace;font-size:12px;line-height:1;text-decoration:none;transition:background-color 160ms ease,transform 160ms cubic-bezier(0.23,1,0.32,1)}.ds-btn-outline:hover{background:#00d4ff22;text-decoration:none}.ds-btn-outline:active{transform:scale(0.97)}.ds-btn-outline:focus-visible{outline:2px solid #00d4ff;outline-offset:3px}"
+    },
+    {
+      "name": "Tech Chip",
+      "kind": "chip",
+      "refersTo": "chip-tech",
+      "description": "Stack tags \u2014 cyan on dim wash.",
+      "html": "<span class=\"ds-chip\">Salesforce</span>",
+      "css": ".ds-chip{display:inline-flex;align-items:center;padding:4px 10px;border-radius:8px;background:#00d4ff22;color:#00d4ff;font-family:\"JetBrains Mono\",monospace;font-size:11px;letter-spacing:0.04em;line-height:1.3}"
+    },
+    {
+      "name": "Section Label",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Ops annotation before Syne titles.",
+      "html": "<p class=\"ds-section-label\">PROJECTS</p>",
+      "css": ".ds-section-label{display:flex;align-items:center;gap:10px;margin:0;font-family:\"JetBrains Mono\",monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#00d4ff}.ds-section-label::before{content:\"//\";opacity:0.5}"
+    },
+    {
+      "name": "Command Pill",
+      "kind": "custom",
+      "refersTo": "command-pill",
+      "description": "Hero typing command bar under primary CTA.",
+      "html": "<div class=\"ds-cmd\" aria-hidden=\"true\"><span class=\"ds-cmd__prompt\">$</span><span class=\"ds-cmd__text\">ping --open-to-work</span><span class=\"ds-cmd__cursor\"></span></div>",
+      "css": ".ds-cmd{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;background:#0d1117;border:1px solid #30363d;box-shadow:0 10px 30px rgba(0,0,0,0.28);font-family:\"JetBrains Mono\",monospace;font-size:12.5px;line-height:1.2;color:#e6edf3}.ds-cmd__prompt{color:#00d4ff;font-weight:500}.ds-cmd__cursor{width:7px;height:1.05em;background:#e6edf3;border-radius:1px;opacity:0.9}"
+    },
+    {
+      "name": "Terminal Window",
+      "kind": "custom",
+      "refersTo": "terminal-window",
+      "description": "Hero profile terminal with GitHub Dark chrome.",
+      "html": "<div class=\"ds-term\"><div class=\"ds-term__bar\"><span class=\"ds-term__dot ds-term__dot--r\"></span><span class=\"ds-term__dot ds-term__dot--y\"></span><span class=\"ds-term__dot ds-term__dot--g\"></span><span class=\"ds-term__title\">yujin \u2014 zsh</span></div><pre class=\"ds-term__body\"><span class=\"k\">\"role\"</span>: <span class=\"s\">\"Lead Engineer\"</span></pre></div>",
+      "css": ".ds-term{background:#0d1117;border:1px solid #30363d;border-radius:12px;overflow:hidden;font-family:\"JetBrains Mono\",monospace;color:#e6edf3;max-width:360px}.ds-term__bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#161b22;border-bottom:1px solid #30363d}.ds-term__dot{width:10px;height:10px;border-radius:50%;display:inline-block}.ds-term__dot--r{background:#ff5f57}.ds-term__dot--y{background:#ffbd2e}.ds-term__dot--g{background:#28c840}.ds-term__title{margin-left:8px;font-size:11px;color:#8b949e}.ds-term__body{margin:0;padding:16px 18px;font-size:12px;line-height:1.7}.ds-term__body .k{color:#7ee787}.ds-term__body .s{color:#a5d6ff}"
+    },
+    {
+      "name": "Nav Link",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "Numbered mono nav item with cyan underline grow.",
+      "html": "<a class=\"ds-nav-link\" href=\"#\"><span class=\"ds-nav-link__num\">01.</span>work</a>",
+      "css": ".ds-nav-link{position:relative;display:inline-flex;align-items:center;gap:4px;font-family:\"JetBrains Mono\",monospace;font-size:12px;color:#7d8590;text-decoration:none;white-space:nowrap;transition:color 0.2s}.ds-nav-link__num{color:#00d4ff;font-size:10px}.ds-nav-link:hover{color:#00d4ff;text-decoration:none}.ds-nav-link::after{content:\"\";position:absolute;left:0;bottom:-4px;width:100%;height:1px;background:#00d4ff;transform:scaleX(0);transform-origin:left center;transition:transform 160ms cubic-bezier(0.23,1,0.32,1)}.ds-nav-link:hover::after{transform:scaleX(1)}.ds-nav-link:focus-visible{outline:2px solid #00d4ff;outline-offset:3px}"
+    },
+    {
+      "name": "Panel Card",
+      "kind": "card",
+      "refersTo": "card-surface",
+      "description": "Quiet panel surface for featured content.",
+      "html": "<div class=\"ds-card\"><p class=\"ds-card__eyebrow\">FEATURED PROJECT</p><h3 class=\"ds-card__title\">AI Food Tracker</h3><p class=\"ds-card__body\">Conversational nutrition logger on Firestore.</p></div>",
+      "css": ".ds-card{background:#111820;border:1px solid #1e2d3d;border-radius:12px;padding:22px;color:#e6edf3;max-width:360px;font-family:\"JetBrains Mono\",monospace}.ds-card__eyebrow{margin:0 0 8px;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#00d4ff}.ds-card__title{margin:0 0 8px;font-family:Syne,sans-serif;font-size:22px;font-weight:800;letter-spacing:-0.02em;line-height:1.2}.ds-card__body{margin:0;font-size:13px;line-height:1.7;color:#7d8590}"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Resume/contact field on ink void.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field__label\">Email</span><input class=\"ds-field__input\" type=\"email\" placeholder=\"you@company.com\" /></label>",
+      "css": ".ds-field{display:flex;flex-direction:column;gap:8px;font-family:\"JetBrains Mono\",monospace;max-width:320px}.ds-field__label{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#7d8590}.ds-field__input{padding:12px 14px;border-radius:8px;border:1px solid #1e2d3d;background:#080c10;color:#e6edf3;font:inherit;font-size:13px}.ds-field__input::placeholder{color:#3d4f61}.ds-field__input:focus{outline:2px solid #00d4ff;outline-offset:2px;border-color:#2a3e56}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Night Ops Terminal",
+    "overview": "This is a lead engineer\u2019s after-hours workstation rendered as a portfolio: an ink-black canvas, cyan command highlights, a warm ember secondary, and GitHub Dark\u2013faithful JSON chrome. The terminal is the brand stage \u2014 not a gimmick layered on top of a generic dark theme. Personality comes from mono labels (`// SECTION`), Syne display weight, and precise cyan signals, not from purple gradients, cream paper, or broadsheet rules.\n\nDensity stays deliberate and scannable: section headers are restrained so work and projects can land above the fold after hash navigation. Depth is tonal (nested dark surfaces + hairline borders), with ambient shadows reserved for chrome that needs presence (nav, terminal, command pill). Controls feel restrained and pressable \u2014 mono type, 8px radius, cyan fill or cyan outline \u2014 without glow spam.\n\nConfirmed visual rejections: purple-on-white / purple-indigo gradients; warm cream + terracotta editorial; broadsheet hairline newspaper layouts; default Inter/Roboto stacks; flat single-color voids without atmosphere; oversized section titles that bury case-study content on hash land.",
+    "keyCharacteristics": [
+      "Dark ops palette with Signal Cyan as the single primary accent",
+      "Syne display + JetBrains Mono body/labels (terminal literacy)",
+      "GitHub Dark prettylights for JSON / terminal syntax",
+      "Dot-grid atmosphere + soft cyan/ember radial glows (fixed, non-scrolling)",
+      "Quiet elevation: tonal layers first; sparse ambient shadows",
+      "Hash-aware spacing (scroll-pad / section pad) so every #section frames cleanly"
+    ],
+    "rules": [
+      {
+        "name": "The One Signal Rule",
+        "body": "Signal Cyan is the only primary interactive accent. Do not introduce a second \u201cbrand blue\u201d or purple for CTAs.",
+        "section": "colors"
+      },
+      {
+        "name": "The Prettylights Stay Local Rule",
+        "body": "Syntax colors live inside terminal/JSON surfaces. Do not paint section headers or buttons with json-key green.",
+        "section": "colors"
+      },
+      {
+        "name": "The Fold Rule",
+        "body": "Section titles must not steal the first viewport from proof (impact, case beats, project card). Prefer the section clamp over hero-scale type outside the hero.",
+        "section": "typography"
+      },
+      {
+        "name": "The Mono Voice Rule",
+        "body": "UI chrome (nav, labels, buttons, command bar) stays JetBrains Mono. Syne is for names and headings only.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "Cards and project surfaces do not rely on hover lift shadows. Depth comes from nesting and borders; shadows decorate chrome, not content cards.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Soft Console Rule",
+        "body": "Prefer 8\u201312px radii. Full pills are reserved for the command bar, not every chip or button.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do keep Signal Cyan as the sole primary interactive accent and Syne/Mono pairing intact.",
+      "Do preserve GitHub Dark prettylights inside terminal/JSON only.",
+      "Do design hash landings so proof (metrics, case beats, project card) appears in the first viewport.",
+      "Do use tonal nesting + hairline borders for depth; reserve shadows for nav/terminal/cmd chrome.",
+      "Do keep CTA copy and contact paths obvious (hire me, resume, mailto)."
+    ],
+    "donts": [
+      "Don't introduce purple gradients, cream+terracotta editorial, or broadsheet newspaper aesthetics.",
+      "Don't swap Syne/JetBrains Mono for Inter/Roboto/system UI defaults.",
+      "Don't inflate section titles back toward hero scale \u2014 it breaks #experience fold.",
+      "Don't put transform on the fixed navbar element (breaks mobile drawer).",
+      "Don't fabricate testimonials, metrics, or employers in pursuit of visual \u201cproof blocks.\u201d",
+      "Don't spam glow, multi-layer shadows, or rounded-full pill clusters across the page."
+    ]
+  }
+}

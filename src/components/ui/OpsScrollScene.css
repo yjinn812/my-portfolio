@@ -1,0 +1,23 @@
+/* Fixed Night Ops WebGL backdrop — under content, never captures input */
+.ops-scroll-scene {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  display: block;
+  opacity: 0.34;
+}
+
+@media (max-width: 768px) {
+  .ops-scroll-scene {
+    opacity: 0.24;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ops-scroll-scene {
+    display: none;
+  }
+}

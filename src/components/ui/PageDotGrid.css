@@ -3,7 +3,7 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.28;
+  opacity: 0.16;
 }
 
 /* Keep navbar out of this rule — it needs z-index: 100 for the mobile drawer */

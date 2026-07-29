@@ -64,8 +64,6 @@ const DotGrid = ({
   style,
   /** @deprecated use cellSize */
   gap,
-  /** @deprecated ignored for line grid */
-  dotSize: _dotSize,
 }) => {
   const resolvedCell = gap ?? cellSize;
   const wrapperRef = useRef(null);

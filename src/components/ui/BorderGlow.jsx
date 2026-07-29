@@ -63,14 +63,21 @@ function easeOutCubic(x) {
 
 function animateValue({ start = 0, end = 100, duration = 1000, delay = 0, ease = easeOutCubic, onUpdate, onEnd }) {
   const t0 = performance.now() + delay;
-  function tick() {
-    const elapsed = performance.now() - t0;
+  let raf = 0;
+  function tick(now) {
+    const elapsed = now - t0;
     const t = Math.min(elapsed / duration, 1);
     onUpdate(start + (end - start) * ease(t));
-    if (t < 1) requestAnimationFrame(tick);
+    if (t < 1) raf = requestAnimationFrame(tick);
     else if (onEnd) onEnd();
   }
-  setTimeout(() => requestAnimationFrame(tick), delay);
+  const startId = window.setTimeout(() => {
+    raf = requestAnimationFrame(tick);
+  }, delay);
+  return () => {
+    window.clearTimeout(startId);
+    cancelAnimationFrame(raf);
+  };
 }
 
 const BorderGlow = ({
@@ -90,6 +97,8 @@ const BorderGlow = ({
   const cardRef = useRef(null);
   const fxRef = useRef(null);
   const reduceMotion = useReducedMotion();
+  const rafRef = useRef(0);
+  const pendingRef = useRef(null);
 
   const getCenterOfElement = useCallback((el) => {
     const { width, height } = el.getBoundingClientRect();
@@ -124,30 +133,41 @@ const BorderGlow = ({
     [getCenterOfElement]
   );
 
+  const flushPointer = useCallback(() => {
+    rafRef.current = 0;
+    const pending = pendingRef.current;
+    const fx = fxRef.current;
+    if (!pending || !fx) return;
+    fx.style.setProperty("--edge-proximity", pending.edge);
+    fx.style.setProperty("--cursor-angle", pending.angle);
+  }, []);
+
   const handlePointerMove = useCallback(
     (e) => {
       if (reduceMotion) return;
       const card = cardRef.current;
       const fx = fxRef.current;
       if (!card || !fx) return;
-      // Idle cards keep glow layers hidden — skip geometry work while scrolling past
       if (!card.matches(":hover, .sweep-active")) return;
 
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
-      const edge = getEdgeProximity(card, x, y);
-      const angle = getCursorAngle(card, x, y);
+      pendingRef.current = {
+        edge: `${(getEdgeProximity(card, x, y) * 100).toFixed(2)}`,
+        angle: `${getCursorAngle(card, x, y).toFixed(2)}deg`,
+      };
 
-      fx.style.setProperty("--edge-proximity", `${(edge * 100).toFixed(3)}`);
-      fx.style.setProperty("--cursor-angle", `${angle.toFixed(3)}deg`);
+      if (!rafRef.current) {
+        rafRef.current = requestAnimationFrame(flushPointer);
+      }
     },
-    [getEdgeProximity, getCursorAngle, reduceMotion]
+    [getEdgeProximity, getCursorAngle, reduceMotion, flushPointer]
   );
 
   useEffect(() => {
-    if (reduceMotion || !animated || !cardRef.current || !fxRef.current) return;
+    if (reduceMotion || !animated || !cardRef.current || !fxRef.current) return undefined;
     const card = cardRef.current;
     const fx = fxRef.current;
     const angleStart = 110;
@@ -156,40 +176,43 @@ const BorderGlow = ({
     fx.style.setProperty("--cursor-angle", `${angleStart}deg`);
     fx.style.setProperty("--edge-proximity", "0");
 
-    animateValue({
-      duration: 500,
-      onUpdate: (v) => fx.style.setProperty("--edge-proximity", String(v)),
-    });
-    animateValue({
-      ease: easeOutCubic,
-      duration: 1500,
-      end: 50,
-      onUpdate: (v) => {
-        const angle = (angleEnd - angleStart) * (v / 100) + angleStart;
-        fx.style.setProperty("--cursor-angle", `${angle}deg`);
-      },
-    });
-    animateValue({
-      ease: easeOutCubic,
-      delay: 1500,
-      duration: 2250,
-      start: 50,
-      end: 100,
-      onUpdate: (v) => {
-        const angle = (angleEnd - angleStart) * (v / 100) + angleStart;
-        fx.style.setProperty("--cursor-angle", `${angle}deg`);
-      },
-    });
-    animateValue({
-      ease: easeOutCubic,
-      delay: 2500,
-      duration: 1500,
-      start: 100,
-      end: 0,
-      onUpdate: (v) => fx.style.setProperty("--edge-proximity", String(v)),
-      onEnd: () => card.classList.remove("sweep-active"),
-    });
+    const cleanups = [
+      animateValue({
+        duration: 280,
+        onUpdate: (v) => fx.style.setProperty("--edge-proximity", String(v)),
+      }),
+      animateValue({
+        ease: easeOutCubic,
+        duration: 900,
+        end: 100,
+        onUpdate: (v) => {
+          const angle = (angleEnd - angleStart) * (v / 100) + angleStart;
+          fx.style.setProperty("--cursor-angle", `${angle.toFixed(2)}deg`);
+        },
+      }),
+      animateValue({
+        ease: easeOutCubic,
+        delay: 900,
+        duration: 400,
+        start: 100,
+        end: 0,
+        onUpdate: (v) => fx.style.setProperty("--edge-proximity", String(v)),
+        onEnd: () => card.classList.remove("sweep-active"),
+      }),
+    ];
+
+    return () => {
+      cleanups.forEach((fn) => fn?.());
+      card.classList.remove("sweep-active");
+    };
   }, [animated, reduceMotion]);
+
+  useEffect(
+    () => () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    },
+    []
+  );
 
   const glowVars = buildGlowVars(glowColor, glowIntensity);
 

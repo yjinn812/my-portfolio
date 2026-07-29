@@ -10,8 +10,9 @@
   --accent-dim: #00d4ff22;
   --accent-2:   #ff6b35;
   --text:       #e6edf3;
-  --text-muted: #7d8590;
-  --text-dim:   #3d4f61;
+  --text-muted: #a8b3bf;
+  --text-dim:   #6b7c8f;
+  --text-secondary: color-mix(in srgb, var(--text) 78%, var(--text-muted));
   --shadow-sm:  0 10px 30px rgba(0, 0, 0, 0.28);
   --shadow-md:  0 18px 48px rgba(0, 0, 0, 0.42);
   --nav-scrolled: rgba(8, 12, 16, 0.92);
@@ -29,8 +30,10 @@
   --terminal-comment: #8b949e;
   --terminal-punct: #c9d1d9;
   --terminal-danger: #ff7b72;
+  --salesforce: #00a1e0;
   --font-display: 'Syne', sans-serif;
   --font-mono:    'JetBrains Mono', monospace;
+  --radius-hairline: 2px;
   --radius:     8px;
   --radius-lg:  12px;
   /* Nav clearance for #hash jumps — keep in sync with HashScroll */
@@ -138,7 +141,7 @@ a:focus:not(:focus-visible) {
 /* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: var(--radius-hairline); }
 
 @media (max-width: 768px) {
   :root {

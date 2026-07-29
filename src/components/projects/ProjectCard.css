@@ -72,7 +72,7 @@
 
 .project-card__placeholder-label {
   font-family: var(--font-display);
-  font-size: clamp(42px, 6vw, 64px);
+  font-size: clamp(40px, 5.8vw, 76px);
   font-weight: 800;
   letter-spacing: -0.04em;
   color: var(--text-dim);
@@ -116,7 +116,7 @@
 }
 
 .project-card__folder {
-  font-size: 24px;
+  font-size: 28px;
   color: var(--accent);
 }
 
@@ -127,32 +127,38 @@
 }
 .project-card__links a {
   color: var(--text-muted);
-  transition: color 160ms ease, transform 160ms var(--ease-out);
+  transition: color 160ms ease;
   display: flex;
   align-items: center;
 }
 .project-card__links a:hover { color: var(--accent); }
-.project-card__links a:active {
-  transform: scale(0.97);
+
+@media (hover: hover) and (pointer: fine) {
+  .project-card__links a {
+    transition: color 160ms ease, transform 160ms var(--ease-out);
+  }
+  .project-card__links a:active {
+    transform: scale(0.97);
+  }
 }
 
 .project-card__title {
   font-family: var(--font-display);
-  font-size: 18px;
+  font-size: clamp(18px, 2.2vw, 24px);
   font-weight: 700;
   color: var(--text);
 }
 
 .project-card--featured .project-card__title,
 .project-card--wide .project-card__title {
-  font-size: clamp(24px, 3vw, 34px);
+  font-size: clamp(24px, 3.2vw, 34px);
   letter-spacing: -0.02em;
   line-height: 1.15;
 }
 
 .project-card__desc {
-  font-size: 13px;
-  color: var(--text-muted);
+  font-size: 14px;
+  color: var(--text-secondary);
   line-height: 1.7;
   flex: 1;
 }
@@ -163,13 +169,13 @@
 }
 
 .project-card__story {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text);
   line-height: 1.7;
   padding: 12px 14px;
-  border-left: 2px solid var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
   background: var(--accent-dim);
-  border-radius: 0 8px 8px 0;
+  border-radius: var(--radius);
 }
 
 .project-card__tags {
@@ -185,7 +191,7 @@
   color: var(--accent);
   background: var(--accent-dim);
   padding: 3px 10px;
-  border-radius: 2px;
+  border-radius: var(--radius-hairline);
   letter-spacing: 0.05em;
 }
 
@@ -207,10 +213,6 @@
 
   .project-card__media--desktop {
     min-height: 240px;
-  }
-
-  .project-card__placeholder-label {
-    font-size: clamp(36px, 12vw, 52px);
   }
 }
 

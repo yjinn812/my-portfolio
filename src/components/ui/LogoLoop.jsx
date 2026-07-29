@@ -159,7 +159,9 @@ export const LogoLoop = memo(
     const [seqHeight, setSeqHeight] = useState(0);
     const [copyCount, setCopyCount] = useState(ANIMATION_CONFIG.MIN_COPIES);
     const [isHovered, setIsHovered] = useState(false);
-    const [isInView, setIsInView] = useState(false);
+    const [isInView, setIsInView] = useState(
+      () => typeof IntersectionObserver === "undefined"
+    );
     const [pageVisible, setPageVisible] = useState(
       () => typeof document === "undefined" || document.visibilityState !== "hidden"
     );
@@ -218,7 +220,6 @@ export const LogoLoop = memo(
     useEffect(() => {
       const node = containerRef.current;
       if (!node || typeof IntersectionObserver === "undefined") {
-        setIsInView(true);
         return undefined;
       }
       const observer = new IntersectionObserver(

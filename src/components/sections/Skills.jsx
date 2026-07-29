@@ -17,7 +17,6 @@ import {
 import { FaAws, FaSalesforce } from "react-icons/fa";
 import { toolkit } from "../../data/portfolioData";
 import LogoLoop from "../ui/LogoLoop";
-import { Reveal, RevealGroup, RevealItem, SectionHeader } from "../ui/Reveal";
 import "./Skills.css";
 
 const techLogos = [
@@ -39,17 +38,59 @@ const techLogos = [
   { node: <SiGnubash />, title: "Shell" },
 ];
 
+/** NSIDE-style scatter: alternate lean, straighten on hover (CSS-driven). */
+const TILTS = [-4.5, 3.2, -3.6];
+
+function ToolkitCard({ group, index }) {
+  const tilt = TILTS[index % TILTS.length];
+
+  return (
+    <div className="toolkit-card-slot">
+      <article
+        className={`toolkit-card toolkit-card--${group.tone}`}
+        style={{
+          "--tilt": tilt,
+          "--tilt-dim": tilt * 1.35,
+          "--enter-delay": `${index * 70}ms`,
+        }}
+      >
+        <div className="toolkit-card__visual" aria-hidden="true" />
+        <div className="toolkit-card__veil" aria-hidden="true" />
+
+        <div className="toolkit-card__content">
+          <p className="toolkit-card__eyebrow">{group.eyebrow}</p>
+          <h3 className="toolkit-card__title">{group.title}</h3>
+
+          <ul className="toolkit-card__items">
+            {group.items.map((item, itemIndex) => (
+              <li key={item} style={{ "--scan-i": itemIndex }}>
+                <span className="toolkit-card__chip-label">{item}</span>
+              </li>
+            ))}
+          </ul>
+
+          <p className="toolkit-card__footer">
+            <span>{String(group.items.length).padStart(2, "0")} tools</span>
+            <span className="toolkit-card__hint">{group.note}</span>
+          </p>
+        </div>
+      </article>
+    </div>
+  );
+}
+
 export default function Skills() {
   return (
     <section className="skills" id="skills">
-      <div className="container">
-        <SectionHeader label="toolkit" title="What I work with" />
-        <Reveal as="p" className="skills__lede" direction="fade" delay={0.04}>
+      <div className="container skills__intro">
+        <p className="section-label">toolkit</p>
+        <h2 className="section-title">What I work with</h2>
+        <p className="skills__lede">
           Tools I’ve shipped with, not a claim that I know every library by heart.
-        </Reveal>
+        </p>
       </div>
 
-      <Reveal className="skills__loop" direction="fade" delay={0.06}>
+      <div className="skills__loop">
         <LogoLoop
           logos={techLogos}
           speed={90}
@@ -68,20 +109,14 @@ export default function Skills() {
             </span>
           )}
         />
-      </Reveal>
+      </div>
 
       <div className="container">
-        <RevealGroup className="skills__list" stagger={0.06} delay={0.08}>
-          {toolkit.map((group) => (
-            <RevealItem key={group.title} className="skills__group" direction="up">
-              <div className="skills__group-head">
-                <h3 className="skills__group-title">{group.title}</h3>
-                <p className="skills__group-note">{group.note}</p>
-              </div>
-              <p className="skills__items">{group.items.join(" · ")}</p>
-            </RevealItem>
+        <div className="toolkit-gallery">
+          {toolkit.map((group, index) => (
+            <ToolkitCard key={group.id} group={group} index={index} />
           ))}
-        </RevealGroup>
+        </div>
       </div>
     </section>
   );

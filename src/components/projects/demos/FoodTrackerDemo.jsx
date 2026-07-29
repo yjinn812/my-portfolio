@@ -11,21 +11,19 @@ const STEPS = [
 ];
 
 export default function FoodTrackerDemo({ active, inView = true }) {
-  const [step, setStep] = useState(0);
+  const [liveStep, setLiveStep] = useState(0);
   const [runId, setRunId] = useState(0);
   const live = active && inView;
+  const step = live ? liveStep : 0;
 
   useEffect(() => {
-    if (!live) {
-      setStep(0);
-      return undefined;
-    }
+    if (!live) return undefined;
 
-    setStep(0);
+    setLiveStep(0);
     setRunId((id) => id + 1);
 
     const timers = STEPS.map(({ at }, index) =>
-      window.setTimeout(() => setStep(index + 1), at),
+      window.setTimeout(() => setLiveStep(index + 1), at),
     );
 
     return () => timers.forEach(clearTimeout);

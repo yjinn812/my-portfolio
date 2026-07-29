@@ -1,15 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
-import FoodTrackerDemo from "./FoodTrackerDemo";
-import SheetsApiDemo from "./SheetsApiDemo";
-import ExpenseTrackerDemo from "./ExpenseTrackerDemo";
-import PortfolioDemo from "./PortfolioDemo";
 
 const demos = {
-  "food-tracker-chat": FoodTrackerDemo,
-  "sheets-api-postman": SheetsApiDemo,
-  "expense-tracker-screens": ExpenseTrackerDemo,
-  "portfolio-browser": PortfolioDemo,
+  "food-tracker-chat": lazy(() => import("./FoodTrackerDemo")),
+  "sheets-api-postman": lazy(() => import("./SheetsApiDemo")),
+  "expense-tracker-screens": lazy(() => import("./ExpenseTrackerDemo")),
+  "portfolio-browser": lazy(() => import("./PortfolioDemo")),
 };
 
 const COARSE_MQ = "(hover: none), (pointer: coarse)";
@@ -17,19 +13,18 @@ const COARSE_MQ = "(hover: none), (pointer: coarse)";
 export default function ProjectDemo({ type, active }) {
   const Demo = demos[type];
   const rootRef = useRef(null);
-  const [inView, setInView] = useState(false);
+  const [inView, setInView] = useState(
+    () => typeof IntersectionObserver === "undefined"
+  );
   const [coarse, setCoarse] = useState(false);
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const node = rootRef.current;
-    if (!node || typeof IntersectionObserver === "undefined") {
-      setInView(true);
-      return undefined;
-    }
+    if (!node || typeof IntersectionObserver === "undefined") return undefined;
     const observer = new IntersectionObserver(
       ([entry]) => setInView(entry.isIntersecting),
-      { rootMargin: "100px 0px", threshold: 0.05 }
+      { rootMargin: "120px 0px", threshold: 0.05 }
     );
     observer.observe(node);
     return () => observer.disconnect();
@@ -50,7 +45,9 @@ export default function ProjectDemo({ type, active }) {
 
   return (
     <div ref={rootRef} className="project-demo-root">
-      <Demo active={effectiveActive} inView={inView} />
+      <Suspense fallback={null}>
+        <Demo active={effectiveActive} inView={inView} />
+      </Suspense>
     </div>
   );
 }

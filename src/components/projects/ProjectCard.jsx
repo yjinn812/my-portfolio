@@ -33,30 +33,37 @@ function ProjectLinks({ project }) {
   );
 }
 
-export default function ProjectCard({ project, featured = false }) {
-  const [demoActive, setDemoActive] = useState(false);
+export default function ProjectCard({
+  project,
+  featured = false,
+  stageActive = false,
+}) {
+  const [hoverActive, setHoverActive] = useState(false);
   const glow = useBorderGlowTheme();
   const hasDemo = Boolean(project.demo);
   const showcase = featured || project.wide;
+  const demoActive = stageActive || hoverActive;
+  const Root = stageActive ? "div" : "article";
 
   return (
     <BorderGlow className="project-card-glow" {...glow}>
-      <article
+      <Root
         className={[
           "project-card",
           featured ? "project-card--featured" : "",
           project.wide ? "project-card--wide" : "",
           hasDemo ? "project-card--has-demo" : "",
+          stageActive ? "project-card--stage-active" : "",
         ]
           .filter(Boolean)
           .join(" ")}
-        onMouseEnter={() => hasDemo && setDemoActive(true)}
-        onMouseLeave={() => hasDemo && setDemoActive(false)}
-        onFocus={() => hasDemo && setDemoActive(true)}
+        onMouseEnter={() => hasDemo && setHoverActive(true)}
+        onMouseLeave={() => hasDemo && setHoverActive(false)}
+        onFocus={() => hasDemo && setHoverActive(true)}
         onBlur={(event) => {
           if (!hasDemo) return;
           if (!event.currentTarget.contains(event.relatedTarget)) {
-            setDemoActive(false);
+            setHoverActive(false);
           }
         }}
       >
@@ -117,7 +124,7 @@ export default function ProjectCard({ project, featured = false }) {
             </div>
           </>
         )}
-      </article>
+      </Root>
     </BorderGlow>
   );
 }

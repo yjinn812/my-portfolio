@@ -151,8 +151,11 @@ export const featuredCaseStudies = [
 
 export const toolkit = [
   {
+    id: "platforms",
+    eyebrow: "Enterprise CRM",
     title: "Salesforce & platforms",
     note: "Most of my production time lives here.",
+    tone: "cyan",
     items: [
       "Apex",
       "Lightning Web Components",
@@ -164,8 +167,11 @@ export const toolkit = [
     ],
   },
   {
+    id: "app-code",
+    eyebrow: "Product & services",
     title: "App code & APIs",
     note: "Services, UIs, and other tools I've worked with.",
+    tone: "slate",
     items: [
       "TypeScript",
       "JavaScript",
@@ -179,8 +185,11 @@ export const toolkit = [
     ],
   },
   {
+    id: "delivery",
+    eyebrow: "Ship & operate",
     title: "Delivery & cloud",
-    note: "Release plumbing and cloud basics, plus the AI tools I actually use.",
+    note: "Release plumbing, cloud basics, and the AI tools I actually use.",
+    tone: "ember",
     items: [
       "AWS",
       "Jenkins",
@@ -274,17 +283,16 @@ export const projects =
     eyebrow: "This site · design + build",
     title: "Personal Portfolio Website",
     description:
-      "Designed and built end-to-end: composition, typography, motion, and interactive demos that show the work instead of only listing it.",
+      "Night Ops Terminal portfolio: Syne + JetBrains Mono, expandable profile.json hero, scroll-scrubbed project stages, and a Three.js Möbius backdrop.",
     story:
-      "You're looking at the proof. Custom terminal hero, scroll-stacked projects, and a reactive line grid under the page.",
-    tags: ["UI Design", "React", "Vite", "Framer Motion", "CSS"],
+      "You're looking at the proof. Command-bar hero, Work impact + case studies, project beats synced to the hologram, and demos that play the work.",
+    tags: ["UI Design", "React", "Vite", "Three.js", "Framer Motion"],
     github: null,
     live: "https://www.yujinwong.com",
     demo: "portfolio-browser",
   },
   {
     id: 4,
-    hidden: true,
     wide: true,
     eyebrow: "In progress",
     title: "Roguelite card RPG",

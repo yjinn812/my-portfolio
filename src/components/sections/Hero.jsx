@@ -267,7 +267,7 @@ export default function Hero() {
   );
   const timersRef = useRef([]);
 
-  const transition = reduceMotion || compactLayout ? { duration: 0 } : { duration: 0.4, ease: easeOut };
+  const transition = reduceMotion || compactLayout ? { duration: 0 } : { duration: 0.28, ease: easeOut };
   const sizeMotion = reduceMotion ? { duration: 0 } : { duration: SIZE_MS / 1000, ease: easeOut };
   const faceMotion = reduceMotion ? { duration: 0 } : { duration: FACE_MS / 1000, ease: easeOut };
 
@@ -364,14 +364,13 @@ export default function Hero() {
     });
   }
 
-  // Width: folder uses px; open/minimized use 100% of the visual column (min-width:0 so
-  // the shell never inflates the grid track). Height: explicit only for folder ↔ bar.
-  const shellAnimate =
+  // Layout size snaps by phase (no width/height tween). Faces crossfade on the GPU.
+  const shellStyle =
     phase === "folder"
       ? { width: FOLDER_SIZE, height: FOLDER_SIZE }
       : phase === "minimized"
         ? { width: "100%", height: HEADER_HEIGHT }
-        : { width: "100%" };
+        : { width: "100%", height: isOpen && !compactLayout ? "auto" : undefined };
 
   const visibleEntries = Object.entries(profileJsonData);
 
@@ -442,16 +441,11 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        <div className="hero__visual">
-          <motion.div
-            className={`hero__profile-shell${isFolder ? " hero__profile-shell--folder" : ""}${bodyCollapsed ? " hero__profile-shell--collapsed" : ""}`}
-            initial={false}
-            animate={shellAnimate}
-            transition={{
-              width: sizeMotion,
-              height: isOpen ? { duration: 0 } : sizeMotion,
-            }}
-            style={isOpen && !compactLayout ? { height: "auto" } : undefined}
+        <div className="hero__visual-col">
+          <div className="hero__visual">
+            <div
+            className={`hero__profile-shell${isFolder ? " hero__profile-shell--folder" : ""}${bodyCollapsed ? " hero__profile-shell--collapsed" : ""}${jsonExpanded && isOpen ? " hero__profile-shell--expanded" : ""}`}
+            style={shellStyle}
             onClick={isFolder ? handleRestoreFromFolder : undefined}
             role={isFolder ? "button" : undefined}
             tabIndex={isFolder ? 0 : undefined}
@@ -472,7 +466,10 @@ export default function Hero() {
             <motion.div
               className="hero__profile-face hero__profile-face--folder"
               initial={false}
-              animate={{ opacity: showFolderFace ? 1 : 0 }}
+              animate={{
+                opacity: showFolderFace ? 1 : 0,
+                transform: showFolderFace ? "scale(1)" : "scale(0.94)",
+              }}
               transition={faceMotion}
               aria-hidden={!showFolderFace}
               style={{ pointerEvents: isFolder ? "auto" : "none" }}
@@ -600,7 +597,8 @@ export default function Hero() {
                 </div>
               </div>
             </motion.div>
-          </motion.div>
+          </div>
+          </div>
         </div>
       </div>
     </section>

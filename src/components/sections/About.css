@@ -12,7 +12,7 @@
 
 .about__summary {
   font-size: 14px;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   line-height: 1.9;
   margin-bottom: 36px;
 }
@@ -47,7 +47,7 @@
 
 .about__info-val {
   margin: 0;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text);
 }
 
@@ -65,7 +65,7 @@
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: var(--text-dim);
+  color: var(--text-muted);
   margin-bottom: 16px;
 }
 
@@ -93,7 +93,7 @@
 }
 
 .about__edu-degree {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--text);
   font-family: var(--font-display);
   margin-bottom: 4px;
@@ -101,7 +101,7 @@
 
 .about__edu-school {
   font-size: 12px;
-  color: var(--text-muted);
+  color: var(--text-secondary);
 }
 
 .about__architect {
@@ -114,11 +114,11 @@
   gap: 8px;
   margin-bottom: 12px;
   font-size: 12px;
-  color: var(--text-muted);
+  color: var(--text-secondary);
 }
 
 .about__sf-mark {
-  color: #00a1e0;
+  color: var(--salesforce);
   flex-shrink: 0;
 }
 
@@ -147,7 +147,7 @@
 
 .about__architect-name {
   font-family: var(--font-display);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--text);
   letter-spacing: -0.01em;
@@ -227,7 +227,7 @@
 }
 
 .about__cert-issuer {
-  color: var(--text-dim);
+  color: var(--text-muted);
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.04em;
@@ -236,7 +236,7 @@
 }
 
 .about__cert-name {
-  color: var(--text-muted);
+  color: var(--text-secondary);
 }
 
 @media (max-width: 768px) {

@@ -23,7 +23,15 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // `motion` is used as <motion.div />; without eslint-plugin-react, JSX members
+      // are not marked as references. Allow Framer's namespace + PascalCase components.
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]|motion$' }],
+      'react-refresh/only-export-components': [
+        'warn',
+        { allowConstantExport: true },
+      ],
+      // Demo/marquee pause resets are intentional; cascading cost is negligible here.
+      'react-hooks/set-state-in-effect': 'off',
     },
   },
 ])

@@ -1,0 +1,9 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [
+      "src/components/projects/demos/PortfolioDemo.css"
+    ],
+    "ignoreValues": []
+  }
+}

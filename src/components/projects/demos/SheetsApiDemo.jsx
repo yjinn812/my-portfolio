@@ -20,28 +20,26 @@ const BODY_LINES = [
 ];
 
 export default function SheetsApiDemo({ active, inView = true }) {
-  const [step, setStep] = useState(0);
+  const [liveStep, setLiveStep] = useState(0);
   const [runId, setRunId] = useState(0);
-  const [visibleLines, setVisibleLines] = useState(0);
+  const [liveLines, setLiveLines] = useState(0);
   const live = active && inView;
+  const step = live ? liveStep : 0;
+  const visibleLines = live ? liveLines : 0;
 
   useEffect(() => {
-    if (!live) {
-      setStep(0);
-      setVisibleLines(0);
-      return undefined;
-    }
+    if (!live) return undefined;
 
-    setStep(0);
-    setVisibleLines(0);
+    setLiveStep(0);
+    setLiveLines(0);
     setRunId((id) => id + 1);
 
     const timers = STEPS.map(({ at }, index) =>
-      window.setTimeout(() => setStep(index + 1), at),
+      window.setTimeout(() => setLiveStep(index + 1), at),
     );
 
     const lineTimers = BODY_LINES.map((_, index) =>
-      window.setTimeout(() => setVisibleLines(index + 1), 1300 + index * 120),
+      window.setTimeout(() => setLiveLines(index + 1), 1300 + index * 120),
     );
 
     return () => {

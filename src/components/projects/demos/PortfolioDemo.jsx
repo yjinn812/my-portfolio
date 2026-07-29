@@ -5,19 +5,19 @@ const SCREENS = [
   {
     id: "hero",
     label: "Hero",
-    caption: "Name, CTAs, and live profile.json terminal",
+    caption: "Syne name, command bar, and expandable profile.json",
     url: "www.yujinwong.com/#hero",
   },
   {
-    id: "experience",
-    label: "Experience",
-    caption: "Role tabs with animated highlight swaps",
+    id: "work",
+    label: "Work",
+    caption: "Impact strip + featured case studies (SaaS · AI)",
     url: "www.yujinwong.com/#experience",
   },
   {
     id: "projects",
     label: "Projects",
-    caption: "Interactive demos: chat, API client, iOS gallery",
+    caption: "Scroll-scrubbed stages synced to the Möbius backdrop",
     url: "www.yujinwong.com/#projects",
   },
 ];
@@ -40,11 +40,16 @@ function HeroScreen() {
   return (
     <div className="pf-screen pf-screen--hero">
       <div className="pf-nav">
-        <span className="pf-nav__brand">YJ</span>
+        <span className="pf-nav__brand">
+          <span className="pf-nav__bracket">&lt;</span>YJ
+          <span className="pf-nav__bracket">/&gt;</span>
+        </span>
         <div className="pf-nav__links">
-          <span>About</span>
-          <span>Work</span>
-          <span>Projects</span>
+          <span>work</span>
+          <span>projects</span>
+          <span>about</span>
+          <span>skills</span>
+          <span>contact</span>
         </div>
         <span className="pf-nav__cta">hire me</span>
       </div>
@@ -58,10 +63,14 @@ function HeroScreen() {
             <br />
             Wong
           </h3>
-          <p className="pf-hero__role">Lead Engineer @ NAB</p>
+          <p className="pf-hero__role">Lead Engineer @ National Australia Bank</p>
           <div className="pf-hero__btns">
             <span className="pf-hero__btn pf-hero__btn--primary">View My Work</span>
-            <span className="pf-hero__btn">Get In Touch</span>
+          </div>
+          <div className="pf-cmd">
+            <span className="pf-cmd__prompt">$</span>
+            <span className="pf-cmd__text">open_to --roles lead_engineer architect</span>
+            <span className="pf-cmd__cursor" />
           </div>
         </div>
         <div className="pf-terminal">
@@ -71,46 +80,66 @@ function HeroScreen() {
           </div>
           <pre className="pf-terminal__body">{`{
   "role": "Lead Engineer",
+  "currently_at": "NAB",
+  "years_exp": 7,
+  "primary_stack": [
+    "Salesforce", "JS", "Cursor"
+  ],
   "impacts": {
-    "users": "3k → 13k",
-    "speed": "4x"
+    "users_scaled": "3k → 13k",
+    "processing_gain": "4x"
   },
-  "open_to_roles": true
+  "open_to": { "status": true }
 }`}</pre>
         </div>
       </div>
+      <div className="pf-hero__glow" aria-hidden />
     </div>
   );
 }
 
-function ExperienceScreen() {
+function WorkScreen() {
   return (
-    <div className="pf-screen pf-screen--experience">
-      <div className="pf-section-label">// work history</div>
-      <h3 className="pf-section-title">Experience</h3>
-      <div className="pf-exp">
-        <div className="pf-exp__tabs">
-          <div className="pf-exp__tab is-active">
-            <strong>NAB</strong>
-            <span>Lead Engineer</span>
-          </div>
-          <div className="pf-exp__tab">
-            <strong>NAB</strong>
-            <span>Senior Analyst</span>
-          </div>
-          <div className="pf-exp__tab">
-            <strong>Appirio</strong>
-            <span>Graduate SE</span>
-          </div>
+    <div className="pf-screen pf-screen--work">
+      <div className="pf-section-label">// work</div>
+      <h3 className="pf-section-title">Work</h3>
+
+      <p className="pf-impact-label">Impact at a glance</p>
+      <div className="pf-impact">
+        <div className="pf-impact__item">
+          <strong>3k → 13k</strong>
+          <span>CRM users</span>
         </div>
-        <div className="pf-exp__panel">
-          <div className="pf-exp__role">Lead Engineer <em>@ NAB</em></div>
-          <p className="pf-exp__period">Oct 2024 – Present</p>
-          <ul className="pf-exp__list">
-            <li>Technical direction across 13,000+ user CRM</li>
-            <li>CI/CD overhaul: 10–30 min setup saved</li>
-            <li>400% record processing improvement</li>
-          </ul>
+        <div className="pf-impact__item">
+          <strong>4×</strong>
+          <span>Processing</span>
+        </div>
+        <div className="pf-impact__item">
+          <strong>30 min</strong>
+          <span>Setup saved</span>
+        </div>
+      </div>
+
+      <div className="pf-case">
+        <div className="pf-case__tabs">
+          <span className="is-active">SaaS conversion</span>
+          <span>AI adoption</span>
+        </div>
+        <p className="pf-case__eyebrow">Featured case study · NAB</p>
+        <h4 className="pf-case__title">One-month SaaS conversion under a security deadline</h4>
+        <div className="pf-case__beats">
+          <div>
+            <em>01 · Problem</em>
+            <p>Hard security cutover on a legacy org.</p>
+          </div>
+          <div>
+            <em>02 · What I did</em>
+            <p>Owned design → ship in 30 days.</p>
+          </div>
+          <div>
+            <em>03 · Result</em>
+            <p>Risk cleared; workflows intact.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -122,18 +151,28 @@ function ProjectsScreen() {
     <div className="pf-screen pf-screen--projects">
       <div className="pf-section-label">// projects</div>
       <h3 className="pf-section-title">Personal Projects</h3>
-      <div className="pf-projects">
-        <div className="pf-project pf-project--feature">
-          <div className="pf-project__demo">AI chat · macros → Firestore</div>
-          <strong>AI Food Tracker</strong>
+      <p className="pf-projects__hint">Scroll to advance each build</p>
+
+      <div className="pf-stages">
+        <div className="pf-stage is-active">
+          <span className="pf-stage__index">01 / 05</span>
+          <div className="pf-stage__card">
+            <div className="pf-stage__media">AI chat · macros → Firestore</div>
+            <div className="pf-stage__body">
+              <span className="pf-stage__eyebrow">Featured project</span>
+              <strong>AI Food Tracker</strong>
+            </div>
+          </div>
         </div>
-        <div className="pf-project">
-          <div className="pf-project__demo">POST /sheets/append</div>
-          <strong>Sheets Microservice</strong>
+        <div className="pf-stage pf-stage--next">
+          <span className="pf-stage__index">02 / 05</span>
+          <div className="pf-stage__card pf-stage__card--compact">
+            <div className="pf-stage__media pf-stage__media--sm">POST /sheets/append</div>
+            <strong>Sheets Microservice</strong>
+          </div>
         </div>
-        <div className="pf-project">
-          <div className="pf-project__demo">iOS · trip splits</div>
-          <strong>Expense Tracker</strong>
+        <div className="pf-stage-rail" aria-hidden>
+          <i /><i /><i /><i /><i className="is-on" />
         </div>
       </div>
     </div>
@@ -142,7 +181,7 @@ function ProjectsScreen() {
 
 function ScreenContent({ id }) {
   if (id === "hero") return <HeroScreen />;
-  if (id === "experience") return <ExperienceScreen />;
+  if (id === "work") return <WorkScreen />;
   if (id === "projects") return <ProjectsScreen />;
   return null;
 }
@@ -156,7 +195,7 @@ export default function PortfolioDemo({ active, inView = true }) {
 
     const id = window.setInterval(() => {
       setIndex((current) => (current + 1) % SCREENS.length);
-    }, active ? 2600 : 3600);
+    }, active ? 2800 : 3800);
 
     return () => window.clearInterval(id);
   }, [active, paused, inView]);
