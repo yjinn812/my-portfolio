@@ -309,7 +309,7 @@ export default function OpsScrollScene() {
     };
 
     const kick = () => {
-      if (!running || !sceneActive || raf) return;
+      if (!running || raf) return;
       raf = requestAnimationFrame(tick);
     };
 
@@ -318,51 +318,42 @@ export default function OpsScrollScene() {
       if (running) kick();
     };
 
-    /** Fixed canvas is always “in view” — gate on hero/projects instead. */
-    let sceneActive = true;
-    const sectionVisibility = { hero: true, projects: false };
-    const syncSceneActive = () => {
-      sceneActive = sectionVisibility.hero || sectionVisibility.projects;
-      if (sceneActive) kick();
-      else if (!sceneActive && canvas) {
-        canvas.style.opacity = "0";
-      }
-    };
-
+    /** About → contact: keep strip on, drop bloom/particles for FPS. */
+    let lowPower = false;
+    const lowerVisible = { about: false, skills: false, contact: false };
     const sectionIo =
       typeof IntersectionObserver !== "undefined"
         ? new IntersectionObserver(
             (entries) => {
               for (const entry of entries) {
                 const id = entry.target.id;
-                if (id === "hero" || id === "projects") {
-                  sectionVisibility[id] = entry.isIntersecting;
+                if (id in lowerVisible) {
+                  lowerVisible[id] = entry.isIntersecting;
                 }
               }
-              syncSceneActive();
+              lowPower = Object.values(lowerVisible).some(Boolean);
+              kick();
             },
-            { rootMargin: "20% 0px", threshold: [0, 0.08, 0.2] }
+            { rootMargin: "10% 0px", threshold: [0, 0.12] }
           )
         : null;
 
-    const heroEl = document.getElementById("hero");
-    const projectsEl = document.getElementById("projects");
-    if (sectionIo) {
-      if (heroEl) sectionIo.observe(heroEl);
-      if (projectsEl) sectionIo.observe(projectsEl);
+    for (const id of Object.keys(lowerVisible)) {
+      const el = document.getElementById(id);
+      if (el) sectionIo?.observe(el);
     }
-    // Defer first sync until layout exists
-    requestAnimationFrame(syncSceneActive);
 
     const tick = (t) => {
       raf = 0;
-      if (!running || !sceneActive) return;
+      if (!running) return;
 
       const settling =
         Math.abs(target.p - current.p) > 0.0008 ||
         Math.abs(projectsTarget - projectsCurrent) > 0.0008;
       const boosted = t < scrollBoostUntil;
-      const minDelta = settling || boosted ? 1000 / 60 : 1000 / 18;
+      const idleFps = lowPower ? 24 : 30;
+      const minDelta =
+        settling || boosted ? (lowPower ? 1000 / 30 : 1000 / 60) : 1000 / idleFps;
       if (t - lastFrame < minDelta) {
         raf = requestAnimationFrame(tick);
         return;
@@ -385,11 +376,16 @@ export default function OpsScrollScene() {
       membrane.material.opacity = 0.1 + Math.sin(time * 2.2) * 0.015 + pp * 0.03;
       lattice.material.opacity = 0.14 + Math.sin(time * 1.6 + 1) * 0.02 + pp * 0.04;
       if (bloom) {
-        bloom.strength = 0.3 + Math.sin(time * 1.2) * 0.025 + pp * 0.06;
+        bloom.strength = lowPower
+          ? 0.16
+          : 0.3 + Math.sin(time * 1.2) * 0.025 + pp * 0.06;
       }
 
-      particles.rotation.y = time * 0.02 + p * 0.4 + pp * 0.35;
-      particles.rotation.x = p * 0.15 + pp * 0.1;
+      particles.visible = !lowPower;
+      if (!lowPower) {
+        particles.rotation.y = time * 0.02 + p * 0.4 + pp * 0.35;
+        particles.rotation.x = p * 0.15 + pp * 0.1;
+      }
 
       camera.position.x = 0.6 + Math.sin(p * Math.PI * 0.5) * 1.1 + Math.sin(pp * Math.PI) * 0.45;
       camera.position.y = 1.4 + p * 0.9 + pp * 0.35;
@@ -399,11 +395,12 @@ export default function OpsScrollScene() {
       amberKey.intensity = 1.05 + Math.sin(time * 1.2) * 0.12 + pp * 0.2;
       cyanFill.intensity = 0.28 + Math.cos(time) * 0.06 + pp * 0.08;
 
+      const base = mobile ? 0.2 : 0.28;
       canvas.style.opacity = String(
-        Math.min(0.5, (mobile ? 0.22 : 0.3) + pp * 0.14)
+        Math.min(0.48, base + pp * 0.14 + (lowPower ? 0.08 : 0))
       );
 
-      if (composer) composer.render();
+      if (composer && !lowPower) composer.render();
       else renderer.render(scene, camera);
     };
 

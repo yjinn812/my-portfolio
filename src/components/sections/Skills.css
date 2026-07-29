@@ -3,7 +3,6 @@
   z-index: 1;
   padding: var(--section-pad);
   border-top: 1px solid var(--border);
-  isolation: isolate;
 }
 
 .skills__lede {
@@ -12,23 +11,38 @@
   line-height: 1.75;
   max-width: 52ch;
   margin: -18px 0 28px;
+  text-shadow: 0 1px 12px color-mix(in srgb, var(--bg) 85%, transparent);
 }
 
 .skills__loop {
   position: relative;
-  z-index: 2;
+  z-index: 1;
   margin: 0 0 40px;
   padding: 18px 0;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   overflow: hidden;
-  background: var(--bg);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .skills__loop .logoloop__item {
+    transition: color 160ms ease;
+  }
+
+  .skills__loop .logoloop__item:hover .logoloop__node,
+  .skills__loop .logoloop__item:hover .logoloop__label {
+    color: var(--accent);
+  }
 }
 
 .skills__intro {
   position: relative;
-  z-index: 2;
-  background: var(--bg);
+  z-index: 1;
+}
+
+.skills__intro .section-title,
+.skills__intro .section-label {
+  text-shadow: 0 1px 18px color-mix(in srgb, var(--bg) 90%, transparent);
 }
 
 /* NSIDE-inspired scatter — transform/opacity only */

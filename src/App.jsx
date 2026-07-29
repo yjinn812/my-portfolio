@@ -11,7 +11,6 @@ import Contact from "./components/sections/Contact";
 import HashScroll from "./components/ui/HashScroll";
 
 const OpsScrollScene = lazy(() => import("./components/ui/OpsScrollScene"));
-const PageDotGrid = lazy(() => import("./components/ui/PageDotGrid"));
 
 export default function App() {
   return (
@@ -19,7 +18,6 @@ export default function App() {
       <HashScroll />
       <Suspense fallback={null}>
         <OpsScrollScene />
-        <PageDotGrid />
       </Suspense>
       <Navbar />
       <main id="main">

@@ -98,7 +98,6 @@ export default function Skills() {
           logoHeight={36}
           gap={48}
           hoverSpeed={0}
-          scaleOnHover
           fadeOut
           fadeOutColor="var(--bg)"
           ariaLabel="Tools I work with"
