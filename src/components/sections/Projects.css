@@ -9,15 +9,6 @@
   margin-bottom: 8px;
 }
 
-.projects__hint {
-  margin: -4px 0 0;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
 .projects__track {
   margin-top: 12px;
   padding-bottom: 48px;
@@ -30,10 +21,6 @@
 @media (max-width: 860px) {
   .projects {
     padding-bottom: 24px;
-  }
-
-  .projects__hint {
-    display: none;
   }
 
   .projects__track {

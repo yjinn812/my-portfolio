@@ -26,7 +26,7 @@ export default function About() {
   return (
     <section className="about" id="about">
       <div className="container">
-        <SectionHeader label="about me" title="Who I Am" />
+        <SectionHeader label="about me" title="About" />
 
         <div className="about__grid">
           <Reveal className="about__bio" direction="left" delay={0.05}>

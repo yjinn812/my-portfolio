@@ -50,8 +50,7 @@ export default function Projects() {
   return (
     <section className="projects" id="projects" ref={sectionRef}>
       <div className="container projects__header">
-        <SectionHeader label="projects" title="Personal Projects" />
-        <p className="projects__hint">Scroll to advance each build</p>
+        <SectionHeader label="projects" title="Projects" />
       </div>
 
       <div className="projects__track">

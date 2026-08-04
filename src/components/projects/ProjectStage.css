@@ -10,6 +10,7 @@
   position: sticky;
   top: calc(var(--scroll-pad) + 4px);
   min-height: calc(100vh - var(--scroll-pad) - 16px);
+  min-height: calc(100dvh - var(--scroll-pad) - 16px);
   display: flex;
   align-items: center;
   padding: 8px 0 28px;

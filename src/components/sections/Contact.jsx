@@ -30,15 +30,13 @@ export default function Contact() {
 
             <RevealGroup className="contact__links" stagger={0.07} delay={0.12}>
               <RevealItem>
-                <BorderGlow className="contact__link-glow" {...glow}>
-                  <a href={`mailto:${profile.email}`} className="contact__link">
-                    <span className="contact__link-icon">✉</span>
-                    <div>
-                      <span className="contact__link-label">Email</span>
-                      <span className="contact__link-value">{profile.email}</span>
-                    </div>
-                  </a>
-                </BorderGlow>
+                <div className="contact__link contact__link--info">
+                  <span className="contact__link-icon" aria-hidden="true">@</span>
+                  <div>
+                    <span className="contact__link-label">Email</span>
+                    <span className="contact__link-value">{profile.email}</span>
+                  </div>
+                </div>
               </RevealItem>
 
               <RevealItem>
@@ -49,7 +47,7 @@ export default function Contact() {
                     rel="noopener noreferrer"
                     className="contact__link"
                   >
-                    <span className="contact__link-icon">in</span>
+                    <span className="contact__link-icon" aria-hidden="true">in</span>
                     <div>
                       <span className="contact__link-label">LinkedIn</span>
                       <span className="contact__link-value">Connect with me</span>
@@ -66,7 +64,7 @@ export default function Contact() {
                     rel="noopener noreferrer"
                     className="contact__link"
                   >
-                    <span className="contact__link-icon">⌥</span>
+                    <span className="contact__link-icon" aria-hidden="true">gh</span>
                     <div>
                       <span className="contact__link-label">GitHub</span>
                       <span className="contact__link-value">See my code</span>
@@ -77,7 +75,7 @@ export default function Contact() {
 
               <RevealItem>
                 <div className="contact__link contact__link--info">
-                  <span className="contact__link-icon">📍</span>
+                  <span className="contact__link-icon" aria-hidden="true">loc</span>
                   <div>
                     <span className="contact__link-label">Location</span>
                     <span className="contact__link-value">{profile.location}, Australia</span>
@@ -89,8 +87,7 @@ export default function Contact() {
 
           <Reveal className="contact__cta" direction="right" delay={0.12} amount={0.25}>
             <div className="contact__cta-box">
-              <div className="contact__cta-label">// say hello</div>
-              <h3 className="contact__cta-heading">Let&apos;s talk engineering.</h3>
+              <h3 className="contact__cta-heading">Talk engineering.</h3>
               <p className="contact__cta-copy">
                 Contracts, product work, or just figuring out coding / AI adoption.
                 Happy to help where I can.
@@ -100,7 +97,7 @@ export default function Contact() {
                   href={`mailto:${profile.email}?subject=Hello%20from%20your%20portfolio`}
                   className="contact__cta-btn"
                 >
-                  <span className="contact__cta-btn-label">Send me an email →</span>
+                  <span className="contact__cta-btn-label">Send me an email</span>
                 </a>
                 <ResumeRequestForm />
               </div>

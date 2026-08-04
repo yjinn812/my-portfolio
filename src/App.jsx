@@ -15,6 +15,9 @@ const OpsScrollScene = lazy(() => import("./components/ui/OpsScrollScene"));
 export default function App() {
   return (
     <>
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
       <HashScroll />
       <Suspense fallback={null}>
         <OpsScrollScene />

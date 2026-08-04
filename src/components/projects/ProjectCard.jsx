@@ -84,9 +84,11 @@ export default function ProjectCard({
 
             <div className="project-card__body">
               <div className="project-card__top">
-                <span className="project-card__eyebrow">
-                  {featured ? "Featured project" : project.eyebrow || "API demo"}
-                </span>
+                {!stageActive && (
+                  <span className="project-card__eyebrow">
+                    {featured ? "Featured project" : project.eyebrow || "API demo"}
+                  </span>
+                )}
                 <ProjectLinks project={project} />
               </div>
 

@@ -13,8 +13,8 @@
   --text-muted: #a8b3bf;
   --text-dim:   #6b7c8f;
   --text-secondary: color-mix(in srgb, var(--text) 78%, var(--text-muted));
-  --shadow-sm:  0 10px 30px rgba(0, 0, 0, 0.28);
-  --shadow-md:  0 18px 48px rgba(0, 0, 0, 0.42);
+  --shadow-sm:  0 10px 28px color-mix(in srgb, #080c10 82%, #00d4ff 6%);
+  --shadow-md:  0 18px 48px color-mix(in srgb, #080c10 78%, #00d4ff 5%);
   --nav-scrolled: rgba(8, 12, 16, 0.92);
   --glow-cyan:  rgba(0, 212, 255, 0.08);
   --glow-warm:  rgba(255, 107, 53, 0.06);
@@ -40,7 +40,7 @@
   --scroll-pad: 88px;
   /* Top air under nav when a section is pinned via hash */
   --section-pad-y: 72px;
-  --section-pad: var(--section-pad-y) 0;
+  --section-pad: var(--section-pad-y) 0 calc(var(--section-pad-y) + 12px);
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
@@ -126,11 +126,38 @@ a:focus:not(:focus-visible) {
 }
 
 .section-title {
+  font-family: var(--font-display);
   font-size: clamp(24px, 3.2vw, 34px);
   font-weight: 800;
   color: var(--text);
   margin-bottom: 28px;
   letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.skip-link {
+  position: fixed;
+  left: 16px;
+  top: 16px;
+  z-index: 200;
+  padding: 10px 14px;
+  background: var(--bg-2);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-decoration: none;
+  transform: translateY(calc(-100% - 24px));
+  transition: transform 160ms var(--ease-out);
+  pointer-events: none;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: none;
+  pointer-events: auto;
 }
 
 ::selection {

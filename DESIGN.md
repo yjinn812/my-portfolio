@@ -22,6 +22,9 @@ colors:
   json-const: "#79c0ff"
   json-danger: "#ff7b72"
   salesforce: "#00a1e0"
+  traffic-red: "#ff5f57"
+  traffic-yellow: "#ffbd2e"
+  traffic-green: "#28c840"
 typography:
   display:
     fontFamily: "Syne, sans-serif"
@@ -35,6 +38,12 @@ typography:
     fontWeight: 800
     lineHeight: 1.12
     letterSpacing: "-0.03em"
+  display-hero-mobile:
+    fontFamily: "Syne, sans-serif"
+    fontSize: "clamp(40px, 8.5vw, 76px)"
+    fontWeight: 800
+    lineHeight: 1.1
+    letterSpacing: "-0.03em"
   title:
     fontFamily: "Syne, sans-serif"
     fontSize: "clamp(18px, 2.2vw, 24px)"
@@ -47,6 +56,12 @@ typography:
     fontWeight: 400
     lineHeight: 1.7
     letterSpacing: "normal"
+  body-fluid:
+    fontFamily: "JetBrains Mono, monospace"
+    fontSize: "clamp(14px, 2vw, 16px)"
+    fontWeight: 300
+    lineHeight: 1.5
+    letterSpacing: "0.02em"
   body-sm:
     fontFamily: "JetBrains Mono, monospace"
     fontSize: "13px"
@@ -89,6 +104,7 @@ rounded:
   md-soft: "10px"
   md: "12px"
   pill: "999px"
+  full: "50%"
 spacing:
   xs: "8px"
   sm: "12px"

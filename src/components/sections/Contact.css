@@ -100,35 +100,17 @@
 }
 
 .contact__cta-box {
-  background: var(--bg-card);
-  border: 1px solid var(--border-strong);
-  border-radius: 12px;
-  padding: 48px 40px;
+  background: transparent;
+  border: none;
+  border-left: 1px solid var(--border-strong);
+  border-radius: 0;
+  padding: 8px 0 8px 28px;
   position: relative;
-  /* Clip glow orb without clipping heading when Framer transforms the parent */
-  overflow: clip;
-  box-shadow: var(--shadow-sm);
+  overflow: visible;
 }
 
 .contact__cta-box::after {
-  content: "";
-  position: absolute;
-  bottom: -60px;
-  right: -60px;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--accent-dim), transparent);
-  pointer-events: none;
-}
-
-.contact__cta-label {
-  position: relative;
-  z-index: 1;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--accent);
-  margin-bottom: 16px;
+  display: none;
 }
 
 .contact__cta-heading {
@@ -254,5 +236,11 @@
 @media (max-width: 768px) {
   .contact__grid {
     grid-template-columns: 1fr;
+  }
+
+  .contact__cta-box {
+    border-left: none;
+    border-top: 1px solid var(--border-strong);
+    padding: 24px 0 0;
   }
 }

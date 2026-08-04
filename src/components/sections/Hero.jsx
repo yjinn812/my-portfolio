@@ -428,7 +428,7 @@ export default function Hero() {
               transition={transition}
             >
               <a href="#projects" className="hero__btn hero__btn--primary">
-                <span className="hero__btn-label">View My Work</span>
+                <span className="hero__btn-label">View projects</span>
               </a>
             </motion.div>
 

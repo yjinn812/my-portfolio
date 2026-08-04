@@ -53,6 +53,7 @@ function ToolkitCard({ group, index }) {
           "--tilt-dim": tilt * 1.35,
           "--enter-delay": `${index * 70}ms`,
         }}
+        tabIndex={0}
       >
         <div className="toolkit-card__visual" aria-hidden="true" />
         <div className="toolkit-card__veil" aria-hidden="true" />
@@ -99,7 +100,6 @@ export default function Skills() {
           gap={48}
           hoverSpeed={0}
           fadeOut
-          fadeOutColor="var(--bg)"
           ariaLabel="Tools I work with"
           renderItem={(item) => (
             <span className="logoloop__node" title={item.title}>

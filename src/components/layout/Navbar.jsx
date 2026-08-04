@@ -14,6 +14,7 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeHref, setActiveHref] = useState("");
   const reduceMotion = useReducedMotion();
   const burgerRef = useRef(null);
   const linksRef = useRef(null);
@@ -34,6 +35,40 @@ export default function Navbar() {
       window.removeEventListener("scroll", onScroll);
       if (frame) window.cancelAnimationFrame(frame);
     };
+  }, []);
+
+  useEffect(() => {
+    const ids = navLinks.map((link) => link.href.slice(1));
+    const elements = ids
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+    if (elements.length === 0) return undefined;
+
+    const ratios = new Map();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          ratios.set(entry.target.id, entry.intersectionRatio);
+        });
+        let bestId = "";
+        let bestRatio = 0;
+        ratios.forEach((ratio, id) => {
+          if (ratio > bestRatio) {
+            bestRatio = ratio;
+            bestId = id;
+          }
+        });
+        if (bestId) setActiveHref(`#${bestId}`);
+      },
+      {
+        root: null,
+        threshold: [0.12, 0.25, 0.4, 0.55],
+        rootMargin: "-20% 0px -45% 0px",
+      }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -106,7 +141,9 @@ export default function Navbar() {
             id="primary-nav"
             className={`navbar__links ${menuOpen ? "navbar__links--open" : ""}`}
           >
-            {navLinks.map((link, i) => (
+            {navLinks.map((link, i) => {
+              const isActive = activeHref === link.href;
+              return (
               <motion.li
                 key={link.label}
                 initial={reduceMotion ? false : { opacity: 0 }}
@@ -119,14 +156,16 @@ export default function Navbar() {
               >
                 <a
                   href={link.href}
-                  className="navbar__link"
+                  className={`navbar__link${isActive ? " navbar__link--active" : ""}`}
+                  aria-current={isActive ? "location" : undefined}
                   onClick={() => setMenuOpen(false)}
                 >
                   <span className="navbar__link-num">0{i + 1}.</span>
                   {link.label}
                 </a>
               </motion.li>
-            ))}
+              );
+            })}
             <motion.li
               className="navbar__cta-group"
               initial={reduceMotion ? false : { opacity: 0 }}

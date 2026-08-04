@@ -49,9 +49,6 @@ export default function Experience() {
         <SectionHeader label="work" title="Work" />
 
         <div className="impact-strip">
-          <Reveal as="p" className="impact-strip__label" direction="fade" duration={0.28}>
-            Impact at a glance
-          </Reveal>
           <RevealGroup className="impact-strip__grid" stagger={0.05} delay={0.04} amount={0.3}>
             {impactMetrics.map((metric) => (
               <RevealItem key={metric.label} className="impact-strip__item" direction="up">

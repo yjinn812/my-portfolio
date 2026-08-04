@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-07-29T10:15:00Z",
+  "generatedAt": "2026-08-04T11:45:00Z",
   "title": "Design System: Yu Jin Wong Portfolio",
   "extensions": {
     "colorMeta": {
@@ -168,6 +168,24 @@
           "#99daf3",
           "#ccecf9"
         ]
+      },
+      "traffic-red": {
+        "role": "brand",
+        "displayName": "Traffic Red",
+        "canonical": "#ff5f57",
+        "tonalRamp": ["#ff5f57", "#ff7b72", "#ff9a94", "#ffb8b3"]
+      },
+      "traffic-yellow": {
+        "role": "brand",
+        "displayName": "Traffic Yellow",
+        "canonical": "#ffbd2e",
+        "tonalRamp": ["#ffbd2e", "#ff6b35", "#ffd06a", "#ffe3a3"]
+      },
+      "traffic-green": {
+        "role": "brand",
+        "displayName": "Traffic Green",
+        "canonical": "#28c840",
+        "tonalRamp": ["#28c840", "#7ee787", "#5dd872", "#96e8a4"]
       }
     },
     "typographyMeta": {
@@ -179,6 +197,10 @@
         "displayName": "Hero Display",
         "purpose": "Hero name only."
       },
+      "display-hero-mobile": {
+        "displayName": "Hero Display Mobile",
+        "purpose": "Hero name on narrow viewports."
+      },
       "title": {
         "displayName": "Title",
         "purpose": "Case study and project titles."
@@ -186,6 +208,10 @@
       "body": {
         "displayName": "Body Mono",
         "purpose": "Default page body in JetBrains Mono."
+      },
+      "body-fluid": {
+        "displayName": "Body Fluid Mono",
+        "purpose": "Hero role line; scales 14-16px."
       },
       "label": {
         "displayName": "Ops Label",
