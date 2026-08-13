@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import BorderGlow, { useBorderGlowTheme } from "../ui/BorderGlow";
 import ProjectDemo from "./demos";
 import "./ProjectCard.css";
@@ -37,6 +38,7 @@ export default function ProjectCard({
   project,
   featured = false,
   stageActive = false,
+  stageMotion,
 }) {
   const [hoverActive, setHoverActive] = useState(false);
   const glow = useBorderGlowTheme();
@@ -54,6 +56,7 @@ export default function ProjectCard({
           project.wide ? "project-card--wide" : "",
           hasDemo ? "project-card--has-demo" : "",
           stageActive ? "project-card--stage-active" : "",
+          stageMotion ? "project-card--scroll-stage" : "",
         ]
           .filter(Boolean)
           .join(" ")}
@@ -69,8 +72,9 @@ export default function ProjectCard({
       >
         {showcase ? (
           <>
-            <div
+            <motion.div
               className={`project-card__media ${project.wide && !featured ? "project-card__media--desktop" : ""}`}
+              style={stageMotion?.media}
             >
               {hasDemo ? (
                 <ProjectDemo type={project.demo} active={demoActive} />
@@ -80,9 +84,9 @@ export default function ProjectCard({
                   <span className="project-card__placeholder-sub">No preview yet</span>
                 </div>
               )}
-            </div>
+            </motion.div>
 
-            <div className="project-card__body">
+            <motion.div className="project-card__body" style={stageMotion?.copy}>
               <div className="project-card__top">
                 {!stageActive && (
                   <span className="project-card__eyebrow">
@@ -101,7 +105,7 @@ export default function ProjectCard({
                   <span key={tag} className="project-card__tag">{tag}</span>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </>
         ) : (
           <>

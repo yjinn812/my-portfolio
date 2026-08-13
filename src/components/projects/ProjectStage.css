@@ -1,7 +1,7 @@
 .project-stage {
   position: relative;
   /* Extra travel so the sticky panel dwells, then yields to the next beat */
-  min-height: 135vh;
+  min-height: 110vh;
   display: flex;
   flex-direction: column;
 }
@@ -23,6 +23,19 @@
 
 .project-stage__panel {
   width: 100%;
+}
+
+.project-stage.is-active .project-stage__panel {
+  will-change: transform, opacity;
+}
+
+.project-stage .project-card--scroll-stage .project-card__media,
+.project-stage .project-card--scroll-stage .project-card__body {
+  will-change: auto;
+}
+
+.project-stage.is-active .project-card--scroll-stage .project-card__media,
+.project-stage.is-active .project-card--scroll-stage .project-card__body {
   will-change: transform, opacity;
 }
 
@@ -62,7 +75,10 @@
     padding: 0;
   }
 
-  .project-stage__panel {
+  .project-stage__panel,
+  .project-stage.is-active .project-stage__panel,
+  .project-stage.is-active .project-card--scroll-stage .project-card__media,
+  .project-stage.is-active .project-card--scroll-stage .project-card__body {
     will-change: auto;
   }
 
@@ -82,7 +98,10 @@
     min-height: 0;
   }
 
-  .project-stage__panel {
+  .project-stage__panel,
+  .project-stage.is-active .project-stage__panel,
+  .project-stage.is-active .project-card--scroll-stage .project-card__media,
+  .project-stage.is-active .project-card--scroll-stage .project-card__body {
     will-change: auto;
   }
 }

@@ -178,12 +178,12 @@ const BorderGlow = ({
 
     const cleanups = [
       animateValue({
-        duration: 280,
+        duration: 220,
         onUpdate: (v) => fx.style.setProperty("--edge-proximity", String(v)),
       }),
       animateValue({
         ease: easeOutCubic,
-        duration: 900,
+        duration: 220,
         end: 100,
         onUpdate: (v) => {
           const angle = (angleEnd - angleStart) * (v / 100) + angleStart;
@@ -192,8 +192,8 @@ const BorderGlow = ({
       }),
       animateValue({
         ease: easeOutCubic,
-        delay: 900,
-        duration: 400,
+        delay: 220,
+        duration: 200,
         start: 100,
         end: 0,
         onUpdate: (v) => fx.style.setProperty("--edge-proximity", String(v)),

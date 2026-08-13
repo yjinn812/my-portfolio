@@ -1,9 +1,31 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { easeOut } from "../../lib/motion";
 
+/**
+ * Motion families (Night Ops):
+ * - editorial — clipped section titles
+ * - interface — short UI / data reveals (metrics, lists)
+ * - up/left/right/… — showcase body blocks (existing)
+ */
 const presets = {
+  editorial: {
+    hidden: {
+      opacity: 0,
+      transform: "translateY(14px)",
+      clipPath: "inset(0 0 100% 0)",
+    },
+    visible: {
+      opacity: 1,
+      transform: "translateY(0px)",
+      clipPath: "inset(0 0 0% 0)",
+    },
+  },
+  interface: {
+    hidden: { opacity: 0, transform: "translateY(10px)" },
+    visible: { opacity: 1, transform: "translateY(0px)" },
+  },
   up: {
-    hidden: { opacity: 0, transform: "translateY(20px)" },
+    hidden: { opacity: 0, transform: "translateY(18px)" },
     visible: { opacity: 1, transform: "translateY(0px)" },
   },
   down: {
@@ -11,11 +33,11 @@ const presets = {
     visible: { opacity: 1, transform: "translateY(0px)" },
   },
   left: {
-    hidden: { opacity: 0, transform: "translateX(-20px)" },
+    hidden: { opacity: 0, transform: "translateX(-16px)" },
     visible: { opacity: 1, transform: "translateX(0px)" },
   },
   right: {
-    hidden: { opacity: 0, transform: "translateX(20px)" },
+    hidden: { opacity: 0, transform: "translateX(16px)" },
     visible: { opacity: 1, transform: "translateX(0px)" },
   },
   fade: {
@@ -28,13 +50,22 @@ const presets = {
   },
 };
 
-const reducedPresets = {
-  up: { hidden: { opacity: 0 }, visible: { opacity: 1 } },
-  down: { hidden: { opacity: 0 }, visible: { opacity: 1 } },
-  left: { hidden: { opacity: 0 }, visible: { opacity: 1 } },
-  right: { hidden: { opacity: 0 }, visible: { opacity: 1 } },
-  fade: { hidden: { opacity: 0 }, visible: { opacity: 1 } },
-  scale: { hidden: { opacity: 0 }, visible: { opacity: 1 } },
+const reducedPresets = Object.fromEntries(
+  Object.keys(presets).map((key) => [
+    key,
+    { hidden: { opacity: 0 }, visible: { opacity: 1 } },
+  ])
+);
+
+const defaultDurations = {
+  editorial: 0.28,
+  interface: 0.22,
+  up: 0.28,
+  down: 0.26,
+  left: 0.28,
+  right: 0.28,
+  fade: 0.24,
+  scale: 0.28,
 };
 
 function useRevealMotion(direction) {
@@ -80,7 +111,7 @@ export function Reveal({
   as = "div",
   direction = "up",
   delay = 0,
-  duration = 0.28,
+  duration,
   className,
   once = true,
   amount = 0.2,
@@ -88,12 +119,13 @@ export function Reveal({
   ...rest
 }) {
   const { reduceMotion, variant } = useRevealMotion(direction);
+  const resolvedDuration = duration ?? defaultDurations[direction] ?? 0.28;
   const props = revealViewProps({
     className,
     style,
     variant,
     reduceMotion,
-    duration,
+    duration: resolvedDuration,
     delay,
     once,
     amount,
@@ -149,18 +181,19 @@ export function RevealGroup({
 export function RevealItem({
   children,
   as = "div",
-  direction = "up",
+  direction = "interface",
   className,
-  duration = 0.28,
+  duration,
   style,
   ...rest
 }) {
   const { reduceMotion, variant } = useRevealMotion(direction);
+  const resolvedDuration = duration ?? defaultDurations[direction] ?? 0.22;
   const props = {
     className,
     style,
     variants: variant,
-    transition: revealTransition(reduceMotion, duration),
+    transition: revealTransition(reduceMotion, resolvedDuration),
     ...rest,
   };
 
@@ -172,10 +205,16 @@ export function RevealItem({
 export function SectionHeader({ label, title }) {
   return (
     <>
-      <Reveal as="p" className="section-label" direction="fade" duration={0.22}>
+      <Reveal as="p" className="section-label" direction="fade" duration={0.2}>
         {label}
       </Reveal>
-      <Reveal as="h2" className="section-title" direction="fade" delay={0.04} duration={0.26}>
+      <Reveal
+        as="h2"
+        className="section-title"
+        direction="editorial"
+        delay={0.05}
+        duration={0.28}
+      >
         {title}
       </Reveal>
     </>

@@ -72,7 +72,7 @@
   object-position: center center;
   opacity: 0;
   transform: translateY(8px) scale(0.98);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition: opacity 240ms var(--ease-out), transform 240ms var(--ease-out);
   pointer-events: none;
   user-select: none;
 }

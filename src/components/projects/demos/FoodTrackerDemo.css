@@ -214,7 +214,7 @@
 .ft-card {
   opacity: 0;
   transform: translateY(8px);
-  transition: opacity 0.32s ease, transform 0.32s ease;
+  transition: opacity 240ms var(--ease-out), transform 240ms var(--ease-out);
 }
 
 .is-in {
@@ -425,7 +425,7 @@
   background: linear-gradient(90deg, var(--cursor-accent), #9d7bff);
   transform: scaleX(0);
   transform-origin: left center;
-  transition: transform 400ms var(--ease-out);
+  transition: transform 240ms var(--ease-out);
 }
 
 .ft-demo--active .ft-card--budget.is-in .ft-budget__fill {

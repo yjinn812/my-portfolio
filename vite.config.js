@@ -9,7 +9,6 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes("node_modules/three")) return "three";
-          if (id.includes("node_modules/gsap")) return "gsap";
           if (id.includes("node_modules/framer-motion")) return "motion";
           if (id.includes("node_modules/react-dom")) return "react";
           if (id.includes("node_modules/react/")) return "react";

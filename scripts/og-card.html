@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { width: 1200px; height: 630px; overflow: hidden; }
+      body {
+        background: #080c10;
+        color: #e6edf3;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        position: relative;
+      }
+      .glow {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 14% 18%, rgba(0, 212, 255, 0.14), transparent 34%),
+          radial-gradient(circle at 86% 12%, rgba(255, 107, 53, 0.1), transparent 28%),
+          #080c10;
+      }
+      .frame {
+        position: relative;
+        z-index: 1;
+        height: 100%;
+        margin: 28px;
+        padding: 40px 52px 36px;
+        border: 1px solid #1e2d3d;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: color-mix(in srgb, #080c10 72%, transparent);
+      }
+      .top, .bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 14px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #00d4ff;
+      }
+      .top span:last-child,
+      .bottom span:last-child {
+        color: #6b7c8f;
+        letter-spacing: 0.1em;
+      }
+      .mid { max-width: 920px; }
+      h1 {
+        font-family: Syne, sans-serif;
+        font-weight: 800;
+        font-size: 96px;
+        line-height: 0.92;
+        letter-spacing: -0.035em;
+        margin-bottom: 22px;
+      }
+      .role {
+        font-size: 24px;
+        color: #a8b3bf;
+        margin-bottom: 10px;
+      }
+      .rest {
+        font-size: 18px;
+        color: #6b7c8f;
+        margin-bottom: 28px;
+      }
+      .cmd {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 16px;
+        border: 1px solid #30363d;
+        border-radius: 8px;
+        background: #0d1117;
+        font-size: 14px;
+        color: #e6edf3;
+      }
+      .cmd b { color: #00d4ff; font-weight: 500; }
+    </style>
+  </head>
+  <body>
+    <div class="glow"></div>
+    <div class="frame">
+      <div class="top">
+        <span>// night ops</span>
+        <span>Melbourne / Sydney</span>
+      </div>
+      <div class="mid">
+        <h1>Yu Jin Wong</h1>
+        <p class="role">Software Engineer</p>
+        <p class="rest">Enterprise CRM · Application Architect · AI-augmented delivery</p>
+        <div class="cmd"><b>$</b> open_to --roles staff architect</div>
+      </div>
+      <div class="bottom">
+        <span>yujinwong.com</span>
+        <span>SYSTEM ONLINE</span>
+      </div>
+    </div>
+  </body>
+</html>

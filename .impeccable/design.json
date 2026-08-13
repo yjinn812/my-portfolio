@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-04T11:45:00Z",
+  "generatedAt": "2026-08-05T11:05:20.747Z",
   "title": "Design System: Yu Jin Wong Portfolio",
   "extensions": {
     "colorMeta": {
@@ -173,19 +173,169 @@
         "role": "brand",
         "displayName": "Traffic Red",
         "canonical": "#ff5f57",
-        "tonalRamp": ["#ff5f57", "#ff7b72", "#ff9a94", "#ffb8b3"]
+        "tonalRamp": [
+          "#ff5f57",
+          "#ff7b72",
+          "#ff9a94",
+          "#ffb8b3"
+        ]
       },
       "traffic-yellow": {
         "role": "brand",
         "displayName": "Traffic Yellow",
         "canonical": "#ffbd2e",
-        "tonalRamp": ["#ffbd2e", "#ff6b35", "#ffd06a", "#ffe3a3"]
+        "tonalRamp": [
+          "#ffbd2e",
+          "#ff6b35",
+          "#ffd06a",
+          "#ffe3a3"
+        ]
       },
       "traffic-green": {
         "role": "brand",
         "displayName": "Traffic Green",
         "canonical": "#28c840",
-        "tonalRamp": ["#28c840", "#7ee787", "#5dd872", "#96e8a4"]
+        "tonalRamp": [
+          "#28c840",
+          "#7ee787",
+          "#5dd872",
+          "#96e8a4"
+        ]
+      },
+      "signal-cyan-dim": {
+        "role": "primary",
+        "displayName": "Signal Cyan Dim",
+        "canonical": "#00d4ff22",
+        "tonalRamp": [
+          "#00232a",
+          "#00414e",
+          "#00677c",
+          "#008eab",
+          "#00d4ff22",
+          "#66b0c0",
+          "#91dceb",
+          "#9fe9f8"
+        ]
+      },
+      "nav-glass": {
+        "role": "neutral",
+        "displayName": "Nav Glass",
+        "canonical": "rgba(8, 12, 16, 0.92)",
+        "tonalRamp": [
+          "#010202",
+          "#030507",
+          "#05080a",
+          "#080c10",
+          "#696a6c",
+          "#7f8081",
+          "#949697",
+          "#a1a3a4"
+        ]
+      },
+      "terminal-header": {
+        "role": "neutral",
+        "displayName": "Terminal Header",
+        "canonical": "#161b22",
+        "tonalRamp": [
+          "#020203",
+          "#06080b",
+          "#0b0e14",
+          "#161b22",
+          "#6e7073",
+          "#848689",
+          "#999b9e",
+          "#a6a8ab"
+        ]
+      },
+      "terminal-border": {
+        "role": "neutral",
+        "displayName": "Terminal Border",
+        "canonical": "#30363d",
+        "tonalRamp": [
+          "#050607",
+          "#0c0e10",
+          "#181b1f",
+          "#30363d",
+          "#787b7e",
+          "#8e9194",
+          "#a4a6a9",
+          "#b0b3b5"
+        ]
+      },
+      "terminal-muted": {
+        "role": "neutral",
+        "displayName": "Terminal Muted",
+        "canonical": "#8b949e",
+        "tonalRamp": [
+          "#0e1012",
+          "#1c1f22",
+          "#2d3237",
+          "#8b949e",
+          "#a0a7ae",
+          "#b5bbc1",
+          "#cacfd3",
+          "#d7dbdf"
+        ]
+      },
+      "json-key": {
+        "role": "brand",
+        "displayName": "JSON Key",
+        "canonical": "#7ee787",
+        "tonalRamp": [
+          "#0c4111",
+          "#146b1c",
+          "#1c9627",
+          "#24c232",
+          "#3edb4b",
+          "#7ee787",
+          "#bff3c3",
+          "#eafbeb"
+        ]
+      },
+      "json-string": {
+        "role": "brand",
+        "displayName": "JSON String",
+        "canonical": "#a5d6ff",
+        "tonalRamp": [
+          "#002a4d",
+          "#004580",
+          "#0061b3",
+          "#007de6",
+          "#1a96ff",
+          "#66b9ff",
+          "#b3dcff",
+          "#e5f3ff"
+        ]
+      },
+      "json-const": {
+        "role": "brand",
+        "displayName": "JSON Const",
+        "canonical": "#79c0ff",
+        "tonalRamp": [
+          "#00294d",
+          "#004480",
+          "#005fb3",
+          "#007ae6",
+          "#1a93ff",
+          "#66b7ff",
+          "#b3dbff",
+          "#e5f3ff"
+        ]
+      },
+      "json-danger": {
+        "role": "brand",
+        "displayName": "JSON Danger",
+        "canonical": "#ff7b72",
+        "tonalRamp": [
+          "#4d0500",
+          "#800800",
+          "#b30b00",
+          "#e60f00",
+          "#ff281a",
+          "#ff7066",
+          "#ffb7b3",
+          "#ffe7e5"
+        ]
       }
     },
     "typographyMeta": {
@@ -195,11 +345,11 @@
       },
       "display-hero": {
         "displayName": "Hero Display",
-        "purpose": "Hero name only."
+        "purpose": "Left-anchored stacked name; clamp(48px, 7.2vw, 96px), lh 0.92."
       },
       "display-hero-mobile": {
         "displayName": "Hero Display Mobile",
-        "purpose": "Hero name on narrow viewports."
+        "purpose": "Stacked name on narrow viewports; clamp(40px, 11vw, 64px)."
       },
       "title": {
         "displayName": "Title",
@@ -211,7 +361,7 @@
       },
       "body-fluid": {
         "displayName": "Body Fluid Mono",
-        "purpose": "Hero role line; scales 14-16px."
+        "purpose": "Hero role line under the name; uppercase tracking."
       },
       "label": {
         "displayName": "Ops Label",
@@ -238,12 +388,12 @@
       {
         "name": "ease-out",
         "value": "cubic-bezier(0.23, 1, 0.32, 1)",
-        "purpose": "UI hover/press and reveals."
+        "purpose": "UI hover/press, hero entrance, reveals."
       },
       {
         "name": "ease-in-out",
         "value": "cubic-bezier(0.77, 0, 0.175, 1)",
-        "purpose": "Longer transitional motion."
+        "purpose": "Longer on-screen morphs."
       },
       {
         "name": "ease-drawer",
@@ -259,6 +409,21 @@
         "name": "duration-ui",
         "value": "250ms",
         "purpose": "General UI color/state transitions."
+      },
+      {
+        "name": "duration-entrance",
+        "value": "240ms",
+        "purpose": "Hero name/title/cmd entrance (sub-300ms)."
+      },
+      {
+        "name": "duration-reveal",
+        "value": "200ms",
+        "purpose": "Terminal body / JSON detail grid reveals."
+      },
+      {
+        "name": "duration-reduced",
+        "value": "160ms",
+        "purpose": "Opacity-only reduced-motion entrances."
       }
     ],
     "breakpoints": [
@@ -267,8 +432,16 @@
         "value": "768px"
       },
       {
+        "name": "profile-stack",
+        "value": "960px"
+      },
+      {
         "name": "nav-collapse",
         "value": "960px"
+      },
+      {
+        "name": "hero-compact",
+        "value": "900px"
       }
     ]
   },
@@ -277,7 +450,7 @@
       "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Hero primary CTA \u2014 Signal Cyan fill on Ink Void text.",
+      "description": "Primary CTA — Signal Cyan fill on Ink Void text (contact / hire flows).",
       "html": "<button class=\"ds-btn-primary\" type=\"button\"><span class=\"ds-btn-primary__label\">View My Work</span></button>",
       "css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:0 28px;border:none;border-radius:8px;background:#00d4ff;color:#080c10;font-family:\"JetBrains Mono\",monospace;font-size:13px;font-weight:500;line-height:1;cursor:pointer;transition:transform 160ms cubic-bezier(0.23,1,0.32,1),filter 160ms ease}.ds-btn-primary:hover{filter:brightness(1.08);transform:translateY(-1px)}.ds-btn-primary:active{transform:scale(0.97)}.ds-btn-primary:focus-visible{outline:2px solid #00d4ff;outline-offset:3px}.ds-btn-primary__label{display:inline-flex;align-items:center;line-height:1}"
     },
@@ -293,7 +466,7 @@
       "name": "Tech Chip",
       "kind": "chip",
       "refersTo": "chip-tech",
-      "description": "Stack tags \u2014 cyan on dim wash.",
+      "description": "Stack tags — cyan on dim wash.",
       "html": "<span class=\"ds-chip\">Salesforce</span>",
       "css": ".ds-chip{display:inline-flex;align-items:center;padding:4px 10px;border-radius:8px;background:#00d4ff22;color:#00d4ff;font-family:\"JetBrains Mono\",monospace;font-size:11px;letter-spacing:0.04em;line-height:1.3}"
     },
@@ -306,19 +479,19 @@
       "css": ".ds-section-label{display:flex;align-items:center;gap:10px;margin:0;font-family:\"JetBrains Mono\",monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#00d4ff}.ds-section-label::before{content:\"//\";opacity:0.5}"
     },
     {
-      "name": "Command Pill",
+      "name": "Command Chip",
       "kind": "custom",
       "refersTo": "command-pill",
-      "description": "Hero typing command bar under primary CTA.",
-      "html": "<div class=\"ds-cmd\" aria-hidden=\"true\"><span class=\"ds-cmd__prompt\">$</span><span class=\"ds-cmd__text\">ping --open-to-work</span><span class=\"ds-cmd__cursor\"></span></div>",
-      "css": ".ds-cmd{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;background:#0d1117;border:1px solid #30363d;box-shadow:0 10px 30px rgba(0,0,0,0.28);font-family:\"JetBrains Mono\",monospace;font-size:12.5px;line-height:1.2;color:#e6edf3}.ds-cmd__prompt{color:#00d4ff;font-weight:500}.ds-cmd__cursor{width:7px;height:1.05em;background:#e6edf3;border-radius:1px;opacity:0.9}"
+      "description": "Left-aligned hero typing command chip under the role line (pauses when offscreen).",
+      "html": "<div class=\"ds-cmd\" aria-hidden=\"true\"><span class=\"ds-cmd__prompt\">$</span><span class=\"ds-cmd__text\">open_to --roles staff architect</span><span class=\"ds-cmd__cursor\"></span></div>",
+      "css": ".ds-cmd{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:8px;background:#0d1117;border:1px solid #30363d;font-family:\"JetBrains Mono\",monospace;font-size:12.5px;line-height:1.2;color:#e6edf3}.ds-cmd__prompt{color:#00d4ff;font-weight:500}.ds-cmd__cursor{width:7px;height:1.05em;background:#e6edf3;border-radius:1px;opacity:0.9}"
     },
     {
       "name": "Terminal Window",
       "kind": "custom",
       "refersTo": "terminal-window",
-      "description": "Hero profile terminal with GitHub Dark chrome.",
-      "html": "<div class=\"ds-term\"><div class=\"ds-term__bar\"><span class=\"ds-term__dot ds-term__dot--r\"></span><span class=\"ds-term__dot ds-term__dot--y\"></span><span class=\"ds-term__dot ds-term__dot--g\"></span><span class=\"ds-term__title\">yujin \u2014 zsh</span></div><pre class=\"ds-term__body\"><span class=\"k\">\"role\"</span>: <span class=\"s\">\"Lead Engineer\"</span></pre></div>",
+      "description": "Interactive profile.json terminal in section two (#profile); expand hides intro copy and uses more viewport.",
+      "html": "<div class=\"ds-term\"><div class=\"ds-term__bar\"><span class=\"ds-term__dot ds-term__dot--r\"></span><span class=\"ds-term__dot ds-term__dot--y\"></span><span class=\"ds-term__dot ds-term__dot--g\"></span><span class=\"ds-term__title\">profile.json</span></div><pre class=\"ds-term__body\"><span class=\"k\">\"role\"</span>: <span class=\"s\">\"Senior Engineer\"</span></pre></div>",
       "css": ".ds-term{background:#0d1117;border:1px solid #30363d;border-radius:12px;overflow:hidden;font-family:\"JetBrains Mono\",monospace;color:#e6edf3;max-width:360px}.ds-term__bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#161b22;border-bottom:1px solid #30363d}.ds-term__dot{width:10px;height:10px;border-radius:50%;display:inline-block}.ds-term__dot--r{background:#ff5f57}.ds-term__dot--y{background:#ffbd2e}.ds-term__dot--g{background:#28c840}.ds-term__title{margin-left:8px;font-size:11px;color:#8b949e}.ds-term__body{margin:0;padding:16px 18px;font-size:12px;line-height:1.7}.ds-term__body .k{color:#7ee787}.ds-term__body .s{color:#a5d6ff}"
     },
     {
@@ -348,19 +521,20 @@
   ],
   "narrative": {
     "northStar": "Night Ops Terminal",
-    "overview": "This is a lead engineer\u2019s after-hours workstation rendered as a portfolio: an ink-black canvas, cyan command highlights, a warm ember secondary, and GitHub Dark\u2013faithful JSON chrome. The terminal is the brand stage \u2014 not a gimmick layered on top of a generic dark theme. Personality comes from mono labels (`// SECTION`), Syne display weight, and precise cyan signals, not from purple gradients, cream paper, or broadsheet rules.\n\nDensity stays deliberate and scannable: section headers are restrained so work and projects can land above the fold after hash navigation. Depth is tonal (nested dark surfaces + hairline borders), with ambient shadows reserved for chrome that needs presence (nav, terminal, command pill). Controls feel restrained and pressable \u2014 mono type, 8px radius, cyan fill or cyan outline \u2014 without glow spam.\n\nConfirmed visual rejections: purple-on-white / purple-indigo gradients; warm cream + terracotta editorial; broadsheet hairline newspaper layouts; default Inter/Roboto stacks; flat single-color voids without atmosphere; oversized section titles that bury case-study content on hash land.",
+    "overview": "This is a lead engineer’s after-hours workstation rendered as a portfolio: an ink-black canvas, cyan command highlights, a warm ember secondary, and GitHub Dark–faithful JSON chrome. The terminal is the brand stage — not a gimmick layered on top of a generic dark theme. Personality comes from mono labels (`// SECTION`), Syne display weight, and precise cyan signals, not from purple gradients, cream paper, or broadsheet rules.\n\nDensity stays deliberate and scannable: section headers are restrained so work and projects can land above the fold after hash navigation. Depth is tonal (nested dark surfaces + hairline borders), with ambient shadows reserved for chrome that needs presence (nav, terminal, command pill). Controls feel restrained and pressable — mono type, 8px radius, cyan fill or cyan outline — without glow spam.\n\nConfirmed visual rejections: purple-on-white / purple-indigo gradients; warm cream + terracotta editorial; broadsheet hairline newspaper layouts; default Inter/Roboto stacks; flat single-color voids without atmosphere; oversized section titles that bury case-study content on hash land.",
     "keyCharacteristics": [
       "Dark ops palette with Signal Cyan as the single primary accent",
       "Syne display + JetBrains Mono body/labels (terminal literacy)",
       "GitHub Dark prettylights for JSON / terminal syntax",
-      "Dot-grid atmosphere + soft cyan/ember radial glows (fixed, non-scrolling)",
+      "Soft cyan/ember radial glows (fixed, non-scrolling)",
+      "Möbius WebGL backdrop: scroll-scrubbed camera flight keyed to page sections (no video, no idle spin, no DotGrid)",
       "Quiet elevation: tonal layers first; sparse ambient shadows",
       "Hash-aware spacing (scroll-pad / section pad) so every #section frames cleanly"
     ],
     "rules": [
       {
         "name": "The One Signal Rule",
-        "body": "Signal Cyan is the only primary interactive accent. Do not introduce a second \u201cbrand blue\u201d or purple for CTAs.",
+        "body": "Signal Cyan is the only primary interactive accent. Do not introduce a second “brand blue” or purple for CTAs.",
         "section": "colors"
       },
       {
@@ -385,7 +559,7 @@
       },
       {
         "name": "The Soft Console Rule",
-        "body": "Prefer 8\u201312px radii. Full pills are reserved for the command bar, not every chip or button.",
+        "body": "Prefer 8–12px radii. Full pills are reserved for the command bar, not every chip or button.",
         "section": "shapes"
       }
     ],
@@ -399,10 +573,11 @@
     "donts": [
       "Don't introduce purple gradients, cream+terracotta editorial, or broadsheet newspaper aesthetics.",
       "Don't swap Syne/JetBrains Mono for Inter/Roboto/system UI defaults.",
-      "Don't inflate section titles back toward hero scale \u2014 it breaks #experience fold.",
+      "Don't inflate section titles back toward hero scale — it breaks #experience fold.",
       "Don't put transform on the fixed navbar element (breaks mobile drawer).",
-      "Don't fabricate testimonials, metrics, or employers in pursuit of visual \u201cproof blocks.\u201d",
-      "Don't spam glow, multi-layer shadows, or rounded-full pill clusters across the page."
+      "Don't fabricate testimonials, metrics, or employers in pursuit of visual “proof blocks.”",
+      "Don't spam glow, multi-layer shadows, or rounded-full pill clusters across the page.",
+      "Don't replace the live Möbius with a video fly-through; scroll owns a Three.js camera path, and the canvas never captures pointer events."
     ]
   }
 }

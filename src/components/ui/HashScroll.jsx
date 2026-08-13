@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 const ANCHOR_IDS = new Set([
   "hero",
+  "profile",
   "experience",
   "projects",
   "about",

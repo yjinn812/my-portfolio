@@ -1,6 +1,29 @@
 .experience {
+  position: relative;
+  z-index: 1;
   padding: var(--section-pad);
   border-top: 1px solid var(--border);
+}
+
+.experience .container {
+  position: relative;
+}
+
+/* Ink veil so case-study type sits on void, Möbius still reads in the margins */
+.experience .container::before {
+  content: "";
+  position: absolute;
+  inset: -12px -28px;
+  background:
+    radial-gradient(
+      120% 90% at 50% 28%,
+      color-mix(in srgb, var(--bg) 88%, transparent),
+      color-mix(in srgb, var(--bg) 42%, transparent) 70%,
+      transparent
+    );
+  pointer-events: none;
+  z-index: -1;
+  border-radius: var(--radius-lg);
 }
 
 /* Dense first-viewport: hash land should show into the case beats */
@@ -64,6 +87,28 @@
   margin-top: 32px;
   padding: 24px 0 0;
   border-top: 1px solid var(--border);
+  overflow-anchor: none;
+}
+
+.case-study__panels {
+  display: grid;
+  overflow-anchor: none;
+}
+
+.case-study__panel {
+  grid-area: 1 / 1;
+  min-width: 0;
+  opacity: 1;
+  transition: opacity 200ms var(--ease-out);
+}
+
+.case-study__panel:not(.is-inactive) {
+  z-index: 1;
+}
+
+.case-study__panel.is-inactive {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .case-study__nav {
@@ -90,9 +135,11 @@
     transform 160ms var(--ease-out);
 }
 
-.case-study__nav-btn:hover {
-  color: var(--text);
-  border-color: var(--text-dim);
+@media (hover: hover) and (pointer: fine) {
+  .case-study__nav-btn:hover {
+    color: var(--text);
+    border-color: var(--text-dim);
+  }
 }
 
 .case-study__nav-btn:active {
@@ -195,6 +242,10 @@
     padding-top: 22px;
   }
 
+  .experience .container::before {
+    inset: -8px -12px;
+  }
+
   .case-study__title {
     max-width: none;
   }
@@ -229,6 +280,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .case-study__panel {
+    transition: none;
+  }
+
   .case-study__nav-btn:active {
     transform: none;
   }

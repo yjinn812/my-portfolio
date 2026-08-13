@@ -4,6 +4,7 @@ import { easeOut } from "../../lib/motion";
 import "./Navbar.css";
 
 const navLinks = [
+  { label: "profile", href: "#profile" },
   { label: "work", href: "#experience" },
   { label: "projects", href: "#projects" },
   { label: "about", href: "#about" },

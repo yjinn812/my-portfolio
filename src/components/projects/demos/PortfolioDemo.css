@@ -145,7 +145,7 @@
   inset: 0;
   opacity: 0;
   transform: translateY(8px);
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  transition: opacity 240ms var(--ease-out), transform 240ms var(--ease-out);
   pointer-events: none;
   padding: 12px 14px;
   overflow: hidden;
@@ -438,6 +438,7 @@
 
 .pf-case__tabs {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
   margin-bottom: 8px;
 }

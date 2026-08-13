@@ -133,6 +133,8 @@ a:focus:not(:focus-visible) {
   margin-bottom: 28px;
   letter-spacing: -0.02em;
   text-wrap: balance;
+  /* Room for editorial clip-path reveal without clipping descenders hard */
+  padding-bottom: 0.08em;
 }
 
 .skip-link {

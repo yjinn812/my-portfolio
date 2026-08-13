@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { impactMetrics, featuredCaseStudies } from "../../data/portfolioData";
-import { easeOut } from "../../lib/motion";
 import { Reveal, RevealGroup, RevealItem, SectionHeader } from "../ui/Reveal";
 import { openResumeRequest } from "./ResumeRequestForm";
 import "./Experience.css";
@@ -33,14 +31,11 @@ function CasePanel({ caseStudy }) {
 
 export default function Experience() {
   const [caseIndex, setCaseIndex] = useState(0);
-  const [animatePanel, setAnimatePanel] = useState(true);
-  const caseStudy = featuredCaseStudies[caseIndex];
-  const reduceMotion = useReducedMotion();
-  const useMotion = !reduceMotion && animatePanel;
 
-  const selectCase = (index, { animate }) => {
-    setAnimatePanel(Boolean(animate) && !reduceMotion);
-    setCaseIndex(index);
+  const focusTab = (index) => {
+    document
+      .getElementById(`case-tab-${featuredCaseStudies[index].id}`)
+      ?.focus({ preventScroll: true });
   };
 
   return (
@@ -51,7 +46,7 @@ export default function Experience() {
         <div className="impact-strip">
           <RevealGroup className="impact-strip__grid" stagger={0.05} delay={0.04} amount={0.3}>
             {impactMetrics.map((metric) => (
-              <RevealItem key={metric.label} className="impact-strip__item" direction="up">
+              <RevealItem key={metric.label} className="impact-strip__item" direction="interface">
                 <p className="impact-strip__value">{metric.value}</p>
                 <p className="impact-strip__name">{metric.label}</p>
                 <p className="impact-strip__detail">{metric.detail}</p>
@@ -72,22 +67,16 @@ export default function Experience() {
                 aria-controls={`case-panel-${study.id}`}
                 tabIndex={caseIndex === i ? 0 : -1}
                 className={`case-study__nav-btn ${caseIndex === i ? "case-study__nav-btn--active" : ""}`}
-                onClick={() => selectCase(i, { animate: true })}
+                onClick={() => setCaseIndex(i)}
                 onKeyDown={(event) => {
                   if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
                   event.preventDefault();
                   const delta = event.key === "ArrowRight" ? 1 : -1;
-                  const focusedIndex = featuredCaseStudies.findIndex(
-                    (item) => `case-tab-${item.id}` === event.currentTarget.id
-                  );
-                  const from = focusedIndex >= 0 ? focusedIndex : caseIndex;
                   const next =
-                    (from + delta + featuredCaseStudies.length) %
+                    (i + delta + featuredCaseStudies.length) %
                     featuredCaseStudies.length;
-                  selectCase(next, { animate: false });
-                  requestAnimationFrame(() => {
-                    document.getElementById(`case-tab-${featuredCaseStudies[next].id}`)?.focus();
-                  });
+                  setCaseIndex(next);
+                  requestAnimationFrame(() => focusTab(next));
                 }}
               >
                 {study.shortLabel}
@@ -95,36 +84,29 @@ export default function Experience() {
             ))}
           </div>
 
-          {useMotion ? (
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={caseStudy.id}
-                id={`case-panel-${caseStudy.id}`}
-                role="tabpanel"
-                aria-labelledby={`case-tab-${caseStudy.id}`}
-                initial={{ opacity: 0, transform: "translateY(8px)" }}
-                animate={{ opacity: 1, transform: "translateY(0px)" }}
-                exit={{ opacity: 0, transform: "translateY(-4px)" }}
-                transition={{ duration: 0.24, ease: easeOut }}
-              >
-                <CasePanel caseStudy={caseStudy} />
-              </motion.div>
-            </AnimatePresence>
-          ) : (
-            <div
-              key={caseStudy.id}
-              id={`case-panel-${caseStudy.id}`}
-              role="tabpanel"
-              aria-labelledby={`case-tab-${caseStudy.id}`}
-            >
-              <CasePanel caseStudy={caseStudy} />
-            </div>
-          )}
+          <div className="case-study__panels">
+            {featuredCaseStudies.map((study, i) => {
+              const selected = caseIndex === i;
+              return (
+                <div
+                  key={study.id}
+                  id={`case-panel-${study.id}`}
+                  role="tabpanel"
+                  aria-labelledby={`case-tab-${study.id}`}
+                  aria-hidden={!selected}
+                  inert={!selected}
+                  className={`case-study__panel${selected ? "" : " is-inactive"}`}
+                >
+                  <CasePanel caseStudy={study} />
+                </div>
+              );
+            })}
+          </div>
         </Reveal>
 
         <Reveal className="experience__resume" direction="fade" delay={0.04} amount={0.4}>
           <p className="experience__resume-copy">
-            Role history, stack, and the rest of the detail. Request the resume.
+            Role history, stack, and the rest of the detail.
           </p>
           <a
             href="#resume"

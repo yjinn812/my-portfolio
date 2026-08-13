@@ -34,15 +34,15 @@ typography:
     letterSpacing: "-0.02em"
   display-hero:
     fontFamily: "Syne, sans-serif"
-    fontSize: "clamp(40px, 5.8vw, 76px)"
+    fontSize: "clamp(48px, 7.2vw, 96px)"
     fontWeight: 800
-    lineHeight: 1.12
-    letterSpacing: "-0.03em"
+    lineHeight: 0.92
+    letterSpacing: "-0.035em"
   display-hero-mobile:
     fontFamily: "Syne, sans-serif"
-    fontSize: "clamp(40px, 8.5vw, 76px)"
+    fontSize: "clamp(40px, 11vw, 64px)"
     fontWeight: 800
-    lineHeight: 1.1
+    lineHeight: 0.96
     letterSpacing: "-0.03em"
   title:
     fontFamily: "Syne, sans-serif"
@@ -178,7 +178,8 @@ Density stays deliberate and scannable: section headers are restrained so work a
 - Dark ops palette with **Signal Cyan** as the single primary accent
 - **Syne** display + **JetBrains Mono** body/labels (terminal literacy)
 - GitHub Dark prettylights for JSON / terminal syntax
-- Dot-grid atmosphere + soft cyan/ember radial glows (fixed, non-scrolling)
+- Soft cyan/ember radial glows (fixed, non-scrolling)
+- Möbius WebGL backdrop: scroll-scrubbed camera flight keyed to page sections (no video, no idle spin, no DotGrid)
 - Quiet elevation: tonal layers first; sparse ambient shadows
 - Hash-aware spacing (`scroll-pad` / section pad) so every `#section` frames cleanly
 
@@ -217,7 +218,7 @@ A near-black ops field with one cyan voice and a warm ember counterweight; neutr
 **Character:** Wide, geometric Syne carries name and section authority; JetBrains Mono carries the operating-system voice — labels, nav, body, and CTAs — so the whole page reads as a literate terminal environment.
 
 ### Hierarchy
-- **Display Hero** (800, `clamp(40px, 5.8vw, 76px)`, lh 1.12): Hero name only
+- **Display Hero** (800, `clamp(48px, 7.2vw, 96px)`, lh 0.92): Left-anchored stacked name; two-line lockup
 - **Display / Section** (800, `clamp(24px, 3.2vw, 34px)`, lh 1.1): Section titles (`Work`, `Personal Projects`, …) — keep restrained for hash-land framing
 - **Title** (800, `clamp(18px, 2.2vw, 24px)`, lh 1.25): Case-study titles, project names
 - **Body** (400, 14px, lh 1.7): Default mono body
@@ -234,7 +235,8 @@ A near-black ops field with one cyan voice and a warm ember counterweight; neutr
 - **Container:** max-width `1140px`, horizontal padding `32px` (mobile `20px`)
 - **Section rhythm:** `--section-pad-y: 72px` (mobile `56px`); hairline `border-top` between sections
 - **Hash framing:** `--scroll-pad: 88px` (mobile `76px`) via `scroll-padding-top` / `scroll-margin-top` + `HashScroll` settle logic
-- **Hero:** two-column grid (copy | terminal), `minmax(0, …)` so terminal content cannot inflate the column; full-viewport feel with restrained bottom padding
+- **Hero:** left-anchored editorial column (kicker + stacked name + role + command chip); Möbius owns the right field (far camera beat); quiet `profile.json` cue at the bottom edge
+- **Profile (section two):** two-column editorial layout (context copy | terminal), stacked on mobile; expand hides intro and gives the terminal more viewport
 - **Work:** compact impact strip + case study; beats should remain visible after `#experience` land on common laptop heights
 - **Projects:** featured/wide cards as two-column grids; scroll-scrubbed project stages on desktop (one beat per project), normal flow on mobile
 - **Breakpoints of note:** `768px` (section pad / stacks), `960px` (nav → drawer)
@@ -246,17 +248,17 @@ Primarily **tonal layering** (Ink Void → Console Black → Panel Slate) with h
 ### Shadow Vocabulary
 - **Ambient low** (`0 10px 30px rgba(0, 0, 0, 0.28)`): scrolled nav, command pill, light chrome
 - **Ambient mid** (`0 18px 48px rgba(0, 0, 0, 0.42)`): stronger chrome when needed
-- **Atmosphere:** fixed body radial glows (`--glow-cyan`, `--glow-warm`) + DotGrid — not scroll-attached
+- **Atmosphere:** fixed body radial glows (`--glow-cyan`, `--glow-warm`) — not scroll-attached. Möbius canvas is `pointer-events: none`; camera path is section-keyed (`#hero` far → `#profile` approach → `#experience`/`#projects` ride along the strip → `#contact` pullback). Hidden on `prefers-reduced-motion`. Mobile: shorter travel, no bloom. No DotGrid.
 
 ### Named Rules
 **The Flat-By-Default Rule.** Cards and project surfaces do not rely on hover lift shadows. Depth comes from nesting and borders; shadows decorate chrome, not content cards.
 
 ## Shapes
 
-Gently curved engineering chrome: **8px** default radius (`--radius`), **12px** for larger panels/terminal (`--radius-lg`), **pill** only for the hero command bar. Borders are 1px Wire / terminal-border — no heavy multi-layer outlines. Avoid `rounded-full` pills for general CTAs (hire me and primary buttons stay 8px).
+Gently curved engineering chrome: **8px** default radius (`--radius`), **12px** for larger panels/terminal (`--radius-lg`). Borders are 1px Wire / terminal-border — no heavy multi-layer outlines. Avoid `rounded-full` pills for general CTAs (hire me and primary buttons stay 8px).
 
 ### Named Rules
-**The Soft Console Rule.** Prefer 8–12px radii. Full pills are reserved for the command bar, not every chip or button.
+**The Soft Console Rule.** Prefer 8–12px radii. Reserve full pills for rare chrome only — default chips and the hero command stay 8px.
 
 ## Components
 
@@ -284,11 +286,11 @@ Gently curved engineering chrome: **8px** default radius (`--radius`), **12px** 
 
 ### Signature: Terminal Window
 - Console Black body, terminal-header bar, macOS-style traffic lights, GitHub Dark prettylights JSON
-- Radius 12px; terminal-border; primary hero visual alongside name/CTA
+- Radius 12px; terminal-border; lives in section two (`#profile`) with supporting context copy
 
-### Signature: Command Pill
-- Pill radius; Console Black + terminal-border; `$` prompt in Signal Cyan; typing loop for `heroCommands`
-- Sits under View My Work — keep strings short enough for mobile ellipsis without mid-word cuts on primary tokens
+### Signature: Command Chip
+- 8px radius (not a pill); Console Black + terminal-border; `$` prompt in Signal Cyan; typing loop for `heroCommands`
+- Sits under the hero role line, left-aligned; pauses when the hero scrolls out of view
 
 ### Signature: Section Label
 - Mono uppercase with `//` prefix, Signal Cyan, generous tracking — the recurring “ops annotation” before every Syne title
@@ -309,3 +311,4 @@ Gently curved engineering chrome: **8px** default radius (`--radius`), **12px** 
 - **Don't** put transform on the fixed navbar element (breaks mobile drawer).
 - **Don't** fabricate testimonials, metrics, or employers in pursuit of visual “proof blocks.”
 - **Don't** spam glow, multi-layer shadows, or rounded-full pill clusters across the page.
+- **Don't** replace the live Möbius with a video fly-through; scroll owns a Three.js camera path, and the canvas never captures pointer events.

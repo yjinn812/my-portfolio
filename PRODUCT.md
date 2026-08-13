@@ -28,8 +28,8 @@ Enterprise CRM / Salesforce delivery leadership in regulated banking (NAB), with
 ## Operating Context
 
 - Single-page marketing/portfolio site (`https://www.yujinwong.com`), Vite + React.
-- Visitor path: hero → work (impact + case studies) → projects → about → skills → contact / resume request.
-- Evaluation rituals: skim hero JSON / command bar, check impact metrics, read a case study, open a project demo, request resume or email.
+- Visitor path: hero → profile (`profile.json`) → work (impact + case studies) → projects → about → skills → contact / resume request.
+- Evaluation rituals: skim hero command pill, open/expand profile.json, check impact metrics, read a case study, open a project demo, request resume or email.
 - Source of product truth for copy and claims: `src/data/portfolioData.js`.
 
 ## Capabilities and Constraints
@@ -64,7 +64,7 @@ Real, shippable evidence lives in-repo (do not invent beyond this):
 
 - Profile, tagline, open-to roles, primary stack — `src/data/portfolioData.js`
 - Impact metrics (e.g. 3k→13k users, 4× processing, 30 min setup saved)
-- Featured case studies: SaaS conversion; AI adoption across engineering org (NAB)
+- Featured case studies: SaaS conversion; 4× single-flow trigger redesign; AI adoption; APRA-grade sales conversation record (NAB)
 - Personal projects + demos (AI Food Tracker, Sheets microservice, expense splitter, portfolio, etc.)
 - Contact: email, LinkedIn, GitHub as in portfolio data
 

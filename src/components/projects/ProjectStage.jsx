@@ -41,6 +41,56 @@ export default function ProjectStage({ project, index, total }) {
   );
   const transform = useMotionTemplate`translate3d(0, ${y}px, 0) scale(${scale})`;
 
+  const mediaOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.16, 0.8, 1],
+    [0.25, 1, 1, 0.35]
+  );
+  const mediaTransform = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.78, 1],
+    [
+      "translate3d(-24px, 0, 0) scale(0.985)",
+      "translate3d(0, 0, 0) scale(1)",
+      "translate3d(0, 0, 0) scale(1)",
+      "translate3d(18px, 0, 0) scale(0.99)",
+    ]
+  );
+  const copyOpacity = useTransform(
+    scrollYProgress,
+    [0.08, 0.24, 0.76, 0.92],
+    [0, 1, 1, 0]
+  );
+  const copyTransform = useTransform(
+    scrollYProgress,
+    [0.08, 0.24, 0.76, 0.92],
+    [
+      "translate3d(0, 24px, 0)",
+      "translate3d(0, 0, 0)",
+      "translate3d(0, 0, 0)",
+      "translate3d(0, -14px, 0)",
+    ]
+  );
+  const indexTransform = useTransform(
+    scrollYProgress,
+    [0.08, 0.24, 0.76, 0.92],
+    [
+      "translate3d(0, 10px, 0)",
+      "translate3d(0, 0, 0)",
+      "translate3d(0, 0, 0)",
+      "translate3d(0, -8px, 0)",
+    ]
+  );
+  const stageMotion = reduceMotion
+    ? undefined
+    : {
+        media: {
+          opacity: mediaOpacity,
+          transform: mediaTransform,
+        },
+        copy: { opacity: copyOpacity, transform: copyTransform },
+      };
+
   useEffect(() => {
     const node = stageRef.current;
     if (!node || typeof IntersectionObserver === "undefined") {
@@ -71,7 +121,14 @@ export default function ProjectStage({ project, index, total }) {
           className="project-stage__panel"
           style={reduceMotion ? undefined : { opacity, transform }}
         >
-          <p className="project-stage__index">
+          <motion.p
+            className="project-stage__index"
+            style={
+              reduceMotion
+                ? undefined
+                : { opacity: copyOpacity, transform: indexTransform }
+            }
+          >
             <span className="project-stage__index-num">
               {String(index + 1).padStart(2, "0")}
             </span>
@@ -79,11 +136,12 @@ export default function ProjectStage({ project, index, total }) {
             <span className="project-stage__index-total">
               {String(total).padStart(2, "0")}
             </span>
-          </p>
+          </motion.p>
           <ProjectCard
             project={project}
             featured={Boolean(project.featured)}
             stageActive={active}
+            stageMotion={stageMotion}
           />
         </motion.div>
       </div>

@@ -4,7 +4,7 @@ export function getYearsExp(startYear) {
 
 export const profile = {
   name: "Yu Jin Wong",
-  title: "Lead Engineer @ National Australia Bank",
+  title: "Senior Analyst Engineer @ National Australia Bank",
   year_start_work: 2019,
   get yearsExp() {
     return getYearsExp(this.year_start_work);
@@ -14,20 +14,47 @@ export const profile = {
   },
   location: "Melbourne / Sydney",
   email: "wongyj812@gmail.com",
-  phone: "0452 630 812",
   linkedin: "https://www.linkedin.com/in/yu-jin-wong/",
   github: "https://github.com/yjinn812",
   summary:
-    "I'm a Lead Engineer who's spent 7+ years at the intersection of product, infrastructure, and people. At NAB, I've led large-scale CRM transformations, modernised CI/CD pipelines, and built the kind of full-stack systems that banking staff rely on daily. I bring strong opinions on architecture, a bias toward delivery, and a habit of mentoring engineers who want to grow. Outside the enterprise world, I build side projects in React and TypeScript, because good engineering is also something you do for fun.",
+    "I'm a Senior Engineer who's spent 7+ years at the intersection of product, infrastructure, and people. At NAB, I've led large-scale CRM transformations, modernised CI/CD pipelines, and built the kind of full-stack systems that banking staff rely on daily. I bring strong opinions on architecture, a bias toward delivery, and a habit of mentoring engineers who want to grow. Outside the enterprise world, I build side projects in React and TypeScript, because good engineering is also something you do for fun.",
 };
 
-/** Rotating commands in the hero command bar under View My Work */
+/** Audience-tuned About blurbs — same voice, different emphasis. */
+export const aboutAudiences = [
+  {
+    id: "anyone",
+    label: "Anyone",
+    summary:
+      "I'm a Senior Engineer who's spent 7+ years at the intersection of product, infrastructure, and people. At NAB, I've led large-scale CRM transformations, modernised CI/CD pipelines, and built the kind of full-stack systems that banking staff rely on daily. I bring strong opinions on architecture, a bias toward delivery, and a habit of mentoring engineers who want to grow. Outside the enterprise world, I build side projects in React and TypeScript, because good engineering is also something you do for fun.",
+  },
+  {
+    id: "recruiters",
+    label: "Recruiters",
+    summary:
+      "Senior Engineer at NAB with 7+ years in regulated banking. I ship Salesforce and full-stack delivery under hard timelines, own design-through-production, and mentor mid-level engineers. Open to Staff / Lead Salesforce roles, CRM solutions architecture, and product-company full-stack work with real ownership.",
+  },
+  {
+    id: "engineers",
+    label: "Engineers",
+    summary:
+      "I care about clear technical design, honest code review, and systems people can still change in six months. Day-to-day that means Salesforce + JS in enterprise, with React/TypeScript side builds when I want a faster loop. Happy to talk architecture tradeoffs, CI/CD, or how you're adopting AI across the SDLC.",
+  },
+  {
+    id: "builders",
+    label: "Builders",
+    summary:
+      "I like hard delivery problems with a fixed clock — conversions, platform moves, AI tooling that has to survive banking constraints. If you're shipping something ambitious in Salesforce, product, or applied AI and want a lead who still writes code, let's talk.",
+  },
+];
+
+/** Rotating commands in the hero command pill */
 export const heroCommands = [
   "yujin@nab -v",
-  "open_to --roles lead_engineer architect",
-  "stack --enterprise salesforce js",
-  "npm i cursor claude",
-  "ping --open-to-work",
+  "open_to --roles staff architect",
+  "stack --core salesforce javascript",
+  "ship --from design --to production",
+  "location --melbourne sydney",
 ];
 
 /** Hero terminal JSON — full lists; preview/detail rules control what shows before green expand. */
@@ -40,11 +67,11 @@ export const profileJsonOpenToRoles = [
 
 export const profileJsonData = {
   name: profile.name,
-  role: "Lead Engineer",
+  role: "Senior Engineer",
   currently_at: "NAB",
   based_in: profile.location,
   years_exp: profile.yearsExp,
-  industry: ["Banking", "Insurance", "Telecom"],
+  industry: ["Banking - NAB", "Insurance - Resolution Life", "Telecom - Telstra"],
   strengths: [
     "Technical Design",
     "Stakeholder Management",
@@ -75,9 +102,11 @@ export const profileJsonData = {
     "Vite",
   ],
   impacts: {
-    users_scaled: "3,000 -> 13,000",
-    processing_gain: "4x",
-    setup_time_saved: "30 minutes",
+    users_scaled: "3,000 → 13,000",
+    processing_gain: "4x (400%) via single-flow trigger redesign",
+    setup_time_saved: "10–30 minutes per developer",
+    security_deadline_delivery: "Replaced a vulnerable AppExchange dependency in 1 month",
+    governance_approval: "APRA-grade sales conversation record: schema + banker UI, approved by NAB's Security Architect Review Board and scaled bank-wide"
   },
   open_to: {
     status: true,
@@ -111,7 +140,7 @@ export const impactMetrics = [
   {
     value: "4×",
     label: "Record processing speedup",
-    detail: "Trigger Automation handler architecture overhaul",
+    detail: "Single-flow Apex trigger pattern",
   },
   {
     value: "30 min",
@@ -135,6 +164,19 @@ export const featuredCaseStudies = [
       "Cleared the security risk on schedule, kept banker workflows intact, and moved the capability onto a supported platform path.",
   },
   {
+    id: "trigger-handler",
+    shortLabel: "Platform performance",
+    eyebrow: "Featured case study · NAB",
+    title: "Cutting record-processing time 4× with a single-flow trigger pattern",
+    context: "Lead Engineer / Senior Analyst Engineer · Apex triggers",
+    problem:
+      "Trigger logic had grown organically across teams. Multiple handlers could fire on the same record, in no guaranteed order — overlapping work, repeating processing, and slowing saves as volume scaled toward 13,000 users. Nobody owned the sequence a record actually took.",
+    did:
+      "Redesigned the handler architecture around a centralized record-processing pattern: one function owns the flow for a record. New logic is added as a step in that sequence, not as another competing handler. Wrote the contribution guidelines so every trigger on the platform follows the same predictable path.",
+    result:
+      "Cut record processing time by 4×. The pattern held as the platform scaled from 3,000 to 13,000 users, and new trigger work no longer meant stacking another unordered handler.",
+  },
+  {
     id: "ai-adoption",
     shortLabel: "AI adoption",
     eyebrow: "Featured case study · NAB",
@@ -145,9 +187,55 @@ export const featuredCaseStudies = [
     did:
       "Ran Cursor POCs, wrote adoption guidelines (including legal considerations), and presented estimated productivity gains to executives and the wider engineering team. Ran prompt-engineering workshops across the full SDLC: solution architecture, development, testing, and documentation.",
     result:
-      "Gave the squad a shared playbook for responsible AI use, aligned leadership on expected gains, and equipped teams to apply prompting practices across design, build, test, and docs, not just autocomplete.",
+      "Gave the squad a shared playbook for responsible AI use, presented productivity gains at 50% to leadership, and rolled prompting practices out across 15 engineers and 2 squads — covering design, build, test, and docs, not just autocomplete."
   },
+  {
+    id: "conversation-framework",
+    shortLabel: "Solution architecture",
+    eyebrow: "Featured case study · NAB",
+    title: "Designing and building an APRA-compliant sales conversation record",
+    context: "Senior Analyst Engineer, acting as solution architect · Financial Services Cloud",
+    problem:
+      "APRA requires every customer conversation to be recorded in detail — how it is categorised, what product advice was given, and who attended (customer and staff). The sales platform was not logging to that standard, so bankers had no usable way to capture a conversation the regulation would accept.",
+    did:
+      "I led the work as solution architect: designed the schema, the banker UI for filling in the conversation, and the automation around it — so the form was straightforward to complete and still captured APRA's required level of detail.",
+    result:
+      "Approved by NAB's Security Architect Review and rolled out in phases across Personal, Business, and Corporate. The bank now logs sales conversations at APRA's required level of detail, across its full customer base.",
+  }
 ];
+
+function firstSentence(text) {
+  const match = String(text).match(/^[^.!?]+[.!?]/);
+  return match ? match[0] : text;
+}
+
+const demoJson = {
+  role: profileJsonData.role,
+  currently_at: profileJsonData.currently_at,
+  years_exp: profileJsonData.years_exp,
+  primary_stack: profileJsonData.primary_stack.slice(0, 3),
+  impacts: {
+    users_scaled: impactMetrics[0].value,
+    processing_gain: impactMetrics[1].value.replace("×", "x"),
+  },
+  open_to: { status: profileJsonData.open_to.status },
+};
+
+/** Compact projection for the in-page portfolio demo — keep in sync via this object only. */
+export const portfolioDemoPreview = {
+  title: profile.title,
+  command: heroCommands.find((item) => item.startsWith("open_to")) ?? heroCommands[0],
+  jsonText: JSON.stringify(demoJson, null, 2),
+  impactMetrics,
+  caseTabs: featuredCaseStudies.map((study) => study.shortLabel),
+  featuredCase: {
+    eyebrow: featuredCaseStudies[0].eyebrow,
+    title: featuredCaseStudies[0].title,
+    problem: firstSentence(featuredCaseStudies[0].problem),
+    did: firstSentence(featuredCaseStudies[0].did),
+    result: firstSentence(featuredCaseStudies[0].result),
+  },
+};
 
 export const toolkit = [
   {

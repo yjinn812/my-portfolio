@@ -5,7 +5,7 @@ import "./Footer.css";
 export default function Footer() {
   return (
     <footer className="footer">
-      <Reveal className="container footer__inner" direction="fade" duration={0.5} amount={0.4}>
+      <Reveal className="container footer__inner" direction="fade" duration={0.28} amount={0.4}>
         <div className="footer__logo">
           <span className="footer__logo-bracket">&lt;</span>
           YJW

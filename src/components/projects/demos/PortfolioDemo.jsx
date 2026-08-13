@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { portfolioDemoPreview } from "../../../data/portfolioData";
 import "./PortfolioDemo.css";
 
 const SCREENS = [
@@ -11,7 +12,7 @@ const SCREENS = [
   {
     id: "work",
     label: "Work",
-    caption: "Impact strip + featured case studies (SaaS · AI)",
+    caption: "Impact strip + featured case studies",
     url: "www.yujinwong.com/#experience",
   },
   {
@@ -63,13 +64,13 @@ function HeroScreen() {
             <br />
             Wong
           </h3>
-          <p className="pf-hero__role">Lead Engineer @ National Australia Bank</p>
+          <p className="pf-hero__role">{portfolioDemoPreview.title}</p>
           <div className="pf-hero__btns">
             <span className="pf-hero__btn pf-hero__btn--primary">View My Work</span>
           </div>
           <div className="pf-cmd">
             <span className="pf-cmd__prompt">$</span>
-            <span className="pf-cmd__text">open_to --roles lead_engineer architect</span>
+            <span className="pf-cmd__text">{portfolioDemoPreview.command}</span>
             <span className="pf-cmd__cursor" />
           </div>
         </div>
@@ -78,19 +79,7 @@ function HeroScreen() {
             <span /><span /><span />
             <em>profile.json</em>
           </div>
-          <pre className="pf-terminal__body">{`{
-  "role": "Lead Engineer",
-  "currently_at": "NAB",
-  "years_exp": 7,
-  "primary_stack": [
-    "Salesforce", "JS", "Cursor"
-  ],
-  "impacts": {
-    "users_scaled": "3k → 13k",
-    "processing_gain": "4x"
-  },
-  "open_to": { "status": true }
-}`}</pre>
+          <pre className="pf-terminal__body">{portfolioDemoPreview.jsonText}</pre>
         </div>
       </div>
       <div className="pf-hero__glow" aria-hidden />
@@ -99,6 +88,8 @@ function HeroScreen() {
 }
 
 function WorkScreen() {
+  const featured = portfolioDemoPreview.featuredCase;
+
   return (
     <div className="pf-screen pf-screen--work">
       <div className="pf-section-label">// work</div>
@@ -106,39 +97,36 @@ function WorkScreen() {
 
       <p className="pf-impact-label">Impact at a glance</p>
       <div className="pf-impact">
-        <div className="pf-impact__item">
-          <strong>3k → 13k</strong>
-          <span>CRM users</span>
-        </div>
-        <div className="pf-impact__item">
-          <strong>4×</strong>
-          <span>Processing</span>
-        </div>
-        <div className="pf-impact__item">
-          <strong>30 min</strong>
-          <span>Setup saved</span>
-        </div>
+        {portfolioDemoPreview.impactMetrics.map((metric) => (
+          <div className="pf-impact__item" key={metric.label}>
+            <strong>{metric.value}</strong>
+            <span>{metric.label}</span>
+          </div>
+        ))}
       </div>
 
       <div className="pf-case">
         <div className="pf-case__tabs">
-          <span className="is-active">SaaS conversion</span>
-          <span>AI adoption</span>
+          {portfolioDemoPreview.caseTabs.map((label, index) => (
+            <span key={label} className={index === 0 ? "is-active" : undefined}>
+              {label}
+            </span>
+          ))}
         </div>
-        <p className="pf-case__eyebrow">Featured case study · NAB</p>
-        <h4 className="pf-case__title">One-month SaaS conversion under a security deadline</h4>
+        <p className="pf-case__eyebrow">{featured.eyebrow}</p>
+        <h4 className="pf-case__title">{featured.title}</h4>
         <div className="pf-case__beats">
           <div>
             <em>01 · Problem</em>
-            <p>Hard security cutover on a legacy org.</p>
+            <p>{featured.problem}</p>
           </div>
           <div>
             <em>02 · What I did</em>
-            <p>Owned design → ship in 30 days.</p>
+            <p>{featured.did}</p>
           </div>
           <div>
             <em>03 · Result</em>
-            <p>Risk cleared; workflows intact.</p>
+            <p>{featured.result}</p>
           </div>
         </div>
       </div>

@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { profile, education, certifications } from "../../data/portfolioData";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { aboutAudiences, education, certifications, profile } from "../../data/portfolioData";
+import { easeOut } from "../../lib/motion";
 import { Reveal, RevealGroup, RevealItem, SectionHeader } from "../ui/Reveal";
 import "./About.css";
 
@@ -22,6 +24,10 @@ function SalesforceMark() {
 
 export default function About() {
   const [showAllCerts, setShowAllCerts] = useState(false);
+  const [audienceId, setAudienceId] = useState(aboutAudiences[0].id);
+  const reduceMotion = useReducedMotion();
+  const audience =
+    aboutAudiences.find((item) => item.id === audienceId) ?? aboutAudiences[0];
 
   return (
     <section className="about" id="about">
@@ -30,7 +36,58 @@ export default function About() {
 
         <div className="about__grid">
           <Reveal className="about__bio" direction="left" delay={0.05}>
-            <p className="about__summary">{profile.summary}</p>
+            <div
+              className="about__audience"
+              role="tablist"
+              aria-label="About audience"
+            >
+              <span className="about__audience-label">For</span>
+              {aboutAudiences.map((item) => {
+                const selected = item.id === audienceId;
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={selected}
+                    className={`about__audience-btn${selected ? " is-active" : ""}`}
+                    onClick={() => setAudienceId(item.id)}
+                  >
+                    {item.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="about__summary-slot" aria-live="polite">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.p
+                  key={audience.id}
+                  className="about__summary"
+                  initial={
+                    reduceMotion
+                      ? { opacity: 0 }
+                      : { opacity: 0, transform: "translateY(8px)" }
+                  }
+                  animate={
+                    reduceMotion
+                      ? { opacity: 1 }
+                      : { opacity: 1, transform: "translateY(0px)" }
+                  }
+                  exit={
+                    reduceMotion
+                      ? { opacity: 0 }
+                      : { opacity: 0, transform: "translateY(-6px)" }
+                  }
+                  transition={{
+                    duration: reduceMotion ? 0.14 : 0.22,
+                    ease: easeOut,
+                  }}
+                >
+                  {audience.summary}
+                </motion.p>
+              </AnimatePresence>
+            </div>
 
             <dl className="about__info-grid">
               <div className="about__info-item">

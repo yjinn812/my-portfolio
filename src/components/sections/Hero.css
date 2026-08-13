@@ -1,99 +1,79 @@
 .hero {
-  min-height: calc(100vh - 24px);
-  min-height: calc(100dvh - 24px);
+  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
   position: relative;
-  padding: clamp(92px, 10vh, 120px) 0 64px;
-  overflow-x: hidden;
-  overflow-y: visible;
+  /* Optical center: a little extra bottom air so nav doesn’t push the block low */
+  padding: clamp(96px, 11vh, 128px) 0 clamp(72px, 9vh, 96px);
+  overflow: hidden;
 }
 
 .hero__inner {
   position: relative;
   z-index: 1;
   display: grid;
-  /* minmax(0, …) so terminal content can't inflate the visual column */
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-  gap: clamp(28px, 5vw, 56px);
   align-items: center;
-  /* Flex parent + margin:auto would otherwise shrink-wrap to the terminal */
   width: 100%;
-  box-sizing: border-box;
+  min-height: calc(100dvh - 180px);
 }
-
-.hero__greeting {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.hero__prompt { color: var(--accent); }
 
 .hero__content {
-  position: relative;
-  z-index: 1;
-  max-width: 34rem;
-}
-
-.hero__visual {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  align-items: center;
-  justify-items: stretch;
-  justify-self: stretch;
-  align-self: center;
-  min-height: 12rem;
-  width: auto;
-  min-width: 0;
+  width: min(38rem, 100%);
   max-width: 100%;
-  overflow: visible;
+  text-align: left;
+  justify-self: start;
 }
 
-.hero__visual > * {
-  grid-area: 1 / 1;
+.hero__kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 18px;
 }
 
 .hero__name {
   font-family: var(--font-display);
-  font-size: clamp(40px, 5.8vw, 76px);
+  font-size: clamp(48px, 7.2vw, 96px);
   font-weight: 800;
   color: var(--text);
-  line-height: 1.12;
-  margin-bottom: 18px;
-  letter-spacing: -0.03em;
-  overflow: visible;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  margin-bottom: 20px;
+  text-wrap: balance;
 }
 
 .hero__name-line {
   display: block;
-  pointer-events: none;
+  overflow: hidden;
 }
 
-.hero__name-line:first-child {
-  white-space: nowrap;
+.hero__name-line-inner {
+  display: block;
 }
 
 .hero__title {
   font-family: var(--font-mono);
-  font-size: clamp(14px, 2vw, 16px);
-  font-weight: 300;
-  color: var(--accent);
+  font-size: clamp(14px, 1.5vw, 16px);
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: 1.55;
+  max-width: 34ch;
   margin-bottom: 28px;
-  letter-spacing: 0.02em;
-  line-height: 1.5;
-  max-width: 36ch;
 }
 
-.hero__actions {
+.hero__title-rest {
+  color: var(--text-muted);
+}
+
+.hero__cmd-wrap {
   display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-bottom: 14px;
+  justify-content: flex-start;
+  margin-bottom: 0;
 }
 
 .hero__cmd {
@@ -102,10 +82,10 @@
   gap: 10px;
   max-width: 100%;
   padding: 10px 16px;
-  border-radius: 999px;
-  background: var(--terminal-bg);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--terminal-bg) 88%, transparent);
   border: 1px solid var(--terminal-border);
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
   font-family: var(--font-mono);
   font-size: 12.5px;
   line-height: 1.2;
@@ -152,397 +132,57 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .hero__cmd-cursor.is-blink {
-    animation: none;
-    opacity: 0.55;
-  }
-}
-
-.hero__btn {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  line-height: 1;
-  padding: 0 28px;
-  min-height: 42px;
-  border-radius: var(--radius);
-  text-decoration: none;
-  transition:
-    transform 160ms var(--ease-out),
-    filter 160ms ease;
+.hero__scroll {
+  position: absolute;
+  left: 0;
+  bottom: 8px;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  box-sizing: border-box;
-}
-
-/* Trim font leading so cap-height ink centers (Mono sits high in the em-box) */
-.hero__btn-label {
-  display: block;
-  transform: translateY(2px);
-}
-
-@supports (text-box: trim-both cap alphabetic) {
-  .hero__btn-label {
-    transform: none;
-    text-box: trim-both cap alphabetic;
-  }
-}
-
-.hero__btn--primary {
-  background: var(--accent);
-  color: var(--bg);
-  font-weight: 500;
-}
-
-.hero__btn--primary:hover {
-  filter: brightness(1.08);
-  text-decoration: none;
-}
-
-.hero__btn--primary:active {
-  transform: scale(0.97);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .hero__btn--primary:hover {
-    transform: translateY(-1px);
-  }
-
-  .hero__btn--primary:hover:active {
-    transform: scale(0.97);
-  }
-}
-
-/* Terminal — primary visual (above hero text so overflow name can't steal clicks) */
-.hero__profile-shell {
-  position: relative;
-  z-index: 2;
-  background: var(--terminal-bg);
-  border: 1px solid var(--terminal-border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-  min-width: 0;
-  width: 100%;
-  max-width: min(42rem, 100%);
-  justify-self: stretch;
-  box-sizing: border-box;
-  color: var(--terminal-fg);
-}
-
-.hero__profile-shell--folder {
-  border-style: dashed;
-  cursor: pointer;
-  box-shadow: none;
-  background: color-mix(in srgb, var(--terminal-bg) 88%, transparent);
-  justify-self: center;
-}
-
-.hero__profile-shell--folder:hover,
-.hero__profile-shell--folder:focus-visible {
-  border-color: var(--accent);
-  background: var(--terminal-bg);
-  outline: none;
-}
-
-.hero__profile-shell--collapsed .terminal__header {
-  border-bottom-color: transparent;
-}
-
-.hero__profile-face {
-  width: 100%;
-}
-
-.hero__profile-face--folder {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   gap: 10px;
-  color: var(--terminal-muted);
   font-family: var(--font-mono);
-  font-size: 12px;
-  pointer-events: none;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-decoration: none;
+  border-bottom: none;
+  padding-bottom: 0;
 }
 
-.hero__profile-shell--folder .hero__profile-face--folder {
-  pointer-events: auto;
-}
-
-.hero__profile-face--folder svg {
-  width: 36px;
-  height: 36px;
+.hero__scroll-mark {
   color: var(--accent);
 }
 
-.hero__profile-face--terminal {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-height: 0;
-}
-
-.hero__profile-shell--folder .hero__profile-face--terminal {
-  pointer-events: none;
-}
-
-.terminal__header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 18px;
-  background: var(--terminal-header);
-  border-bottom: 1px solid var(--terminal-border);
-  position: relative;
-  z-index: 2;
-  flex-shrink: 0;
-}
-
-.terminal__controls {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  position: relative;
-  z-index: 3;
-  isolation: isolate;
-}
-
-.terminal__dot {
-  position: relative;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  border: none;
-  padding: 0;
-  margin: 0;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  color: transparent;
-  font-size: 0;
-  line-height: 0;
-  outline: none;
-  box-shadow: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* Expand hit target without changing macOS-tight visual spacing */
-.terminal__dot::before {
-  content: "";
-  position: absolute;
-  inset: -6px;
-}
-
-.terminal__dot:hover,
-.terminal__dot:active {
-  filter: none;
-  background: transparent;
-}
-
-.terminal__dot:focus {
-  outline: none;
-}
-
-.terminal__dot:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: var(--radius);
-}
-
-.terminal__dot::after {
-  content: "";
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.terminal__dot--red::after    { background-color: #ff5f57; }
-.terminal__dot--yellow::after { background-color: #ffbd2e; }
-.terminal__dot--green::after  { background-color: #28c840; }
-
-.terminal__title {
-  font-size: 13px;
-  color: var(--terminal-muted);
-  margin-left: 4px;
-  pointer-events: none;
-}
-
-.terminal__body {
-  display: grid;
-  grid-template-rows: 0fr;
-  opacity: 0;
-  transition:
-    grid-template-rows 250ms var(--ease-out),
-    opacity 200ms var(--ease-out);
-  font-size: 14px;
-  line-height: 1.85;
-  color: var(--terminal-muted);
-  font-family: var(--font-mono);
-  background: var(--terminal-bg);
-}
-
-.terminal__body.is-open {
-  grid-template-rows: 1fr;
-  opacity: 1;
-}
-
-.terminal__body-inner {
-  overflow: hidden;
-  min-height: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .terminal__body {
-    transition: none;
-  }
-}
-
-.terminal__json {
-  white-space: normal;
-  padding: 26px 24px 30px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.terminal__line {
-  display: block;
-}
-
-.terminal__indent {
-  display: inline-block;
-  width: 16px;
-}
-
-.terminal__brace {
-  color: var(--terminal-punct);
-}
-
-.terminal__key {
-  color: var(--terminal-key);
-}
-
-.terminal__string {
-  color: var(--terminal-string);
-}
-
-.terminal__boolean {
-  color: var(--terminal-boolean);
-}
-
-.terminal__comment {
-  color: var(--terminal-comment);
-  font-style: italic;
-}
-
-.terminal__line--open-to {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0 2px;
-}
-
-/* CSS grid reveal — avoids Framer height:auto lock with ... toggles */
-.terminal__reveal {
-  display: grid;
-  grid-template-rows: 0fr;
-  opacity: 0;
-  transition:
-    grid-template-rows 240ms var(--ease-out),
-    opacity 200ms var(--ease-out);
-}
-
-.terminal__reveal.is-open {
-  grid-template-rows: 1fr;
-  opacity: 1;
-}
-
-.terminal__reveal-inner {
-  overflow: hidden;
-  min-height: 0;
-}
-
-.terminal__reveal--instant {
-  transition: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .terminal__reveal {
-    transition: none;
-  }
+.hero__scroll:hover {
+  color: var(--accent);
+  text-decoration: none;
 }
 
 @media (max-width: 900px) {
   .hero {
     min-height: auto;
-    justify-content: flex-start;
+    align-items: flex-start;
     padding-top: calc(72px + env(safe-area-inset-top, 0px));
-    padding-bottom: 40px;
-    overflow-x: hidden;
-    overflow-y: visible;
+    padding-bottom: 56px;
   }
 
   .hero__inner {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    align-items: start;
+    min-height: 0;
+    gap: 40px;
   }
 
   .hero__content {
-    max-width: none;
-    z-index: 3;
-    position: relative;
-  }
-
-  .hero__greeting {
-    margin-bottom: 8px;
-    opacity: 1 !important;
-    transform: none !important;
+    width: 100%;
   }
 
   .hero__name {
-    font-size: clamp(40px, 8.5vw, 76px);
-    line-height: 1.1;
-    margin-bottom: 10px;
-    overflow: hidden;
-    opacity: 1 !important;
-    transform: none !important;
-    color: var(--text);
-  }
-
-  .hero__name-line {
-    display: block;
-  }
-
-  .hero__name-line:first-child {
-    white-space: normal;
+    font-size: clamp(40px, 11vw, 64px);
+    margin-bottom: 14px;
   }
 
   .hero__title {
+    margin-bottom: 20px;
     max-width: none;
-    margin-bottom: 18px;
-    font-size: 14px;
-    font-weight: 400;
-    color: var(--accent);
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
-  .hero__actions {
-    margin-bottom: 12px;
-    display: flex;
-    justify-content: flex-start;
   }
 
   .hero__cmd {
@@ -551,130 +191,14 @@
     font-size: 12px;
   }
 
-  .hero__btn {
-    width: fit-content;
-    max-width: 100%;
+  .hero__scroll {
+    position: static;
   }
-
-  .hero__visual {
-    min-height: 0;
-    justify-items: stretch;
-    z-index: 2;
-  }
-
-  .hero__profile-shell {
-    display: flex;
-    flex-direction: column;
-    max-height: min(48vh, 420px);
-    max-width: none;
-    justify-self: stretch;
-    height: min(48vh, 420px);
-  }
-
-  /* Green expand: tall viewport box; scroll JSON inside (avoid page-scroll curtain) */
-  .hero__profile-shell--expanded {
-    height: min(78vh, 680px);
-    max-height: min(78vh, 680px);
-  }
-
-  .hero__profile-shell--expanded .hero__profile-face--terminal {
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow: hidden;
-    height: auto;
-  }
-
-  .hero__profile-shell--expanded .terminal__body {
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow: hidden;
-  }
-
-  .hero__profile-shell--expanded .terminal__body-inner {
-    height: 100%;
-    min-height: 0;
-    overflow: hidden;
-  }
-
-  .hero__profile-shell--expanded .terminal__json {
-    height: 100%;
-    max-height: 100%;
-    overflow: auto;
-    overscroll-behavior: contain;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .hero__profile-shell--folder {
-    justify-self: center;
-    max-height: none;
-    height: auto;
-  }
-
-  .hero__profile-face--terminal {
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow: hidden;
-    height: 100%;
-  }
-
-  .terminal__header {
-    padding: 12px 14px;
-  }
-
-  /* Touch-friendly traffic lights (visual size unchanged via ::after) */
-  .terminal__dot {
-    width: 44px;
-    height: 44px;
-    margin: -16px -10px;
-  }
-
-  .terminal__dot::before {
-    inset: 0;
-  }
-
-  .terminal__controls {
-    gap: 0;
-    margin-left: -6px;
-  }
-
-  .terminal__body {
-    font-size: 12.5px;
-    line-height: 1.7;
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow: hidden;
-  }
-
-  .terminal__body-inner {
-    height: 100%;
-    overflow: hidden;
-  }
-
-  .terminal__json {
-    padding: 14px 14px 18px;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    max-height: 100%;
-    height: 100%;
-  }
-
 }
 
-@media (max-height: 760px) and (min-width: 901px) {
-  .hero {
-    min-height: auto;
-    padding-top: 88px;
-    padding-bottom: 48px;
-  }
-
-  .terminal__body {
-    font-size: 13px;
-    line-height: 1.75;
-  }
-
-  .terminal__json {
-    padding: 20px 20px 22px;
-    max-height: min(68vh, 580px);
-    overflow: auto;
+@media (prefers-reduced-motion: reduce) {
+  .hero__cmd-cursor.is-blink {
+    animation: none;
+    opacity: 0.55;
   }
 }

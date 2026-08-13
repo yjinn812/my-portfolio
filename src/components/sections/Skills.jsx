@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import {
   SiTypescript,
   SiJavascript,
@@ -17,6 +18,7 @@ import {
 import { FaAws, FaSalesforce } from "react-icons/fa";
 import { toolkit } from "../../data/portfolioData";
 import LogoLoop from "../ui/LogoLoop";
+import { Reveal, SectionHeader } from "../ui/Reveal";
 import "./Skills.css";
 
 const techLogos = [
@@ -81,14 +83,35 @@ function ToolkitCard({ group, index }) {
 }
 
 export default function Skills() {
+  const galleryRef = useRef(null);
+  const [galleryInView, setGalleryInView] = useState(false);
+
+  useEffect(() => {
+    const node = galleryRef.current;
+    if (!node || typeof IntersectionObserver === "undefined") {
+      setGalleryInView(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setGalleryInView(true);
+        observer.disconnect();
+      },
+      { threshold: 0.22, rootMargin: "0px 0px -8% 0px" }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className="skills" id="skills">
       <div className="container skills__intro">
-        <p className="section-label">toolkit</p>
-        <h2 className="section-title">What I work with</h2>
-        <p className="skills__lede">
+        <SectionHeader label="toolkit" title="What I work with" />
+        <Reveal as="p" className="skills__lede" direction="fade" delay={0.06}>
           Tools I’ve shipped with, not a claim that I know every library by heart.
-        </p>
+        </Reveal>
       </div>
 
       <div className="skills__loop">
@@ -111,7 +134,10 @@ export default function Skills() {
       </div>
 
       <div className="container">
-        <div className="toolkit-gallery">
+        <div
+          ref={galleryRef}
+          className={`toolkit-gallery${galleryInView ? " is-inview" : ""}`}
+        >
           {toolkit.map((group, index) => (
             <ToolkitCard key={group.id} group={group} index={index} />
           ))}

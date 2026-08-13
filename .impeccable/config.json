@@ -2,7 +2,10 @@
   "detector": {
     "ignoreRules": [],
     "ignoreFiles": [
-      "src/components/projects/demos/PortfolioDemo.css"
+      "src/components/projects/demos/PortfolioDemo.css",
+      "src/components/projects/demos/ExpenseTrackerDemo.css",
+      "src/components/projects/demos/FoodTrackerDemo.css",
+      "src/components/projects/demos/SheetsApiDemo.css"
     ],
     "ignoreValues": []
   }

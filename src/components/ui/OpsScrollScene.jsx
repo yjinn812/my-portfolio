@@ -82,7 +82,8 @@ function createGuideRings(radius, halfWidth, count, samples) {
 
 /**
  * Endgame / Stark-lab Möbius hologram — translucent amber band, edge glow, bloom.
- * Night Ops void + ember signal (Stark orange) with cyan particle dust.
+ * Night Ops void + ember signal. Camera is a section-keyed flight (no video):
+ * far at hero, approach at profile, ride `u` through work/projects, pull back at contact.
  */
 export default function OpsScrollScene() {
   const canvasRef = useRef(null);
@@ -256,7 +257,7 @@ export default function OpsScrollScene() {
       positions[i * 3 + 2] = (Math.random() - 0.5) * 24;
     }
     const particleGeo = new THREE.BufferGeometry();
-    particleGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    particleGeo.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
     const particles = new THREE.Points(
       particleGeo,
       new THREE.PointsMaterial({
@@ -271,6 +272,143 @@ export default function OpsScrollScene() {
     );
     scene.add(particles);
 
+    /**
+     * Section-keyed camera flight. Scroll maps onto these beats; the camera
+     * interpolates in world space (orbit) or rides the strip (u along Möbius).
+     */
+    const travel = mobile ? 0.58 : 1;
+    const mixCam = (far, close) => far + (close - far) * travel;
+    const allBeats = [
+      {
+        id: "hero",
+        mode: "orbit",
+        cam: [0.55, 1.35, 9.4],
+        look: [0, 0.15, 0],
+        holRot: [0.65, 0.04, -0.15],
+        holY: 0,
+        scale: 1.05,
+        opacity: mobile ? 0.24 : 0.34,
+        bloom: 0.3,
+      },
+      {
+        id: "profile",
+        mode: "orbit",
+        cam: [mixCam(0.55, 3.05), mixCam(1.35, 0.42), mixCam(9.4, 5.15)],
+        look: [0.75, 0.06, 0.18],
+        holRot: [0.72, 0.38, -0.04],
+        holY: -0.06,
+        scale: 1.12,
+        opacity: mobile ? 0.28 : 0.4,
+        bloom: 0.36,
+      },
+      {
+        id: "experience",
+        mode: "ride",
+        u: 0.25,
+        lookAhead: 0.4,
+        rideRadius: mobile ? 2.85 : 2.25,
+        rideLift: 0.52,
+        holRot: [0.5, 0.7, 0.04],
+        holY: -0.16,
+        scale: 1.08,
+        opacity: mobile ? 0.16 : 0.22,
+        bloom: 0.22,
+      },
+      {
+        id: "projects",
+        mode: "ride",
+        u: 3.55,
+        lookAhead: 0.28,
+        rideRadius: mobile ? 2.2 : 1.52,
+        rideLift: 0.3,
+        holRot: [0.4, 1.45, 0.1],
+        holY: -0.34,
+        scale: 1.18,
+        opacity: mobile ? 0.3 : 0.46,
+        bloom: 0.4,
+      },
+      {
+        id: "about",
+        mode: "orbit",
+        cam: [mixCam(0.55, -3.25), mixCam(1.35, 1.55), mixCam(9.4, 6.5)],
+        look: [0, 0.05, 0],
+        holRot: [0.55, 1.9, -0.1],
+        holY: -0.18,
+        scale: 1.06,
+        opacity: mobile ? 0.22 : 0.28,
+        bloom: 0.2,
+      },
+      {
+        id: "skills",
+        mode: "orbit",
+        cam: [mixCam(0.55, -1.15), mixCam(1.35, 2.05), mixCam(9.4, 8.3)],
+        look: [0, 0.22, 0],
+        holRot: [0.6, 2.15, -0.12],
+        holY: -0.04,
+        scale: 1.02,
+        opacity: mobile ? 0.2 : 0.24,
+        bloom: 0.18,
+      },
+      {
+        id: "contact",
+        mode: "orbit",
+        cam: [mixCam(0.55, 0.28), mixCam(1.35, 2.85), mixCam(9.4, 12.1)],
+        look: [0, 0.4, 0],
+        holRot: [0.62, 2.4, -0.15],
+        holY: 0.18,
+        scale: 0.98,
+        opacity: mobile ? 0.14 : 0.16,
+        bloom: 0.14,
+      },
+    ];
+
+    const beats = allBeats.filter((beat) => document.getElementById(beat.id));
+    const lastBeatIndex = Math.max(0, beats.length - 1);
+
+    const _local = new THREE.Vector3();
+    const _ahead = new THREE.Vector3();
+    const _world = new THREE.Vector3();
+    const _worldAhead = new THREE.Vector3();
+    const _out = new THREE.Vector3();
+    const _holPos = new THREE.Vector3();
+    const _camA = new THREE.Vector3();
+    const _lookA = new THREE.Vector3();
+    const _camB = new THREE.Vector3();
+    const _lookB = new THREE.Vector3();
+    const _look = new THREE.Vector3();
+    const lerpNum = (a, b, t) => a + (b - a) * t;
+    const smoothstep = (t) => t * t * (3 - 2 * t);
+    const projectsIdx = beats.findIndex((beat) => beat.id === "projects");
+
+    function writeMobius(out, u, v) {
+      const cosHalf = Math.cos(u * 0.5);
+      const sinHalf = Math.sin(u * 0.5);
+      const stretch = R + v * W * cosHalf;
+      out.set(stretch * Math.cos(u), v * W * sinHalf * 1.15, stretch * Math.sin(u));
+      return out;
+    }
+
+    function cameraFromBeat(beat, dive, outPos, outLook) {
+      hologram.updateMatrixWorld(true);
+      hologram.getWorldPosition(_holPos);
+      if (beat.mode !== "ride") {
+        outPos.set(beat.cam[0], beat.cam[1], beat.cam[2]);
+        outLook.set(beat.look[0], beat.look[1], beat.look[2]);
+        return;
+      }
+      const radius = beat.rideRadius * (1 - dive * 0.28);
+      writeMobius(_local, beat.u, 0);
+      writeMobius(_ahead, beat.u + beat.lookAhead, 0);
+      _world.copy(_local).applyMatrix4(hologram.matrixWorld);
+      _worldAhead.copy(_ahead).applyMatrix4(hologram.matrixWorld);
+      _out.copy(_world).sub(_holPos);
+      if (_out.lengthSq() < 0.0001) _out.set(0, 0, 1);
+      else _out.normalize();
+      outPos.copy(_world).addScaledVector(_out, radius);
+      outPos.y += beat.rideLift;
+      outLook.copy(_worldAhead);
+    }
+
     let target = { p: 0 };
     let current = { p: 0 };
     let projectsTarget = 0;
@@ -281,8 +419,34 @@ export default function OpsScrollScene() {
     let scrollBoostUntil = 0;
 
     const readProgress = () => {
-      const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-      target.p = Math.min(1, Math.max(0, window.scrollY / max));
+      if (beats.length < 2) {
+        const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+        target.p = Math.min(1, Math.max(0, window.scrollY / max));
+        return;
+      }
+      const probe = window.scrollY + window.innerHeight * 0.38;
+      const tops = beats.map((beat) => {
+        const el = document.getElementById(beat.id);
+        return el ? el.getBoundingClientRect().top + window.scrollY : 0;
+      });
+      if (probe <= tops[0]) {
+        target.p = 0;
+        return;
+      }
+      if (probe >= tops[lastBeatIndex]) {
+        target.p = 1;
+        return;
+      }
+      for (let i = 0; i < lastBeatIndex; i += 1) {
+        const a = tops[i];
+        const b = tops[i + 1];
+        if (probe >= a && probe < b) {
+          const local = (probe - a) / Math.max(1, b - a);
+          target.p = (i + local) / lastBeatIndex;
+          return;
+        }
+      }
+      target.p = 1;
     };
 
     const onScroll = () => {
@@ -361,44 +525,81 @@ export default function OpsScrollScene() {
       lastFrame = t;
       raf = requestAnimationFrame(tick);
 
-      current.p += (target.p - current.p) * 0.075;
+      current.p += (target.p - current.p) * 0.08;
       projectsCurrent += (projectsTarget - projectsCurrent) * 0.09;
       const p = current.p;
       const pp = projectsCurrent;
       const time = t * 0.001;
 
-      hologram.rotation.y = time * 0.28 + p * Math.PI * 1.15 + pp * Math.PI * 0.55;
-      hologram.rotation.x = 0.65 + Math.sin(time * 0.4) * 0.08 + p * 0.4 + pp * 0.22;
-      hologram.rotation.z = -0.15 + Math.sin(time * 0.25) * 0.06 + pp * 0.12;
-      hologram.position.y = Math.sin(time * 0.5) * 0.08 - p * 0.75 - pp * 0.35;
-      hologram.scale.setScalar(1.05 + pp * 0.08);
+      const pool = beats.length ? beats : allBeats;
+      const count = pool.length;
+      const span = Math.max(1, count - 1);
+      const scaled = Math.min(span, Math.max(0, p * span));
+      const i0 = Math.min(Math.max(0, count - 2), Math.floor(scaled));
+      const i1 = Math.min(count - 1, i0 + 1);
+      const local = count < 2 ? 0 : smoothstep(scaled - i0);
+      const a = pool[i0];
+      const b = pool[i1];
 
-      membrane.material.opacity = 0.1 + Math.sin(time * 2.2) * 0.015 + pp * 0.03;
-      lattice.material.opacity = 0.14 + Math.sin(time * 1.6 + 1) * 0.02 + pp * 0.04;
+      hologram.rotation.x = lerpNum(a.holRot[0], b.holRot[0], local);
+      hologram.rotation.y = lerpNum(a.holRot[1], b.holRot[1], local);
+      hologram.rotation.z = lerpNum(a.holRot[2], b.holRot[2], local);
+      hologram.position.y = lerpNum(a.holY, b.holY, local);
+      hologram.scale.setScalar(lerpNum(a.scale, b.scale, local) + pp * 0.06);
+
+      const nearProjects =
+        projectsIdx < 0 ? 0 : Math.max(0, 1 - Math.abs(scaled - projectsIdx));
+      const dive = pp * (0.22 + nearProjects * 0.78);
+
+      if (a.mode === "ride" && b.mode === "ride") {
+        cameraFromBeat(
+          {
+            mode: "ride",
+            u: lerpNum(a.u, b.u, local),
+            lookAhead: lerpNum(a.lookAhead, b.lookAhead, local),
+            rideRadius: lerpNum(a.rideRadius, b.rideRadius, local),
+            rideLift: lerpNum(a.rideLift, b.rideLift, local),
+          },
+          dive,
+          camera.position,
+          _look
+        );
+      } else {
+        cameraFromBeat(a, dive, _camA, _lookA);
+        cameraFromBeat(b, dive, _camB, _lookB);
+        camera.position.lerpVectors(_camA, _camB, local);
+        _look.copy(_lookA).lerp(_lookB, local);
+      }
+      camera.lookAt(_look);
+
+      const opacity = lerpNum(a.opacity, b.opacity, local);
+      membrane.material.opacity = 0.09 + opacity * 0.1 + Math.sin(time * 1.8) * 0.008 + dive * 0.04;
+      lattice.material.opacity = 0.12 + opacity * 0.12 + Math.sin(time * 1.4 + 1) * 0.012 + dive * 0.05;
       if (bloom) {
         bloom.strength = lowPower
-          ? 0.16
-          : 0.3 + Math.sin(time * 1.2) * 0.025 + pp * 0.06;
+          ? 0.12
+          : lerpNum(a.bloom, b.bloom, local) + Math.sin(time * 1.1) * 0.018 + dive * 0.08;
       }
 
       particles.visible = !lowPower;
       if (!lowPower) {
-        particles.rotation.y = time * 0.02 + p * 0.4 + pp * 0.35;
-        particles.rotation.x = p * 0.15 + pp * 0.1;
+        particles.rotation.y = time * 0.008 + p * 0.12;
       }
 
-      camera.position.x = 0.6 + Math.sin(p * Math.PI * 0.5) * 1.1 + Math.sin(pp * Math.PI) * 0.45;
-      camera.position.y = 1.4 + p * 0.9 + pp * 0.35;
-      camera.position.z = 9.2 - p * 2.4 - pp * 1.1;
-      camera.lookAt(0, hologram.position.y * 0.35, 0);
-
-      amberKey.intensity = 1.05 + Math.sin(time * 1.2) * 0.12 + pp * 0.2;
-      cyanFill.intensity = 0.28 + Math.cos(time) * 0.06 + pp * 0.08;
-
-      const base = mobile ? 0.2 : 0.28;
-      canvas.style.opacity = String(
-        Math.min(0.48, base + pp * 0.14 + (lowPower ? 0.08 : 0))
+      amberKey.position.set(
+        camera.position.x + 2.1,
+        camera.position.y + 1.35,
+        camera.position.z + 1.4
       );
+      cyanFill.position.set(
+        camera.position.x - 3.1,
+        camera.position.y - 0.7,
+        camera.position.z + 1.1
+      );
+      amberKey.intensity = 1.02 + Math.sin(time * 1.15) * 0.08 + dive * 0.22;
+      cyanFill.intensity = 0.26 + Math.cos(time) * 0.05 + dive * 0.08;
+
+      canvas.style.opacity = String(Math.min(0.5, opacity + dive * 0.06));
 
       if (composer && !lowPower) composer.render();
       else renderer.render(scene, camera);
@@ -409,12 +610,21 @@ export default function OpsScrollScene() {
     window.addEventListener("resize", onResize);
     window.addEventListener("ops-projects-progress", onProjectsProgress);
     document.addEventListener("visibilitychange", onVisibility);
+    const layoutRo =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(() => {
+            readProgress();
+            kick();
+          })
+        : null;
+    layoutRo?.observe(document.documentElement);
     kick();
 
     return () => {
       running = false;
       cancelAnimationFrame(raf);
       sectionIo?.disconnect();
+      layoutRo?.disconnect();
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("ops-projects-progress", onProjectsProgress);
