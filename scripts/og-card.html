@@ -71,18 +71,36 @@
         color: #6b7c8f;
         margin-bottom: 28px;
       }
-      .cmd {
+      .actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .cmd,
+      .cta {
         display: inline-flex;
         align-items: center;
         gap: 10px;
-        padding: 10px 16px;
-        border: 1px solid #30363d;
+        padding: 12px 18px;
         border-radius: 8px;
+        font-size: 16px;
+        letter-spacing: 0.04em;
+      }
+      .cmd {
+        border: 1px solid #30363d;
         background: #0d1117;
-        font-size: 14px;
         color: #e6edf3;
       }
       .cmd b { color: #00d4ff; font-weight: 500; }
+      .cta {
+        border: 1px solid #00d4ff;
+        background: rgba(0, 212, 255, 0.08);
+        color: #00d4ff;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
     </style>
   </head>
   <body>
@@ -96,7 +114,10 @@
         <h1>Yu Jin Wong</h1>
         <p class="role">Software Engineer</p>
         <p class="rest">Enterprise CRM · Application Architect · AI-augmented delivery</p>
-        <div class="cmd"><b>$</b> open_to --roles staff architect</div>
+        <div class="actions">
+          <div class="cmd"><b>$</b> open_to --roles staff architect</div>
+          <div class="cta">View case studies →</div>
+        </div>
       </div>
       <div class="bottom">
         <span>yujinwong.com</span>
